@@ -105,11 +105,6 @@ public class driveStraight extends Command {
         this.driveRight.setMinDoneCycles(driveRightDC);
         this.driveRight.setErrorEpsilon(driveRightEps);
     	
-    	RobotMap.driveLeft1.configOpenloopRamp(1, 10);
-    	RobotMap.driveLeft2.configOpenloopRamp(1, 10);
-    	RobotMap.driveRight1.configOpenloopRamp(1, 10);
-    	RobotMap.driveRight2.configOpenloopRamp(1, 10);
-    	
     	Robot.drivetrain.resetDriveEncoders();
     }
 

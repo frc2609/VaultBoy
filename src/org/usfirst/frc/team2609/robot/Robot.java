@@ -54,24 +54,24 @@ public class Robot extends TimedRobot {
 
 		//SmartDashboard Values initialization
 		//Left drive PID
-		SmartDashboard.putNumber("DriveLeft P: ", 0.02);
-    	SmartDashboard.putNumber("DriveLeft I: ", 0.0005);
+		SmartDashboard.putNumber("DriveLeft P: ", 0.0002);
+    	SmartDashboard.putNumber("DriveLeft I: ", 0.000);
     	SmartDashboard.putNumber("DriveLeft D: ", 0.0);
     	SmartDashboard.putNumber("DriveLeft Max: ", 0.8);
     	SmartDashboard.putNumber("DriveLeft Eps: ", 1.0);
     	SmartDashboard.putNumber("DriveLeft DR: ", 1);
     	SmartDashboard.putNumber("DriveLeft DC: ", 5);
     	//Right drive PID
-		SmartDashboard.putNumber("DriveRight P: ", 0.02);
-    	SmartDashboard.putNumber("DriveRight I: ", 0.0005);
+		SmartDashboard.putNumber("DriveRight P: ", 0.0002);
+    	SmartDashboard.putNumber("DriveRight I: ", 0.000);
     	SmartDashboard.putNumber("DriveRight D: ", 0.0);
     	SmartDashboard.putNumber("DriveRight Max: ", 0.8);
     	SmartDashboard.putNumber("DriveRight Eps: ", 1.0);
     	SmartDashboard.putNumber("DriveRight DR: ", 1);
     	SmartDashboard.putNumber("DriveRight DC: ", 5);
     	//Steering heading correction PID
-		SmartDashboard.putNumber("Steering P: ", 0.03);
-    	SmartDashboard.putNumber("Steering I: ", 0.0001);
+		SmartDashboard.putNumber("Steering P: ", 0.003);
+    	SmartDashboard.putNumber("Steering I: ", 0.000);
     	SmartDashboard.putNumber("Steering D: ", 0.0);
     	SmartDashboard.putNumber("Steering Max: ", 0.2);
 	}
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
 		// sensor values
 		SmartDashboard.putNumber("Gyro getYaw", RobotMap.ahrs.getYaw());
 		SmartDashboard.putNumber("driveLeft1.getPosition()",
-				RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches);
+				Robot.drivetrain.inverseLeftEncoder() * Robot.ticksToInches);
 		SmartDashboard.putNumber("driveRight1.getPosition()",
 				RobotMap.driveRight1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches);
 	}
@@ -129,7 +129,7 @@ public class Robot extends TimedRobot {
 		// sensor values
 		SmartDashboard.putNumber("Gyro getYaw", RobotMap.ahrs.getYaw());
 		SmartDashboard.putNumber("driveLeft1.getPosition()",
-				RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches);
+				Robot.drivetrain.inverseLeftEncoder() * Robot.ticksToInches);
 		SmartDashboard.putNumber("driveRight1.getPosition()",
 				RobotMap.driveRight1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches);
 	}

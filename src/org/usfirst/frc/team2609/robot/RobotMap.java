@@ -39,6 +39,10 @@ public class RobotMap {
 	public static TalonSRX driveRight1;
 	public static TalonSRX driveRight2;
 	
+	//vault boy
+	public static TalonSRX vaultBoyLeft;
+	public static TalonSRX vaultBoyRight;
+	
 	//misc
 	public static AHRS ahrs;
 	
@@ -49,6 +53,10 @@ public class RobotMap {
 		driveLeft2 = new TalonSRX(2);
 		driveRight1 = new TalonSRX(3);
 		driveRight2 = new TalonSRX(4);
+		
+		//vault boy
+		vaultBoyLeft = new TalonSRX(5);
+		vaultBoyRight = new TalonSRX(6);
 
 		driveLeft1.setInverted(false);
 		driveLeft1.setSensorPhase(true);

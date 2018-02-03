@@ -59,7 +59,7 @@ public class Drivetrain extends Subsystem {
     }
     
     public double inverseRightEncoder(){
-		return -RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition();
+		return -RobotMap.driveRight1.getSensorCollection().getQuadraturePosition();
     }
 
     public void initDefaultCommand() {

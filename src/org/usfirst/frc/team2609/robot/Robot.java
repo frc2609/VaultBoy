@@ -160,6 +160,16 @@ public class Robot extends TimedRobot {
 				Robot.drivetrain.inverseLeftEncoder() * Robot.ticksToInches);
 		SmartDashboard.putNumber("driveRight1.getPosition()",
 				RobotMap.driveRight1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches);
+		SmartDashboard.putNumber("vaultBoyLeft Current",
+				RobotMap.vaultBoyLeft.getOutputCurrent());
+		SmartDashboard.putNumber("vaultBoyRight Current",
+				RobotMap.vaultBoyRight.getOutputCurrent());
+		SmartDashboard.putNumber("vaultBoyLeft Voltage",
+				RobotMap.vaultBoyLeft.getMotorOutputVoltage());
+		SmartDashboard.putNumber("vaultBoyRight Voltage",
+				RobotMap.vaultBoyRight.getMotorOutputVoltage());
+		
+		
 	}
 
 	/**

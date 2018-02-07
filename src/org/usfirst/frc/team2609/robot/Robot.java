@@ -17,6 +17,8 @@ import org.usfirst.frc.team2609.robot.commands.auton.switchVaultMiddle;
 import org.usfirst.frc.team2609.robot.commands.drive.driveEncoderReset;
 import org.usfirst.frc.team2609.robot.commands.drive.driveTeleop;
 import org.usfirst.frc.team2609.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2609.robot.subsystems.Slider;
+import org.usfirst.frc.team2609.robot.subsystems.VaultBoy;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +31,8 @@ public class Robot extends TimedRobot {
 
 	// subsystem initialization
 	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final VaultBoy vaultBoy = new VaultBoy();
+	public static final Slider slider = new Slider();
 
 	public static OI m_oi;
 	
@@ -59,7 +63,7 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("DriveLeft D: ", 0.0);
     	SmartDashboard.putNumber("DriveLeft Max: ", 0.8);
     	SmartDashboard.putNumber("DriveLeft Eps: ", 1.0);
-    	SmartDashboard.putNumber("DriveLeft DR: ", 1);
+    	SmartDashboard.putNumber("DriveLeft DR: ", 10);
     	SmartDashboard.putNumber("DriveLeft DC: ", 5);
     	//Right drive PID
 		SmartDashboard.putNumber("DriveRight P: ", 0.0002);
@@ -67,13 +71,21 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("DriveRight D: ", 0.0);
     	SmartDashboard.putNumber("DriveRight Max: ", 0.8);
     	SmartDashboard.putNumber("DriveRight Eps: ", 1.0);
-    	SmartDashboard.putNumber("DriveRight DR: ", 1);
+    	SmartDashboard.putNumber("DriveRight DR: ", 10);
     	SmartDashboard.putNumber("DriveRight DC: ", 5);
     	//Steering heading correction PID
-		SmartDashboard.putNumber("Steering P: ", 0.003);
+		SmartDashboard.putNumber("Steering P: ", 0.0003);
     	SmartDashboard.putNumber("Steering I: ", 0.000);
     	SmartDashboard.putNumber("Steering D: ", 0.0);
     	SmartDashboard.putNumber("Steering Max: ", 0.2);
+    	//Slider PID
+		SmartDashboard.putNumber("Slider P: ", 0.0002);
+    	SmartDashboard.putNumber("Slider I: ", 0.000);
+    	SmartDashboard.putNumber("Slider D: ", 0.0);
+    	SmartDashboard.putNumber("Slider Max: ", 1.0);
+    	SmartDashboard.putNumber("Slider Eps: ", 1.0);
+    	SmartDashboard.putNumber("Slider DR: ", 1);
+    	SmartDashboard.putNumber("Slider DC: ", 5);
 	}
 
 	/**
@@ -143,7 +155,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		Robot.drivetrain.resetDriveEncoders();
+		Robot.drivetrain.resetEncoders();
 		new driveTeleop().start();
 	}
 

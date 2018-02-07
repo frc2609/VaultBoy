@@ -53,7 +53,6 @@ public class driveStraight extends Command {
 		requires(Robot.drivetrain);
     	this.driveTarget = driveTarget * Robot.inchesToTicks;
     	this.steeringTarget = steeringTarget;
-    	
     }
 
     // Called just before this Command runs the first time
@@ -104,8 +103,6 @@ public class driveStraight extends Command {
         this.driveRight.setDoneRange(driveRightDR);
         this.driveRight.setMinDoneCycles(driveRightDC);
         this.driveRight.setErrorEpsilon(driveRightEps);
-    	
-    	Robot.drivetrain.resetDriveEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run

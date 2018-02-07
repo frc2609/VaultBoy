@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2609.robot.commands.drive;
+package org.usfirst.frc.team2609.robot.commands.slider;
 
 import org.usfirst.frc.team2609.robot.Robot;
 
@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class driveEncoderReset extends Command {
+public class sliderEncoderReset extends Command {
 
-    public driveEncoderReset() {
+    public sliderEncoderReset() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drivetrain);
+    	requires(Robot.slider);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetEncoders();
+    	Robot.slider.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem {
 		}
 	}
 	
-    public void resetDriveEncoders(){
+    public void resetEncoders(){
     	RobotMap.driveLeft1.getSensorCollection().setQuadraturePosition(0,0);
     	RobotMap.driveRight1.getSensorCollection().setQuadraturePosition(0,0);
     }

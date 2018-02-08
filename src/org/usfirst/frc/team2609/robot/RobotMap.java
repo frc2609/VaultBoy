@@ -42,9 +42,9 @@ public class RobotMap {
 	//vault boy
 	public static TalonSRX vaultBoyLeft;
 	public static TalonSRX vaultBoyRight;
-	
-	//slider
 	public static TalonSRX slider;
+	public static TalonSRX intakeRollerLeft;
+	public static TalonSRX intakeRollerRight;
 	
 	//misc
 	public static AHRS ahrs;
@@ -70,8 +70,12 @@ public class RobotMap {
 		vaultBoyLeft = new TalonSRX(3);
 		vaultBoyRight = new TalonSRX(9);
 		slider = new TalonSRX(6);
+		intakeRollerLeft = new TalonSRX(5);
+		intakeRollerRight = new TalonSRX(6);
 		
-//		slider.configOpenloopRamp(1, 10);
+		slider.setInverted(true);
+		slider.setSensorPhase(false);
+		slider.configOpenloopRamp(0.1, 10);
 		
 		//gyro error handling
 		try {

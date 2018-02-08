@@ -13,6 +13,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class testOnton extends CommandGroup {
 
     public testOnton() {
-    	addSequential(new sliderPosition(7000));
+    	addSequential(new sliderPosition(10000));
     }
 }

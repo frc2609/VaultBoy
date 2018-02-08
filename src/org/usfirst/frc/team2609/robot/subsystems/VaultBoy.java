@@ -15,11 +15,12 @@ public class VaultBoy extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public void setDriveState(double leftPower, double rightPower){
-		
+	public void vaultBoyPower(double leftPower, double rightPower){
+		RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, leftPower);
+		RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, rightPower);
 	}
 	
-    public void resetDriveEncoders(){
+    public void resetVaultBoyEncoders(){
     	RobotMap.vaultBoyLeft.getSensorCollection().setQuadraturePosition(0,0);
     	RobotMap.vaultBoyRight.getSensorCollection().setQuadraturePosition(0,0);
     }
@@ -31,10 +32,18 @@ public class VaultBoy extends Subsystem {
     public double inverseRightEncoder(){
 		return -RobotMap.vaultBoyRight.getSensorCollection().getQuadraturePosition();
     }
+    
+    public double vaultBoyLeftCurrent(){
+		return RobotMap.vaultBoyLeft.getOutputCurrent();
+    }
+    
+    public double vaultBoyRightCurrent(){
+		return RobotMap.vaultBoyRight.getOutputCurrent();
+    }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+		RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, 0);
+		RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, 0);
     }
 }
 

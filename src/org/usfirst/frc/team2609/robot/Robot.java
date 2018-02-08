@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2609.robot.commands.auton.switchVaultMiddle;
+import org.usfirst.frc.team2609.robot.commands.auton.testOnton;
 import org.usfirst.frc.team2609.robot.commands.drive.driveEncoderReset;
 import org.usfirst.frc.team2609.robot.commands.drive.driveTeleop;
 import org.usfirst.frc.team2609.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2609.robot.subsystems.IntakeRoller;
 import org.usfirst.frc.team2609.robot.subsystems.Slider;
 import org.usfirst.frc.team2609.robot.subsystems.VaultBoy;
 
@@ -33,6 +35,7 @@ public class Robot extends TimedRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final VaultBoy vaultBoy = new VaultBoy();
 	public static final Slider slider = new Slider();
+	public static final IntakeRoller intakeRoller = new IntakeRoller();
 
 	public static OI m_oi;
 	
@@ -52,8 +55,9 @@ public class Robot extends TimedRobot {
 							// start up
 
 		m_oi = new OI();
-		m_chooser.addDefault("switchVaultMiddle", new switchVaultMiddle());
+		m_chooser.addDefault("testOnton", new testOnton());
 		m_chooser.addObject("switchVaultMiddle", new switchVaultMiddle());
+		m_chooser.addObject("testOnton", new testOnton());
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		//SmartDashboard Values initialization
@@ -79,12 +83,12 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Steering D: ", 0.0);
     	SmartDashboard.putNumber("Steering Max: ", 0.2);
     	//Slider PID
-		SmartDashboard.putNumber("Slider P: ", 0.0002);
-    	SmartDashboard.putNumber("Slider I: ", 0.000);
+		SmartDashboard.putNumber("Slider P: ", 0.0001);
+    	SmartDashboard.putNumber("Slider I: ", 0.0000);
     	SmartDashboard.putNumber("Slider D: ", 0.0);
     	SmartDashboard.putNumber("Slider Max: ", 1.0);
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);
-    	SmartDashboard.putNumber("Slider DR: ", 1);
+    	SmartDashboard.putNumber("Slider DR: ", 20);
     	SmartDashboard.putNumber("Slider DC: ", 5);
 	}
 
@@ -108,6 +112,10 @@ public class Robot extends TimedRobot {
 				Robot.drivetrain.inverseLeftEncoder() * Robot.ticksToInches);
 		SmartDashboard.putNumber("driveRight1.getPosition()",
 				RobotMap.driveRight1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches);
+		SmartDashboard.putNumber("slider.getPosition()",
+				RobotMap.slider.getSensorCollection().getQuadraturePosition());
+		SmartDashboard.putNumber("slider.voltage()",
+				RobotMap.slider.getMotorOutputVoltage());
 	}
 
 	/**
@@ -129,6 +137,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		Robot.slider.resetEncoders();
 	}
 
 	/**
@@ -144,6 +153,10 @@ public class Robot extends TimedRobot {
 				Robot.drivetrain.inverseLeftEncoder() * Robot.ticksToInches);
 		SmartDashboard.putNumber("driveRight1.getPosition()",
 				RobotMap.driveRight1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches);
+		SmartDashboard.putNumber("slider.getPosition()",
+				RobotMap.slider.getSensorCollection().getQuadraturePosition());
+		SmartDashboard.putNumber("slider.voltage()",
+				RobotMap.slider.getMotorOutputVoltage());
 	}
 
 	@Override
@@ -180,8 +193,10 @@ public class Robot extends TimedRobot {
 				RobotMap.vaultBoyLeft.getMotorOutputVoltage());
 		SmartDashboard.putNumber("vaultBoyRight Voltage",
 				RobotMap.vaultBoyRight.getMotorOutputVoltage());
-		
-		
+		SmartDashboard.putNumber("slider.getPosition()",
+				RobotMap.slider.getSensorCollection().getQuadraturePosition());
+		SmartDashboard.putNumber("slider.voltage()",
+				RobotMap.slider.getMotorOutputVoltage());
 	}
 
 	/**

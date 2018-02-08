@@ -54,15 +54,8 @@ public class RobotMap {
 		//drivetrain
 		driveLeft1 = new TalonSRX(1);
 		driveLeft2 = new TalonSRX(2);
-		driveRight1 = new TalonSRX(3);
-		driveRight2 = new TalonSRX(4);
-		
-		//vault boy
-		vaultBoyLeft = new TalonSRX(5);
-		vaultBoyRight = new TalonSRX(6);
-		
-		//slider
-		slider = new TalonSRX(7);		
+		driveRight1 = new TalonSRX(10);
+		driveRight2 = new TalonSRX(11);
 
 		driveLeft1.setInverted(false);
 		driveLeft1.setSensorPhase(true);
@@ -72,6 +65,13 @@ public class RobotMap {
 		driveRight1.setSensorPhase(true);
 		driveRight2.setInverted(true);
 		driveRight2.setSensorPhase(true);
+		
+		//vault boy
+		vaultBoyLeft = new TalonSRX(3);
+		vaultBoyRight = new TalonSRX(9);
+		slider = new TalonSRX(6);
+		
+//		slider.configOpenloopRamp(1, 10);
 		
 		//gyro error handling
 		try {

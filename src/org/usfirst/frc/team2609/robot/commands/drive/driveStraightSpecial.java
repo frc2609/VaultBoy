@@ -47,7 +47,7 @@ public class driveStraightSpecial extends Command {
 	int driveRightDC;
 	double driveRightOutput;
 	
-	double absLeftPosition = Math.abs(Robot.drivetrain.inverseLeftEncoder());
+	double absLeftPosition = Math.abs(Robot.drivetrain.getInverseLeftEncoderInches());
 	double absRightPosition = Math.abs(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition());
 
 	public driveStraightSpecial(double driveTarget,double steeringTarget) {
@@ -113,17 +113,17 @@ public class driveStraightSpecial extends Command {
     	RobotMap.driveRight1.configOpenloopRamp(1, 10);
     	RobotMap.driveRight2.configOpenloopRamp(1, 10);
     	
-    	absLeftPosition = Math.abs(Robot.drivetrain.inverseLeftEncoder());
+    	absLeftPosition = Math.abs(Robot.drivetrain.getInverseLeftEncoderInches());
     	absRightPosition = Math.abs(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition());
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	absLeftPosition = Math.abs(Robot.drivetrain.inverseLeftEncoder());
+    	absLeftPosition = Math.abs(Robot.drivetrain.getInverseLeftEncoderInches());
     	absRightPosition = Math.abs(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition());
     	
     	steeringOutput = -steering.calcPID(RobotMap.ahrs.getYaw());
-    	driveLeftOutput = driveLeft.calcPID(Robot.drivetrain.inverseLeftEncoder());
+    	driveLeftOutput = driveLeft.calcPID(Robot.drivetrain.getInverseLeftEncoderInches());
     	driveRightOutput = driveRight.calcPID(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition());
     	
     	if((absLeftPosition < Math.abs(driveTarget) - 10) && (absRightPosition < Math.abs(driveTarget) - 10)){

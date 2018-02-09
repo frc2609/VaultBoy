@@ -108,7 +108,7 @@ public class driveStraight extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	steeringOutput = -steering.calcPID(RobotMap.ahrs.getYaw());
-    	driveLeftOutput = driveLeft.calcPID(Robot.drivetrain.inverseLeftEncoder());
+    	driveLeftOutput = driveLeft.calcPID(Robot.drivetrain.getInverseLeftEncoderInches());
     	driveRightOutput = driveRight.calcPID(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition());
     	
     	leftPower = driveLeftOutput - steeringOutput;

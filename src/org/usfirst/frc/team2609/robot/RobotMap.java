@@ -39,6 +39,8 @@ public class RobotMap {
 	public static TalonSRX driveRight1;
 	public static TalonSRX driveRight2;
 	
+	public static TalonSRX driveLeftEncoder;
+	
 	//vault boy
 	public static TalonSRX vaultBoyLeft;
 	public static TalonSRX vaultBoyRight;
@@ -57,14 +59,12 @@ public class RobotMap {
 		driveRight1 = new TalonSRX(10);
 		driveRight2 = new TalonSRX(11);
 
-		driveLeft1.setInverted(false);
-		driveLeft1.setSensorPhase(true);
-		driveLeft2.setInverted(false);
-		driveLeft2.setSensorPhase(true);
-		driveRight1.setInverted(true);
-		driveRight1.setSensorPhase(true);
-		driveRight2.setInverted(true);
-		driveRight2.setSensorPhase(true);
+		driveLeftEncoder = new TalonSRX(12);
+
+		driveLeft1.setInverted(true);
+		driveLeft2.setInverted(true);
+		driveRight1.setInverted(false);
+		driveRight2.setInverted(false);
 		
 		//vault boy
 		vaultBoyLeft = new TalonSRX(3);
@@ -74,13 +74,12 @@ public class RobotMap {
 		intakeRollerRight = new TalonSRX(6);
 		
 		slider.setInverted(true);
-		slider.setSensorPhase(false);
 		slider.configOpenloopRamp(0.1, 10);
 		
 		//gyro error handling
-		try {
+		try{
 			ahrs = new AHRS(SPI.Port.kMXP);
-		} catch (RuntimeException ex){
+		}catch (RuntimeException ex){
 			DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
 		}
 		

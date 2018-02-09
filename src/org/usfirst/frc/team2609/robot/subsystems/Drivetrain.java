@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2609.robot.subsystems;
 
+import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -47,19 +48,32 @@ public class Drivetrain extends Subsystem {
 	
     public void resetEncoders(){
     	RobotMap.driveLeft1.getSensorCollection().setQuadraturePosition(0,0);
-    	RobotMap.driveRight1.getSensorCollection().setQuadraturePosition(0,0);
+    	RobotMap.driveRight2.getSensorCollection().setQuadraturePosition(0,0);
+    	RobotMap.driveLeftEncoder.getSensorCollection().setQuadraturePosition(0,0);
     }
 
     public void resetGyro(){
     	RobotMap.ahrs.zeroYaw();
     }
     
-    public double inverseLeftEncoder(){
-		return -RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition();
+    public double getLeftEncoderInches(){
+		return RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
     }
     
-    public double inverseRightEncoder(){
-		return -RobotMap.driveRight1.getSensorCollection().getQuadraturePosition();
+    public double getRightEncoderInches(){
+		return RobotMap.driveRight2.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
+    }
+    
+    public double getInverseLeftEncoderInches(){
+		return -RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
+    }
+    
+    public double getInverseLeftEncoderInchesTemp(){
+		return -RobotMap.driveLeftEncoder.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
+    }
+    
+    public double getInverseRightEncoderInches(){
+		return -RobotMap.driveRight2.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
     }
 
     public void initDefaultCommand() {

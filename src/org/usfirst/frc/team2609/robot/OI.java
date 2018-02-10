@@ -11,6 +11,7 @@ import org.usfirst.frc.team2609.robot.commands.automation.cubeCollect;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.intakeActivatorState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.intakeRollerPower;
 import org.usfirst.frc.team2609.robot.commands.shooterActivator.shooterActivatorState;
+import org.usfirst.frc.team2609.robot.commands.slider.sliderResetPosition;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -97,7 +98,7 @@ public class OI {
 		driverButton6.whenPressed(new shooterActivatorState(ShooterActivatorState.OUT));
 		
 		driverButton6 = new JoystickButton(driverStick, 9);
-//		driverButton6.whileHeld(new clawState(ClawState.RETRACT));
+		driverButton6.whenPressed(new sliderResetPosition());
 		
 		driverButton10 = new JoystickButton(driverStick, 10);
 		driverButton10.whenPressed(new cubeCollect());

@@ -89,8 +89,8 @@ public class RobotMap {
 		slider.configOpenloopRamp(0.1, 10);
 		
 		//pneumatics
-		shooterActivator = new DoubleSolenoid(0, 1, 2);
-		intakeActivator = new DoubleSolenoid(0, 3, 4);
+		shooterActivator = new DoubleSolenoid(0,0,3);
+		intakeActivator = new DoubleSolenoid(0,1,2);
 		
 		//misc
 		pdp = new PowerDistributionPanel(12);

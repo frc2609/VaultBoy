@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Slider D: ", 0.0);
     	SmartDashboard.putNumber("Slider Max: ", 1.0);
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);
-    	SmartDashboard.putNumber("Slider DR: ", 20);
+    	SmartDashboard.putNumber("Slider DR: ", 50);
     	SmartDashboard.putNumber("Slider DC: ", 5);
 	}
 
@@ -117,16 +117,33 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 
-		// sensor values
-		SmartDashboard.putNumber("Gyro getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft.getPosition()",
+		// drivetrain
+		SmartDashboard.putNumber("Gyro.getYaw", RobotMap.ahrs.getYaw());
+		SmartDashboard.putNumber("driveLeft.getPosition",
 				Robot.drivetrain.getInverseLeftEncoderInchesTemp());
-		SmartDashboard.putNumber("driveRight.getPosition()",
+		SmartDashboard.putNumber("driveRight.getPosition",
 				Robot.drivetrain.getRightEncoderInches());
-		SmartDashboard.putNumber("slider.getPosition()",
+		SmartDashboard.putNumber("driveLeft.voltage",
+				RobotMap.driveLeft1.getMotorOutputVoltage());
+		SmartDashboard.putNumber("driveRight.voltage",
+				RobotMap.driveRight1.getMotorOutputVoltage());
+		//intake
+		SmartDashboard.putNumber("intakeRollerLeft.current",
+				RobotMap.intakeRollerLeft.getOutputCurrent());
+		SmartDashboard.putNumber("intakeRollerRight.current",
+				RobotMap.intakeRollerRight.getOutputCurrent());
+		//vaultboy
+		SmartDashboard.putNumber("vaultBoyLeft.current",
+				RobotMap.vaultBoyLeft.getOutputCurrent());
+		SmartDashboard.putNumber("vaultBoyRight.current",
+				RobotMap.vaultBoyRight.getOutputCurrent());
+		//slider
+		SmartDashboard.putNumber("slider.getPosition",
 				RobotMap.slider.getSensorCollection().getQuadraturePosition());
-		SmartDashboard.putNumber("slider.voltage()",
+		SmartDashboard.putNumber("slider.voltage",
 				RobotMap.slider.getMotorOutputVoltage());
+		SmartDashboard.putNumber("slider.current",
+				RobotMap.slider.getOutputCurrent());
 	}
 
 	/**
@@ -165,20 +182,33 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 
-		// sensor values
-		SmartDashboard.putNumber("Gyro getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft.getPosition()",
+		// drivetrain
+		SmartDashboard.putNumber("Gyro.getYaw", RobotMap.ahrs.getYaw());
+		SmartDashboard.putNumber("driveLeft.getPosition",
 				Robot.drivetrain.getInverseLeftEncoderInchesTemp());
-		SmartDashboard.putNumber("driveRight.getPosition()",
+		SmartDashboard.putNumber("driveRight.getPosition",
 				Robot.drivetrain.getRightEncoderInches());
-		SmartDashboard.putNumber("driveLeft.voltage()",
+		SmartDashboard.putNumber("driveLeft.voltage",
 				RobotMap.driveLeft1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("driveRight.voltage()",
+		SmartDashboard.putNumber("driveRight.voltage",
 				RobotMap.driveRight1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("slider.getPosition()",
+		//intake
+		SmartDashboard.putNumber("intakeRollerLeft.current",
+				RobotMap.intakeRollerLeft.getOutputCurrent());
+		SmartDashboard.putNumber("intakeRollerRight.current",
+				RobotMap.intakeRollerRight.getOutputCurrent());
+		//vaultboy
+		SmartDashboard.putNumber("vaultBoyLeft.current",
+				RobotMap.vaultBoyLeft.getOutputCurrent());
+		SmartDashboard.putNumber("vaultBoyRight.current",
+				RobotMap.vaultBoyRight.getOutputCurrent());
+		//slider
+		SmartDashboard.putNumber("slider.getPosition",
 				RobotMap.slider.getSensorCollection().getQuadraturePosition());
-		SmartDashboard.putNumber("slider.voltage()",
+		SmartDashboard.putNumber("slider.voltage",
 				RobotMap.slider.getMotorOutputVoltage());
+		SmartDashboard.putNumber("slider.current",
+				RobotMap.slider.getOutputCurrent());
 	}
 
 	@Override
@@ -235,11 +265,12 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("slider.current",
 				RobotMap.slider.getOutputCurrent());
 		
-		if (OI.driverButton9.get()){
-			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-		}else{
-			RobotMap.slider.set(ControlMode.PercentOutput, 0);
-		}
+//		if (OI.driverButton9.get()){
+//			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
+//		}else{
+//			RobotMap.slider.set(ControlMode.PercentOutput, 0);
+//		}
+		RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
 	}
 
 	/**

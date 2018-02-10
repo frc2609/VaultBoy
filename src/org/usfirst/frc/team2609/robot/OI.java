@@ -7,8 +7,15 @@
 
 package org.usfirst.frc.team2609.robot;
 
+import org.usfirst.frc.team2609.robot.commands.automation.cubeCollect;
+import org.usfirst.frc.team2609.robot.commands.intakeActivator.intakeActivatorState;
+import org.usfirst.frc.team2609.robot.commands.intakeRoller.intakeRollerPower;
+import org.usfirst.frc.team2609.robot.commands.shooterActivator.shooterActivatorState;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import enums.IntakeActivatorState;
+import enums.ShooterActivatorState;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -65,9 +72,9 @@ public class OI {
 		driverStick = new Joystick(0);
 		operatorStick = new Joystick(1);
 		
-//		driverButton1 = new JoystickButton(driverStick, 1);
-//		driverButton1.whenPressed(new shifterState(ShifterState.HIGH));
-//
+		driverButton1 = new JoystickButton(driverStick, 1);
+		driverButton1.whileHeld(new intakeRollerPower(0.5,20));
+
 //		driverButton2 = new JoystickButton(driverStick, 2);
 //		driverButton2.whenPressed(new shifterState(ShifterState.LOW));
 //		
@@ -76,21 +83,24 @@ public class OI {
 //		
 //		driverButton4 = new JoystickButton(driverStick, 4);
 //		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
-//		
-//		driverButton5 = new JoystickButton(driverStick, 5);
-//		driverButton5.whenPressed(new clawState(ClawState.UP));
-//		
-//		driverButton6 = new JoystickButton(driverStick, 6);
-//		driverButton6.whenPressed(new clawState(ClawState.DOWN));
-//		
-//		driverButton6 = new JoystickButton(driverStick, 7);
-//		driverButton6.whenPressed(new clawState(ClawState.PUSH));
-//		
-//		driverButton6 = new JoystickButton(driverStick, 8);
-//		driverButton6.whenPressed(new clawState(ClawState.RETRACT));
-//		
-//		driverButton10 = new JoystickButton(driverStick, 10);
-//		driverButton10.whenPressed(new driveStraight(20,20,0));
+		
+		driverButton5 = new JoystickButton(driverStick, 5);
+		driverButton5.whenPressed(new intakeActivatorState(IntakeActivatorState.IN));
+		
+		driverButton6 = new JoystickButton(driverStick, 6);
+		driverButton6.whenPressed(new intakeActivatorState(IntakeActivatorState.OUT));
+		
+		driverButton6 = new JoystickButton(driverStick, 7);
+		driverButton6.whenPressed(new shooterActivatorState(ShooterActivatorState.IN));
+		
+		driverButton6 = new JoystickButton(driverStick, 8);
+		driverButton6.whenPressed(new shooterActivatorState(ShooterActivatorState.OUT));
+		
+		driverButton6 = new JoystickButton(driverStick, 9);
+//		driverButton6.whileHeld(new clawState(ClawState.RETRACT));
+		
+		driverButton10 = new JoystickButton(driverStick, 10);
+		driverButton10.whenPressed(new cubeCollect());
 		
 		
 	}

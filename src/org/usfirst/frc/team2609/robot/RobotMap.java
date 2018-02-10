@@ -7,12 +7,13 @@
 
 package org.usfirst.frc.team2609.robot;
 
-import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 
 /**
@@ -50,6 +51,12 @@ public class RobotMap {
 	
 	//misc
 	public static AHRS ahrs;
+	public static PowerDistributionPanel pdp;
+	public static Compressor compressor;
+	
+	//pneumatics
+    public static DoubleSolenoid shooterActivator;
+    public static DoubleSolenoid intakeActivator;
 	
 	public static void init(){
 		
@@ -59,12 +66,17 @@ public class RobotMap {
 		driveRight1 = new TalonSRX(10);
 		driveRight2 = new TalonSRX(11);
 
-		driveLeftEncoder = new TalonSRX(12);
+		driveLeftEncoder = new TalonSRX(12);	//temp
 
 		driveLeft1.setInverted(true);
 		driveLeft2.setInverted(true);
 		driveRight1.setInverted(false);
 		driveRight2.setInverted(false);
+		
+		driveLeft1.configOpenloopRamp(0, 10);
+		driveLeft2.configOpenloopRamp(0, 10);
+		driveRight1.configOpenloopRamp(0, 10);
+		driveRight2.configOpenloopRamp(0, 10);
 		
 		//vault boy
 		vaultBoyLeft = new TalonSRX(3);
@@ -75,6 +87,14 @@ public class RobotMap {
 		
 		slider.setInverted(true);
 		slider.configOpenloopRamp(0.1, 10);
+		
+		//pneumatics
+		shooterActivator = new DoubleSolenoid(0, 1, 2);
+		intakeActivator = new DoubleSolenoid(0, 3, 4);
+		
+		//misc
+		pdp = new PowerDistributionPanel(12);
+		compressor = new Compressor(0);
 		
 		//gyro error handling
 		try{

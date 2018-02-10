@@ -15,14 +15,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2609.robot.commands.auton.switchVaultMiddle;
 import org.usfirst.frc.team2609.robot.commands.auton.testOnton;
-import org.usfirst.frc.team2609.robot.commands.drive.driveEncoderReset;
 import org.usfirst.frc.team2609.robot.commands.drive.driveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.driveTeleop;
 import org.usfirst.frc.team2609.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2609.robot.subsystems.IntakeActivator;
 import org.usfirst.frc.team2609.robot.subsystems.IntakeRoller;
+import org.usfirst.frc.team2609.robot.subsystems.ShooterActivator;
 import org.usfirst.frc.team2609.robot.subsystems.Slider;
 import org.usfirst.frc.team2609.robot.subsystems.VaultBoy;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 /**
@@ -39,6 +41,8 @@ public class Robot extends TimedRobot {
 	public static final VaultBoy vaultBoy = new VaultBoy();
 	public static final Slider slider = new Slider();
 	public static final IntakeRoller intakeRoller = new IntakeRoller();
+	public static final ShooterActivator shooterActivator = new ShooterActivator();
+	public static final IntakeActivator intakeActivator = new IntakeActivator();
 
 	public static OI m_oi;
 	
@@ -61,7 +65,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("testOnton", new testOnton());
 		m_chooser.addObject("switchVaultMiddle", new switchVaultMiddle());
 		m_chooser.addObject("testOnton", new testOnton());
-		m_chooser.addObject("trapezoid", new driveStraightTrapezoid(80,0));
+		m_chooser.addObject("trapezoid", new driveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		//SmartDashboard Values initialization
@@ -115,9 +119,9 @@ public class Robot extends TimedRobot {
 
 		// sensor values
 		SmartDashboard.putNumber("Gyro getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft1.getPosition()",
+		SmartDashboard.putNumber("driveLeft.getPosition()",
 				Robot.drivetrain.getInverseLeftEncoderInchesTemp());
-		SmartDashboard.putNumber("driveRight1.getPosition()",
+		SmartDashboard.putNumber("driveRight.getPosition()",
 				Robot.drivetrain.getRightEncoderInches());
 		SmartDashboard.putNumber("slider.getPosition()",
 				RobotMap.slider.getSensorCollection().getQuadraturePosition());
@@ -145,6 +149,8 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.start();
 		}
 		Robot.slider.resetEncoders();
+		Robot.drivetrain.resetEncoders();
+		Robot.drivetrain.resetGyro();
 		
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
@@ -161,10 +167,14 @@ public class Robot extends TimedRobot {
 
 		// sensor values
 		SmartDashboard.putNumber("Gyro getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft1.getPosition()",
+		SmartDashboard.putNumber("driveLeft.getPosition()",
 				Robot.drivetrain.getInverseLeftEncoderInchesTemp());
-		SmartDashboard.putNumber("driveRight1.getPosition()",
+		SmartDashboard.putNumber("driveRight.getPosition()",
 				Robot.drivetrain.getRightEncoderInches());
+		SmartDashboard.putNumber("driveLeft.voltage()",
+				RobotMap.driveLeft1.getMotorOutputVoltage());
+		SmartDashboard.putNumber("driveRight.voltage()",
+				RobotMap.driveRight1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("slider.getPosition()",
 				RobotMap.slider.getSensorCollection().getQuadraturePosition());
 		SmartDashboard.putNumber("slider.voltage()",
@@ -197,28 +207,39 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		// sensor values
-		SmartDashboard.putNumber("Gyro getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft.getPosition()",
+		// drivetrain
+		SmartDashboard.putNumber("Gyro.getYaw", RobotMap.ahrs.getYaw());
+		SmartDashboard.putNumber("driveLeft.getPosition",
 				Robot.drivetrain.getInverseLeftEncoderInchesTemp());
-		SmartDashboard.putNumber("driveRight.getPosition()",
+		SmartDashboard.putNumber("driveRight.getPosition",
 				Robot.drivetrain.getRightEncoderInches());
-		SmartDashboard.putNumber("driveLeft.voltage()",
+		SmartDashboard.putNumber("driveLeft.voltage",
 				RobotMap.driveLeft1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("driveRight.voltage()",
+		SmartDashboard.putNumber("driveRight.voltage",
 				RobotMap.driveRight1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("vaultBoyLeft Current",
+		//intake
+		SmartDashboard.putNumber("intakeRollerLeft.current",
+				RobotMap.intakeRollerLeft.getOutputCurrent());
+		SmartDashboard.putNumber("intakeRollerRight.current",
+				RobotMap.intakeRollerRight.getOutputCurrent());
+		//vaultboy
+		SmartDashboard.putNumber("vaultBoyLeft.current",
 				RobotMap.vaultBoyLeft.getOutputCurrent());
-		SmartDashboard.putNumber("vaultBoyRight Current",
+		SmartDashboard.putNumber("vaultBoyRight.current",
 				RobotMap.vaultBoyRight.getOutputCurrent());
-		SmartDashboard.putNumber("vaultBoyLeft Voltage",
-				RobotMap.vaultBoyLeft.getMotorOutputVoltage());
-		SmartDashboard.putNumber("vaultBoyRight Voltage",
-				RobotMap.vaultBoyRight.getMotorOutputVoltage());
-		SmartDashboard.putNumber("slider.getPosition()",
+		//slider
+		SmartDashboard.putNumber("slider.getPosition",
 				RobotMap.slider.getSensorCollection().getQuadraturePosition());
-		SmartDashboard.putNumber("slider.voltage()",
+		SmartDashboard.putNumber("slider.voltage",
 				RobotMap.slider.getMotorOutputVoltage());
+		SmartDashboard.putNumber("slider.current",
+				RobotMap.slider.getOutputCurrent());
+		
+		if (OI.driverButton9.get()){
+			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
+		}else{
+			RobotMap.slider.set(ControlMode.PercentOutput, 0);
+		}
 	}
 
 	/**

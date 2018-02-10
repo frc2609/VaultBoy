@@ -35,7 +35,6 @@ public class Drivetrain extends Subsystem {
 	        RobotMap.driveLeft2.set(ControlMode.PercentOutput,0);
 	        RobotMap.driveRight1.set(ControlMode.PercentOutput,0);
 	        RobotMap.driveRight2.set(ControlMode.PercentOutput,0);
-//			new driveTeleop().start();
 			break;
 		default:
 	        RobotMap.driveLeft1.set(ControlMode.PercentOutput,0);

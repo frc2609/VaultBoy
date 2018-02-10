@@ -10,7 +10,7 @@ import enums.DriveState;
 /**
  *
  */
-public class VaultBoy extends Subsystem {
+public class Shooter extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

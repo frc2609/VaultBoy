@@ -2,6 +2,7 @@ package org.usfirst.frc.team2609.robot.commands.drive;
 
 import org.usfirst.frc.team2609.robot.OI;
 import org.usfirst.frc.team2609.robot.Robot;
+import org.usfirst.frc.team2609.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 import enums.DriveState;
@@ -19,6 +20,10 @@ public class driveTeleop extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	RobotMap.driveLeft1.configOpenloopRamp(0, 10);
+    	RobotMap.driveLeft2.configOpenloopRamp(0, 10);
+    	RobotMap.driveRight1.configOpenloopRamp(0, 10);
+    	RobotMap.driveRight2.configOpenloopRamp(0, 10);
     }
 
     // Called repeatedly when this Command is scheduled to run

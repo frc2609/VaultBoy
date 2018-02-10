@@ -25,13 +25,23 @@ public class driveStraightTrapezoid extends Command {
 	double steeringEps;
 	double steeringOutput;
 
-	double driveTarget;
+	double setpoint1;
+	double setpoint2;
+	double setpointEnd;
+	double powerStart;
+	double powerCruise;
+	double powerEnd;
 
-	public driveStraightTrapezoid(double driveTarget,double steeringTarget) {
+	public driveStraightTrapezoid(double setpoint1,double setpoint2,double setpointEnd,double powerStart,double powerCruise,double powerEnd,double steeringTarget) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 		requires(Robot.drivetrain);
-    	this.driveTarget = driveTarget * Robot.inchesToTicks;
+    	this.setpoint1 = setpoint1;
+    	this.setpoint2 = setpoint2;
+    	this.setpointEnd = setpointEnd;
+    	this.powerStart = powerStart;
+    	this.powerCruise = powerCruise;
+    	this.powerEnd = powerEnd;
     	this.steeringTarget = steeringTarget;
     	
     }
@@ -50,25 +60,22 @@ public class driveStraightTrapezoid extends Command {
         steeringMax = (double)SmartDashboard.getNumber("Steering Max: ",0);
         this.steering.setConstants(steeringP, steeringI, steeringD);
         this.steering.setMaxOutput(steeringMax);
-
-    	RobotMap.driveLeft1.configOpenloopRamp(1, 10);
-    	RobotMap.driveLeft2.configOpenloopRamp(1, 10);
-    	RobotMap.driveRight1.configOpenloopRamp(1, 10);
-    	RobotMap.driveRight2.configOpenloopRamp(1, 10);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	steeringOutput = -steering.calcPID(RobotMap.ahrs.getYaw());
-    	if(Robot.drivetrain.getInverseLeftEncoderInchesTemp() < 10){
-        	leftPower = (0.07*Robot.drivetrain.getInverseLeftEncoderInchesTemp())+0.2;
-        	rightPower = (0.07*Robot.drivetrain.getInverseLeftEncoderInchesTemp())+0.2;
-    	}else if (Robot.drivetrain.getInverseLeftEncoderInchesTemp() < (driveTarget - 10)){
-        	leftPower = 0.9;
-        	rightPower = 0.9;
+    	if(Robot.drivetrain.getInverseLeftEncoderInchesTemp() < setpoint1){
+        	leftPower = (((powerCruise - powerStart)/setpoint1)*Robot.drivetrain.getInverseLeftEncoderInchesTemp())+powerStart;
+        	rightPower = (((powerCruise - powerStart)/setpoint1)*Robot.drivetrain.getRightEncoderInches())+powerStart;
+    	}else if (Robot.drivetrain.getInverseLeftEncoderInchesTemp() < setpoint2){
+        	leftPower = powerCruise;
+        	rightPower = powerCruise;
     	}else{
-        	leftPower = (-0.07*Robot.drivetrain.getInverseLeftEncoderInchesTemp())+(0.2+(0.07*driveTarget));
-        	rightPower = (-0.07*Robot.drivetrain.getInverseLeftEncoderInchesTemp())+(0.2+(0.07*driveTarget));
+        	leftPower = (((powerEnd - powerCruise)/setpoint2)*Robot.drivetrain.getInverseLeftEncoderInchesTemp())
+        			+((((powerEnd - powerCruise)/setpoint2)*setpointEnd)-powerEnd);
+        	rightPower = (((powerEnd - powerCruise)/setpoint2)*Robot.drivetrain.getRightEncoderInches())
+        			+((((powerEnd - powerCruise)/setpoint2)*setpointEnd)-powerEnd);
     	}
     	
     	Robot.drivetrain.setDriveState(DriveState.AUTON,leftPower,rightPower);
@@ -76,7 +83,7 @@ public class driveStraightTrapezoid extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return false;
+    	return (Robot.drivetrain.getInverseLeftEncoderInchesTemp() > setpointEnd);
     }
 
     // Called once after isFinished returns true

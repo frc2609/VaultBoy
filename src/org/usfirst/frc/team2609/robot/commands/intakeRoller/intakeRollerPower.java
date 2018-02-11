@@ -30,7 +30,7 @@ public class intakeRollerPower extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		if (Timer.getFPGATimestamp() > timeInit + 2) {
+		if (Timer.getFPGATimestamp() > timeInit + 0.1) {
 			if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)
 					&& (Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)) {
 				Robot.intakeRoller.setIntakePower(power, power);
@@ -43,7 +43,7 @@ public class intakeRollerPower extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;//((Robot.vaultBoy.vaultBoyLeftCurrent() > 10) || (Robot.vaultBoy.vaultBoyRightCurrent() > 10));
+        return ((Robot.vaultBoy.vaultBoyLeftCurrent() > 12) || (Robot.vaultBoy.vaultBoyRightCurrent() > 12));
     }
 
     // Called once after isFinished returns true

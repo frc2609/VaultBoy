@@ -17,7 +17,7 @@ public class vaultBoyPower extends Command {
         // eg. requires(chassis);
     	requires(Robot.vaultBoy);
     	this.currentThreshold = currentThreshold;
-    	this.currentThreshold = power;
+    	this.power = power;
     }
 
     // Called just before this Command runs the first time

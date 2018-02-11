@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Slider D: ", 0.0);
     	SmartDashboard.putNumber("Slider Max: ", 1.0);
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);
-    	SmartDashboard.putNumber("Slider DR: ", 50);
+    	SmartDashboard.putNumber("Slider DR: ", 200);
     	SmartDashboard.putNumber("Slider DC: ", 5);
 	}
 
@@ -237,7 +237,7 @@ public class Robot extends TimedRobot {
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
 		
-//		new driveTeleop().start();
+		new driveTeleop().start();
 	}
 
 	/**

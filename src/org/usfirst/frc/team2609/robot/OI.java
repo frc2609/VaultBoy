@@ -74,12 +74,12 @@ public class OI {
 		operatorStick = new Joystick(1);
 		
 		driverButton1 = new JoystickButton(driverStick, 1);
-		driverButton1.whileHeld(new intakeRollerPower(0.75,2));
+		driverButton1.whileHeld(new intakeRollerPower(0.75,12));
 
 		driverButton2 = new JoystickButton(driverStick, 2);
-//		driverButton2.whenPressed(new shifterState(ShifterState.LOW));
-//		
-//		driverButton3 = new JoystickButton(driverStick, 3);
+		driverButton2.whenPressed(new intakeRollerPower(0,12));
+		
+		driverButton3 = new JoystickButton(driverStick, 3);
 //		driverButton3.whenPressed(new clawState(ClawState.OPEN));
 //		
 //		driverButton4 = new JoystickButton(driverStick, 4);

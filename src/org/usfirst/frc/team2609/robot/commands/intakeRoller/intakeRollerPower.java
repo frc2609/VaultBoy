@@ -2,6 +2,7 @@ package org.usfirst.frc.team2609.robot.commands.intakeRoller;
 
 import org.usfirst.frc.team2609.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -11,6 +12,9 @@ public class intakeRollerPower extends Command {
 
 	double currentThreshold;
 	double power;
+	double timeInit;
+	double timeCurrent;
+	boolean timesUp;
 	
     public intakeRollerPower(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
@@ -26,11 +30,15 @@ public class intakeRollerPower extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)||(Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)){
-        	Robot.intakeRoller.setIntakePower(power,power);
-    	}else{
-        	Robot.intakeRoller.setIntakePower(0,0);
-    	}
+		if (Timer.getFPGATimestamp() > timeInit + 2) {
+			if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)
+					&& (Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)) {
+				Robot.intakeRoller.setIntakePower(power, power);
+			} else {
+				timeInit = Timer.getFPGATimestamp();
+				Robot.intakeRoller.setIntakePower(0, 0);
+			}
+		}
     }
 
     // Make this return true when this Command no longer needs to run execute()

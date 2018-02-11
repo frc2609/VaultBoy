@@ -14,11 +14,11 @@ import enums.IntakeActivatorState;
 public class cubeCollect extends CommandGroup {
 
     public cubeCollect() {
-    	addSequential(new sliderPosition(10000));
+    	addSequential(new sliderPosition(7000));
     	addSequential(new intakeActivatorState(IntakeActivatorState.OUT));
     	addParallel(new vaultBoyPower(0.2,10));
     	addSequential(new intakeRollerPower(0.7,10));
     	addSequential(new intakeActivatorState(IntakeActivatorState.IN));
-    	addSequential(new sliderPosition(100));
+    	addSequential(new sliderPosition(200));
     }
 }

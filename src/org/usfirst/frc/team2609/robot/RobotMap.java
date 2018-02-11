@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2609.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -82,6 +83,9 @@ public class RobotMap {
 		slider = new TalonSRX(6);
 		intakeRollerLeft = new TalonSRX(4);
 		intakeRollerRight = new TalonSRX(8);
+		
+		intakeRollerLeft.setNeutralMode(NeutralMode.Brake);
+		intakeRollerRight.setNeutralMode(NeutralMode.Brake);
 		
 		slider.setInverted(true);
 		slider.configOpenloopRamp(0.1, 10);

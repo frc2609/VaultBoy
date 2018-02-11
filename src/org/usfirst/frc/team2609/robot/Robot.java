@@ -130,6 +130,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("driveRight.voltage",
 				RobotMap.driveRight1.getMotorOutputVoltage());
 		//intake
+		SmartDashboard.putNumber("intakeRollerLeft.voltage",
+				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
+		SmartDashboard.putNumber("intakeRollerRight.voltage",
+				RobotMap.intakeRollerRight.getMotorOutputVoltage());
 		SmartDashboard.putNumber("intakeRollerLeft.current",
 				RobotMap.intakeRollerLeft.getOutputCurrent());
 		SmartDashboard.putNumber("intakeRollerRight.current",
@@ -195,6 +199,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("driveRight.voltage",
 				RobotMap.driveRight1.getMotorOutputVoltage());
 		//intake
+		SmartDashboard.putNumber("intakeRollerLeft.voltage",
+				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
+		SmartDashboard.putNumber("intakeRollerRight.voltage",
+				RobotMap.intakeRollerRight.getMotorOutputVoltage());
 		SmartDashboard.putNumber("intakeRollerLeft.current",
 				RobotMap.intakeRollerLeft.getOutputCurrent());
 		SmartDashboard.putNumber("intakeRollerRight.current",
@@ -250,6 +258,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("driveRight.voltage",
 				RobotMap.driveRight1.getMotorOutputVoltage());
 		//intake
+		SmartDashboard.putNumber("intakeRollerLeft.voltage",
+				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
+		SmartDashboard.putNumber("intakeRollerRight.voltage",
+				RobotMap.intakeRollerRight.getMotorOutputVoltage());
 		SmartDashboard.putNumber("intakeRollerLeft.current",
 				RobotMap.intakeRollerLeft.getOutputCurrent());
 		SmartDashboard.putNumber("intakeRollerRight.current",
@@ -269,6 +281,12 @@ public class Robot extends TimedRobot {
 		
 		if (OI.driverButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.2);
+		}
+		if (OI.driverButton3.get()){
+			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
+			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, -OI.driverStick.getRawAxis(3)*0.4);
+			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
+			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
 		}
 	}
 

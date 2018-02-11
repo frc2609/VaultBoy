@@ -96,6 +96,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Slider P: ", 0.00015);
     	SmartDashboard.putNumber("Slider I: ", 0.00001);
     	SmartDashboard.putNumber("Slider D: ", 0.0);
+    	SmartDashboard.putNumber("Slider F: ", 0.5281);
     	SmartDashboard.putNumber("Slider Max: ", 1.0);
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);
     	SmartDashboard.putNumber("Slider DR: ", 200);

@@ -4,6 +4,8 @@ import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.RobotMap;
 import org.usfirst.frc.team2609.robot.subsystems.SimPID;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,8 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class sliderPosition extends Command {
 
-	SimPID slider;
-	
+		
 	double sliderTarget;
 	
 	double sliderP;
@@ -22,6 +23,7 @@ public class sliderPosition extends Command {
 	double sliderMax;
 	double sliderEps;
 	double sliderDR;
+	double sliderF;
 	int sliderDC;
 	double sliderOutput;
 
@@ -34,11 +36,7 @@ public class sliderPosition extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        this.slider = new SimPID();
         
-    	slider.resetPreviousVal();
-
-        this.slider.setDesiredValue(sliderTarget);
         
         sliderP = (double)SmartDashboard.getNumber("Slider P: ",0);
         sliderI = (double)SmartDashboard.getNumber("Slider I: ",0);
@@ -47,23 +45,25 @@ public class sliderPosition extends Command {
         sliderDC = (int)SmartDashboard.getNumber("Slider DC: ",0);
         sliderDR = SmartDashboard.getNumber("Slider DR: ",0);
         sliderEps = SmartDashboard.getNumber("Slider Eps: ",0);
-        
-        this.slider.setConstants(sliderP, sliderI, sliderD);
-        this.slider.setMaxOutput(sliderMax);
-        this.slider.setDoneRange(sliderDR);
-        this.slider.setMinDoneCycles(sliderDC);
-        this.slider.setErrorEpsilon(sliderEps);
+        sliderF = SmartDashboard.getNumber("Slider F: ",0.5281);
+
+        RobotMap.slider.configMotionCruiseVelocity(1937, 0);
+        RobotMap.slider.configMotionAcceleration(8000, 0);
+        RobotMap.slider.config_kP(0,sliderP,0);
+        RobotMap.slider.config_kI(0,sliderI,0);
+        RobotMap.slider.config_kD(0,sliderD,0);
+        RobotMap.slider.config_kF(0,sliderF,0);
+    	
+    	RobotMap.slider.set(ControlMode.MotionMagic, sliderTarget);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	sliderOutput = slider.calcPID(RobotMap.slider.getSensorCollection().getQuadraturePosition());
-    	Robot.slider.sliderPower(sliderOutput);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return slider.isDone();
+    	return Math.abs(RobotMap.slider.getSensorCollection().getQuadraturePosition()-sliderTarget)<=sliderDR;
     }
 
     // Called once after isFinished returns true

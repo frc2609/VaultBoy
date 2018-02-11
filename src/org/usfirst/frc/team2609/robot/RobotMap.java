@@ -88,6 +88,7 @@ public class RobotMap {
 		intakeRollerRight.setNeutralMode(NeutralMode.Brake);
 		
 		slider.setInverted(true);
+		slider.setSensorPhase(true);
 		slider.configOpenloopRamp(0.1, 10);
 		
 		//pneumatics

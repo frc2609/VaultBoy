@@ -10,5 +10,6 @@ public class sliderResetPosition extends CommandGroup {
     public sliderResetPosition() {
     	addSequential(new sliderPower(-0.15,2));
     	addSequential(new sliderEncoderReset());
+    	addSequential(new sliderPosition(500));
     }
 }

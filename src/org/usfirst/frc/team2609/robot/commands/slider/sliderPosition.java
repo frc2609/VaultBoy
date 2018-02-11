@@ -5,6 +5,7 @@ import org.usfirst.frc.team2609.robot.RobotMap;
 import org.usfirst.frc.team2609.robot.subsystems.SimPID;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,14 +47,15 @@ public class sliderPosition extends Command {
         sliderDR = SmartDashboard.getNumber("Slider DR: ",0);
         sliderEps = SmartDashboard.getNumber("Slider Eps: ",0);
         sliderF = SmartDashboard.getNumber("Slider F: ",0.5281);
-
+        
+        RobotMap.slider.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,0);
         RobotMap.slider.configMotionCruiseVelocity(1937, 0);
         RobotMap.slider.configMotionAcceleration(8000, 0);
         RobotMap.slider.config_kP(0,sliderP,0);
         RobotMap.slider.config_kI(0,sliderI,0);
         RobotMap.slider.config_kD(0,sliderD,0);
         RobotMap.slider.config_kF(0,sliderF,0);
-    	
+    	RobotMap.slider.selectProfileSlot(0, 0);
     	RobotMap.slider.set(ControlMode.MotionMagic, sliderTarget);
     }
 
@@ -68,7 +70,8 @@ public class sliderPosition extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.slider.sliderPower(0);
+//    	Robot.slider.sliderPower(0);
+//    	System.out.println("Got to " + sliderTarget);
     }
 
     // Called when another command which requires one or more of the same

@@ -93,10 +93,10 @@ public class OI {
 		driverButton6.whenPressed(new intakeActivatorState(IntakeActivatorState.OUT));
 		
 		driverButton6 = new JoystickButton(driverStick, 7);
-		driverButton6.whenPressed(new sliderPosition(1000));
+		driverButton6.whenPressed(new sliderPosition(500));
 		
 		driverButton6 = new JoystickButton(driverStick, 8);
-		driverButton6.whenPressed(new sliderPosition(7000));
+		driverButton6.whenPressed(new sliderPosition(7200));
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
 		driverButton9.whenPressed(new sliderResetPosition());

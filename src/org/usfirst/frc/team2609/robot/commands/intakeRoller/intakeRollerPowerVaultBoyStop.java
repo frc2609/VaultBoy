@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class intakeRollerPower extends Command {
+public class intakeRollerPowerVaultBoyStop extends Command {
 
 	double currentThreshold;
 	double power;
@@ -16,7 +16,7 @@ public class intakeRollerPower extends Command {
 	double timeCurrent;
 	boolean timesUp;
 	
-    public intakeRollerPower(double power,double currentThreshold) {
+    public intakeRollerPowerVaultBoyStop(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.intakeRoller);
@@ -43,7 +43,7 @@ public class intakeRollerPower extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return ((Robot.vaultBoy.vaultBoyLeftCurrent() > 2) || (Robot.vaultBoy.vaultBoyRightCurrent() > 2));
     }
 
     // Called once after isFinished returns true

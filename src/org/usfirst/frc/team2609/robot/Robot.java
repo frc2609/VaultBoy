@@ -93,8 +93,8 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Steering D: ", 0.0);
     	SmartDashboard.putNumber("Steering Max: ", 0.2);
     	//Slider PID
-		SmartDashboard.putNumber("Slider P: ", 0.0001);
-    	SmartDashboard.putNumber("Slider I: ", 0.0000);
+		SmartDashboard.putNumber("Slider P: ", 0.00015);
+    	SmartDashboard.putNumber("Slider I: ", 0.00001);
     	SmartDashboard.putNumber("Slider D: ", 0.0);
     	SmartDashboard.putNumber("Slider Max: ", 1.0);
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);

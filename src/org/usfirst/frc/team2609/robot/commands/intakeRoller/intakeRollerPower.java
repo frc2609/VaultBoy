@@ -17,7 +17,7 @@ public class intakeRollerPower extends Command {
         // eg. requires(chassis);
     	requires(Robot.intakeRoller);
     	this.currentThreshold = currentThreshold;
-    	this.currentThreshold = power;
+    	this.power = power;
     }
 
     // Called just before this Command runs the first time

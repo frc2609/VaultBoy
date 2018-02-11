@@ -74,9 +74,9 @@ public class OI {
 		operatorStick = new Joystick(1);
 		
 		driverButton1 = new JoystickButton(driverStick, 1);
-		driverButton1.whileHeld(new intakeRollerPower(0.5,20));
+		driverButton1.whileHeld(new intakeRollerPower(0.75,2));
 
-//		driverButton2 = new JoystickButton(driverStick, 2);
+		driverButton2 = new JoystickButton(driverStick, 2);
 //		driverButton2.whenPressed(new shifterState(ShifterState.LOW));
 //		
 //		driverButton3 = new JoystickButton(driverStick, 3);
@@ -97,8 +97,8 @@ public class OI {
 		driverButton6 = new JoystickButton(driverStick, 8);
 		driverButton6.whenPressed(new shooterActivatorState(ShooterActivatorState.OUT));
 		
-		driverButton6 = new JoystickButton(driverStick, 9);
-		driverButton6.whenPressed(new sliderResetPosition());
+		driverButton9 = new JoystickButton(driverStick, 9);
+		driverButton9.whenPressed(new sliderResetPosition());
 		
 		driverButton10 = new JoystickButton(driverStick, 10);
 		driverButton10.whenPressed(new cubeCollect());

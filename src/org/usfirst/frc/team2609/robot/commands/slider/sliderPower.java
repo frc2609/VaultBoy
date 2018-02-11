@@ -17,7 +17,7 @@ public class sliderPower extends Command {
         // eg. requires(chassis);
     	requires(Robot.slider);
     	this.currentThreshold = currentThreshold;
-    	this.currentThreshold = power;
+    	this.power = power;
     }
 
     // Called just before this Command runs the first time

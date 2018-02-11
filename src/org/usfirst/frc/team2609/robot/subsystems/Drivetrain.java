@@ -48,7 +48,6 @@ public class Drivetrain extends Subsystem {
     public void resetEncoders(){
     	RobotMap.driveLeft1.getSensorCollection().setQuadraturePosition(0,0);
     	RobotMap.driveRight2.getSensorCollection().setQuadraturePosition(0,0);
-    	RobotMap.driveLeftEncoder.getSensorCollection().setQuadraturePosition(0,0);
     }
 
     public void resetGyro(){
@@ -65,10 +64,6 @@ public class Drivetrain extends Subsystem {
     
     public double getInverseLeftEncoderInches(){
 		return -RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
-    }
-    
-    public double getInverseLeftEncoderInchesTemp(){
-		return -RobotMap.driveLeftEncoder.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
     }
     
     public double getInverseRightEncoderInches(){

@@ -17,7 +17,7 @@ public class IntakeRoller extends Subsystem {
 	
 	public void setIntakePower(double leftPower, double rightPower){
 		RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, leftPower);
-		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, rightPower);
+		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, -rightPower);
 	}
     
     public double intakeRollerLeftCurrent(){

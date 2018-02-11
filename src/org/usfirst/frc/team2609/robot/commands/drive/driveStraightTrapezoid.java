@@ -65,14 +65,14 @@ public class driveStraightTrapezoid extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	steeringOutput = -steering.calcPID(RobotMap.ahrs.getYaw());
-    	if(Robot.drivetrain.getInverseLeftEncoderInchesTemp() < setpoint1){
-        	leftPower = (((powerCruise - powerStart)/setpoint1)*Robot.drivetrain.getInverseLeftEncoderInchesTemp())+powerStart;
+    	if(Robot.drivetrain.getInverseLeftEncoderInches() < setpoint1){
+        	leftPower = (((powerCruise - powerStart)/setpoint1)*Robot.drivetrain.getInverseLeftEncoderInches())+powerStart;
         	rightPower = (((powerCruise - powerStart)/setpoint1)*Robot.drivetrain.getRightEncoderInches())+powerStart;
-    	}else if (Robot.drivetrain.getInverseLeftEncoderInchesTemp() < setpoint2){
+    	}else if (Robot.drivetrain.getInverseLeftEncoderInches() < setpoint2){
         	leftPower = powerCruise;
         	rightPower = powerCruise;
     	}else{
-        	leftPower = (((powerEnd - powerCruise)/setpoint2)*Robot.drivetrain.getInverseLeftEncoderInchesTemp())
+        	leftPower = (((powerEnd - powerCruise)/setpoint2)*Robot.drivetrain.getInverseLeftEncoderInches())
         			+((((powerEnd - powerCruise)/setpoint2)*setpointEnd)-powerEnd);
         	rightPower = (((powerEnd - powerCruise)/setpoint2)*Robot.drivetrain.getRightEncoderInches())
         			+((((powerEnd - powerCruise)/setpoint2)*setpointEnd)-powerEnd);
@@ -83,7 +83,7 @@ public class driveStraightTrapezoid extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (Robot.drivetrain.getInverseLeftEncoderInchesTemp() > setpointEnd);
+    	return (Robot.drivetrain.getInverseLeftEncoderInches() > setpointEnd);
     }
 
     // Called once after isFinished returns true

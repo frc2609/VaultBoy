@@ -66,8 +66,6 @@ public class RobotMap {
 		driveRight1 = new TalonSRX(10);
 		driveRight2 = new TalonSRX(11);
 
-		driveLeftEncoder = new TalonSRX(12);	//temp
-
 		driveLeft1.setInverted(true);
 		driveLeft2.setInverted(true);
 		driveRight1.setInverted(false);
@@ -82,15 +80,15 @@ public class RobotMap {
 		vaultBoyLeft = new TalonSRX(3);
 		vaultBoyRight = new TalonSRX(9);
 		slider = new TalonSRX(6);
-		intakeRollerLeft = new TalonSRX(5);
-		intakeRollerRight = new TalonSRX(6);
+		intakeRollerLeft = new TalonSRX(4);
+		intakeRollerRight = new TalonSRX(8);
 		
 		slider.setInverted(true);
 		slider.configOpenloopRamp(0.1, 10);
 		
 		//pneumatics
-		shooterActivator = new DoubleSolenoid(0,0,3);
-		intakeActivator = new DoubleSolenoid(0,1,2);
+		shooterActivator = new DoubleSolenoid(0,1,2);
+		intakeActivator = new DoubleSolenoid(0,0,3);
 		
 		//misc
 		pdp = new PowerDistributionPanel(12);

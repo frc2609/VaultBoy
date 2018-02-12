@@ -5,6 +5,7 @@ import org.usfirst.frc.team2609.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
 
 /**
@@ -28,6 +29,11 @@ public class IntakeRoller extends Subsystem {
     	return RobotMap.intakeRollerRight.getOutputCurrent();
     }
 
+    public boolean intakeRollerCubeSensor(){
+    	SmartDashboard.putBoolean("CubeDetect", RobotMap.cubeSensor.get());
+    	return RobotMap.cubeSensor.get();
+    }
+    
     public void initDefaultCommand() {
 		RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, 0);
 		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, 0);

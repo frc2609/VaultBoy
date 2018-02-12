@@ -12,8 +12,17 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import enums.DriveState;
 
+import org.usfirst.frc.team2609.MP.Logger;
+import org.usfirst.frc.team2609.MP.Looper;
+import org.usfirst.frc.team2609.MP.MPConstants;
+import org.usfirst.frc.team2609.MP.MPRoutine;
+import org.usfirst.frc.team2609.MP.PathGenerator;
+import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
+import org.usfirst.frc.team2609.robot.commands.auton.RightSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
+import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
@@ -44,12 +53,19 @@ public class Robot extends TimedRobot {
 	public static final IntakeRoller intakeRoller = new IntakeRoller();
 	public static final ShooterActivator shooterActivator = new ShooterActivator();
 	public static final IntakeActivator intakeActivator = new IntakeActivator();
+	
+	//mp subsystems
+	public static final Logger logger = Logger.getInstance();
+	public static final PathGenerator pathGenerator = new PathGenerator();
+	private Looper enabledLooper;
 
 	public static OI m_oi;
 	
 	public static final double inchesToTicks = 217.29954896813443176978263159127;		//counts/inch
 	public static final double ticksToInches = 0.00460194236365692368915426276848;		//inches/count
-
+	
+	public static boolean isDriveTrainMPActive;
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -61,6 +77,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		RobotMap.init(); // imports all of RobotMap, required to not crash on
 							// start up
+		
+		enabledLooper = new Looper();
 
 		m_oi = new OI();
 		m_chooser.addDefault("testOnton", new TestOnton());
@@ -68,8 +86,11 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("testOnton", new TestOnton());
 		m_chooser.addObject("trapezoid", new DriveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
 		m_chooser.addObject("slider reset", new SliderResetPosition());
+		m_chooser.addObject("rightSwitch2Vault MP", new SwitchVaultRoutine(new RightSwitchVaultMPRoutine()));
 		SmartDashboard.putData("Auto mode", m_chooser);
 
+		MPConstants.sdPut();
+		// TODO: PUT THIS IN THE DRIVETRAIN SUBSYSTEM
 		//SmartDashboard Values initialization
 		//Left drive PID
 		SmartDashboard.putNumber("DriveLeft P: ", 0.0002);
@@ -101,6 +122,13 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);
     	SmartDashboard.putNumber("Slider DR: ", 100);
     	SmartDashboard.putNumber("Slider DC: ", 5);
+    	
+    	try{
+    		enabledLooper.register(drivetrain.getLooper());
+    	} catch(Throwable t){
+    		System.out.println(t.getMessage());
+    		System.out.println(t.getStackTrace());
+    	}
 	}
 
 	/**
@@ -110,10 +138,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Coast);
-		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Coast);
-		RobotMap.driveRight1.setNeutralMode(NeutralMode.Coast);
-		RobotMap.driveRight2.setNeutralMode(NeutralMode.Coast);
+		drivetrain.changeBreakMode(false);
+		enabledLooper.stop();
+		logger.close();
+		
 	}
 
 	@Override
@@ -154,6 +182,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("slider.error",
 				RobotMap.slider.getClosedLoopError(0));
 		
+		MPConstants.sdGet();
+		
 		
 	}
 
@@ -179,7 +209,8 @@ public class Robot extends TimedRobot {
 		Robot.slider.resetEncoders();
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetGyro();
-		
+		enabledLooper.start();
+		logger.openFile();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
@@ -199,6 +230,10 @@ public class Robot extends TimedRobot {
 				Robot.drivetrain.getInverseLeftEncoderInches());
 		SmartDashboard.putNumber("driveRight.getPosition",
 				Robot.drivetrain.getRightEncoderInches());
+		SmartDashboard.putNumber("driveLeft.getQuadPosition",
+				Robot.drivetrain.getLeftQuad());
+		SmartDashboard.putNumber("driveRight.getQuadPosition",
+				Robot.drivetrain.getRightQuad());
 		SmartDashboard.putNumber("driveLeft.voltage",
 				RobotMap.driveLeft1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("driveRight.voltage",
@@ -242,7 +277,9 @@ public class Robot extends TimedRobot {
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
 		
-		new DriveTeleop().start();
+//		new DriveTeleop().start();
+		
+		enabledLooper.start();
 	}
 
 	/**
@@ -262,6 +299,10 @@ public class Robot extends TimedRobot {
 				RobotMap.driveLeft1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("driveRight.voltage",
 				RobotMap.driveRight1.getMotorOutputVoltage());
+		SmartDashboard.putNumber("driveLeft.getQuadPosition",
+				Robot.drivetrain.getLeftQuad());
+		SmartDashboard.putNumber("driveRight.getQuadPosition",
+				Robot.drivetrain.getRightQuad());
 		//intake
 		SmartDashboard.putNumber("intakeRollerLeft.voltage",
 				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
@@ -293,6 +334,7 @@ public class Robot extends TimedRobot {
 			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
 			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
 		}
+//		Robot.drivetrain.setDrive(DriveState.AUTON, m_oi.driverStick.getRawAxis(1), m_oi.driverStick.getRawAxis(3));
 	}
 
 	/**

@@ -43,7 +43,7 @@ public class DriveTeleop extends Command {
         	rightPower	= Y-(X*(1-Math.abs(.2*Y)));
         }
 
-    	Robot.drivetrain.setDriveState(DriveState.TELEOP,leftPower,rightPower);
+    	Robot.drivetrain.setDrive(DriveState.TELEOP,leftPower,rightPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()

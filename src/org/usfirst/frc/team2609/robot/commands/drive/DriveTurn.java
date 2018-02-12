@@ -138,7 +138,7 @@ public class DriveTurn extends Command {
             	rightPower = 0.15;
     		}
     	}
-    	Robot.drivetrain.setDriveState(DriveState.AUTON,leftPower,rightPower);
+    	Robot.drivetrain.setDrive(DriveState.AUTON,leftPower,rightPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -152,12 +152,12 @@ public class DriveTurn extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.setDriveState(DriveState.DISABLE,0,0);
+    	Robot.drivetrain.setDrive(DriveState.DISABLE,0,0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.drivetrain.setDriveState(DriveState.DISABLE,0,0);
+    	Robot.drivetrain.setDrive(DriveState.DISABLE,0,0);
     }
 }

@@ -104,6 +104,5 @@ public class OI {
 		driverButton10 = new JoystickButton(driverStick, 10);
 		driverButton10.whenPressed(new CubeCollect());
 		
-		
 	}
 }

@@ -7,6 +7,11 @@
 
 package org.usfirst.frc.team2609.robot;
 
+import org.usfirst.frc.team2609.BeaverTalonSRX;
+import org.usfirst.frc.team2609.MP.MPConstants;
+import org.usfirst.frc.team2609.MP.MPRoutine;
+
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
@@ -16,6 +21,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
+import jaci.pathfinder.modifiers.TankModifier;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -33,22 +39,21 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
-	
 
 	//drivetrain
-	public static TalonSRX driveLeft1;
-	public static TalonSRX driveLeft2;
-	public static TalonSRX driveRight1;
-	public static TalonSRX driveRight2;
-	
-	public static TalonSRX driveLeftEncoder;
-	
-	//vault boy
-	public static TalonSRX vaultBoyLeft;
-	public static TalonSRX vaultBoyRight;
-	public static TalonSRX slider;
-	public static TalonSRX intakeRollerLeft;
-	public static TalonSRX intakeRollerRight;
+	public static BeaverTalonSRX driveLeft1;
+	public static BeaverTalonSRX driveLeft2;
+	public static BeaverTalonSRX driveRight1;
+	public static BeaverTalonSRX driveRight2;
+	              
+	public static BeaverTalonSRX driveLeftEncoder;
+	              
+	//vault boy   
+	public static BeaverTalonSRX vaultBoyLeft;
+	public static BeaverTalonSRX vaultBoyRight;
+	public static BeaverTalonSRX slider;
+	public static BeaverTalonSRX intakeRollerLeft;
+	public static BeaverTalonSRX intakeRollerRight;
 	
 	//misc
 	public static AHRS ahrs;
@@ -58,31 +63,38 @@ public class RobotMap {
 	//pneumatics
     public static DoubleSolenoid shooterActivator;
     public static DoubleSolenoid intakeActivator;
+    
+    
+    //MP
+    public static TankModifier[] plannedPath;
+    public static boolean[] isGenerated;
+    public static boolean[] isDoneMP;
+    public static MPRoutine mpRoutine;
 	
 	public static void init(){
 		
 		//drivetrain
-		driveLeft1 = new TalonSRX(1);
-		driveLeft2 = new TalonSRX(2);
-		driveRight1 = new TalonSRX(10);
-		driveRight2 = new TalonSRX(11);
+		driveLeft1 = new BeaverTalonSRX(1);
+		driveLeft2 = new BeaverTalonSRX(2);
+		driveRight1 = new BeaverTalonSRX(11);
+		driveRight2 = new BeaverTalonSRX(10);
 
 		driveLeft1.setInverted(true);
 		driveLeft2.setInverted(true);
 		driveRight1.setInverted(false);
 		driveRight2.setInverted(false);
+
+		driveLeft1.setEncPerRevsQuad(MPConstants.leftEncPerFeet); // to feet
+		driveRight1.setEncPerRevsQuad(MPConstants.rightEncPerFeet);
 		
-		driveLeft1.configOpenloopRamp(0, 10);
-		driveLeft2.configOpenloopRamp(0, 10);
-		driveRight1.configOpenloopRamp(0, 10);
-		driveRight2.configOpenloopRamp(0, 10);
+		driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
 		//vault boy
-		vaultBoyLeft = new TalonSRX(3);
-		vaultBoyRight = new TalonSRX(9);
-		slider = new TalonSRX(6);
-		intakeRollerLeft = new TalonSRX(4);
-		intakeRollerRight = new TalonSRX(8);
+		vaultBoyLeft = new BeaverTalonSRX(3);
+		vaultBoyRight = new BeaverTalonSRX(9);
+		slider = new BeaverTalonSRX(6);
+		intakeRollerLeft = new BeaverTalonSRX(4);
+		intakeRollerRight = new BeaverTalonSRX(8);
 		
 		intakeRollerLeft.setNeutralMode(NeutralMode.Brake);
 		intakeRollerRight.setNeutralMode(NeutralMode.Brake);

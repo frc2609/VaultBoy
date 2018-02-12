@@ -20,6 +20,7 @@ public class CubeCollect extends CommandGroup {
     	addSequential(new SliderPosition(8900));
     	//addParallel(new VaultBoyPower(-0.2,10));
     	addSequential(new IntakeRollerLightSensorStop(0.75,12));
+    	addSequential(new SliderPosition(7300));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
     	//addParallel(new VaultBoyPower(0.25,10));
     	//addParallel(new IntakeRollerPower(-.2,12));

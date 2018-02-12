@@ -13,6 +13,7 @@ public class IntakeRollerLightSensorStop extends Command {
 	double currentThreshold;
 	double power;
 	double timeInit;
+	double cubeCounter;
 	double timeCurrent;
 	boolean timesUp;
 	
@@ -30,6 +31,8 @@ public class IntakeRollerLightSensorStop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	
 		if (Timer.getFPGATimestamp() > timeInit + 0.1) {
 			if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)
 					&& (Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)) {
@@ -43,7 +46,20 @@ public class IntakeRollerLightSensorStop extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.intakeRoller.intakeRollerCubeSensor());
+    	if (Robot.intakeRoller.intakeRollerCubeSensor()){
+    		cubeCounter++;
+    	}
+    	else{
+    		cubeCounter = 0;
+    	}
+    	
+    	if (cubeCounter == 5) {
+    		return true;
+		}
+    	else{
+    		return false;
+    	}
+        
     }
 
     // Called once after isFinished returns true

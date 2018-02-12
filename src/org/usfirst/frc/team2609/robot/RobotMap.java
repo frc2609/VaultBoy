@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -54,6 +55,7 @@ public class RobotMap {
 	public static AHRS ahrs;
 	public static PowerDistributionPanel pdp;
 	public static Compressor compressor;
+	public static DigitalInput cubeSensor;
 	
 	//pneumatics
     public static DoubleSolenoid shooterActivator;
@@ -83,6 +85,7 @@ public class RobotMap {
 		slider = new TalonSRX(6);
 		intakeRollerLeft = new TalonSRX(4);
 		intakeRollerRight = new TalonSRX(8);
+		cubeSensor = new DigitalInput(0);
 		
 		intakeRollerLeft.setNeutralMode(NeutralMode.Brake);
 		intakeRollerRight.setNeutralMode(NeutralMode.Brake);

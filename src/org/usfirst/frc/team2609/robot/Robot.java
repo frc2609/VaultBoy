@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team2609.robot.commands.auton.switchVaultMiddle;
-import org.usfirst.frc.team2609.robot.commands.auton.testOnton;
-import org.usfirst.frc.team2609.robot.commands.drive.driveStraightTrapezoid;
-import org.usfirst.frc.team2609.robot.commands.drive.driveTeleop;
-import org.usfirst.frc.team2609.robot.commands.slider.sliderResetPosition;
+import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
+import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
+import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
+import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
+import org.usfirst.frc.team2609.robot.commands.slider.SliderResetPosition;
 import org.usfirst.frc.team2609.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2609.robot.subsystems.IntakeActivator;
 import org.usfirst.frc.team2609.robot.subsystems.IntakeRoller;
@@ -63,11 +63,11 @@ public class Robot extends TimedRobot {
 							// start up
 
 		m_oi = new OI();
-		m_chooser.addDefault("testOnton", new testOnton());
-		m_chooser.addObject("switchVaultMiddle", new switchVaultMiddle());
-		m_chooser.addObject("testOnton", new testOnton());
-		m_chooser.addObject("trapezoid", new driveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
-		m_chooser.addObject("slider reset", new sliderResetPosition());
+		m_chooser.addDefault("testOnton", new TestOnton());
+		m_chooser.addObject("switchVaultMiddle", new SwitchVaultMiddle());
+		m_chooser.addObject("testOnton", new TestOnton());
+		m_chooser.addObject("trapezoid", new DriveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
+		m_chooser.addObject("slider reset", new SliderResetPosition());
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		//SmartDashboard Values initialization
@@ -242,7 +242,7 @@ public class Robot extends TimedRobot {
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
 		
-		new driveTeleop().start();
+		new DriveTeleop().start();
 	}
 
 	/**

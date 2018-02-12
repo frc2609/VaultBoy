@@ -7,12 +7,12 @@
 
 package org.usfirst.frc.team2609.robot;
 
-import org.usfirst.frc.team2609.robot.commands.automation.cubeCollect;
-import org.usfirst.frc.team2609.robot.commands.intakeActivator.intakeActivatorState;
-import org.usfirst.frc.team2609.robot.commands.intakeRoller.intakeRollerPower;
-import org.usfirst.frc.team2609.robot.commands.shooterActivator.shooterActivatorState;
-import org.usfirst.frc.team2609.robot.commands.slider.sliderPosition;
-import org.usfirst.frc.team2609.robot.commands.slider.sliderResetPosition;
+import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
+import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
+import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
+import org.usfirst.frc.team2609.robot.commands.shooterActivator.ShooterActivatorSetState;
+import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
+import org.usfirst.frc.team2609.robot.commands.slider.SliderResetPosition;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -75,10 +75,10 @@ public class OI {
 		operatorStick = new Joystick(1);
 		
 		driverButton1 = new JoystickButton(driverStick, 1);
-		driverButton1.whileHeld(new intakeRollerPower(0.75,12));
+		driverButton1.whileHeld(new IntakeRollerPower(0.75,12));
 
 		driverButton2 = new JoystickButton(driverStick, 2);
-		driverButton2.whenPressed(new intakeRollerPower(0,12));
+		driverButton2.whenPressed(new IntakeRollerPower(0,12));
 		
 		driverButton3 = new JoystickButton(driverStick, 3);
 //		driverButton3.whenPressed(new clawState(ClawState.OPEN));
@@ -87,22 +87,22 @@ public class OI {
 //		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
 		
 		driverButton5 = new JoystickButton(driverStick, 5);
-		driverButton5.whenPressed(new intakeActivatorState(IntakeActivatorState.IN));
+		driverButton5.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
 		
 		driverButton6 = new JoystickButton(driverStick, 6);
-		driverButton6.whenPressed(new intakeActivatorState(IntakeActivatorState.OUT));
+		driverButton6.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 		
 		driverButton6 = new JoystickButton(driverStick, 7);
-		driverButton6.whenPressed(new sliderPosition(500));
+		driverButton6.whenPressed(new SliderPosition(500));
 		
 		driverButton6 = new JoystickButton(driverStick, 8);
-		driverButton6.whenPressed(new sliderPosition(7200));
+		driverButton6.whenPressed(new SliderPosition(7200));
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
-		driverButton9.whenPressed(new sliderResetPosition());
+		driverButton9.whenPressed(new SliderResetPosition());
 		
 		driverButton10 = new JoystickButton(driverStick, 10);
-		driverButton10.whenPressed(new cubeCollect());
+		driverButton10.whenPressed(new CubeCollect());
 		
 		
 	}

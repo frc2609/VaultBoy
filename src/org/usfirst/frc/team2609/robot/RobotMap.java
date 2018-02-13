@@ -13,6 +13,7 @@ import org.usfirst.frc.team2609.MP.MPRoutine;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -90,6 +91,14 @@ public class RobotMap {
 		driveRight1.setEncPerRevsQuad(MPConstants.rightEncPerFeet);
 		
 		driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		
+
+		driveLeft1.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
+		driveLeft1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
+		driveLeft1.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 0);
+		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 0);
+		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
+		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
 		
 		//vault boy
 		vaultBoyLeft = new BeaverTalonSRX(3);

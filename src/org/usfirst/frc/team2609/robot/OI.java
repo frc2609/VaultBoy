@@ -12,7 +12,7 @@ import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSe
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
 import org.usfirst.frc.team2609.robot.commands.shooterActivator.ShooterActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
-import org.usfirst.frc.team2609.robot.commands.slider.SliderResetPosition;
+import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -99,7 +99,7 @@ public class OI {
 		driverButton6.whenPressed(new SliderPosition(7200));
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
-		driverButton9.whenPressed(new SliderResetPosition());
+		driverButton9.whenPressed(new SliderHome());
 		
 		driverButton10 = new JoystickButton(driverStick, 10);
 		driverButton10.whenPressed(new CubeCollect());

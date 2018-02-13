@@ -3,6 +3,8 @@ package org.usfirst.frc.team2609.robot.commands.auton;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
 import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
+import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
+import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -30,9 +32,11 @@ public class SwitchVaultRoutine extends CommandGroup {
         // arm.
 
     	addSequential(new SetMPRoutine(routine));
+    	addParallel(new SliderHome());
     	addSequential(new LaunchMP(0));    	
 //    	addSequential(new Delay(2));
     	addSequential(new LaunchMP(1));
+    	addSequential(new CubeCollect());
 //    	addSequential(new Delay(2));
     	addSequential(new LaunchMP(2));
 //    	addSequential(new Delay(2));

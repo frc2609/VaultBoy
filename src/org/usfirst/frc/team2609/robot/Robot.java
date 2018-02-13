@@ -26,7 +26,7 @@ import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
-import org.usfirst.frc.team2609.robot.commands.slider.SliderResetPosition;
+import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 import org.usfirst.frc.team2609.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2609.robot.subsystems.IntakeActivator;
 import org.usfirst.frc.team2609.robot.subsystems.IntakeRoller;
@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("switchVaultMiddle", new SwitchVaultMiddle());
 		m_chooser.addObject("testOnton", new TestOnton());
 		m_chooser.addObject("trapezoid", new DriveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
-		m_chooser.addObject("slider reset", new SliderResetPosition());
+		m_chooser.addObject("slider reset", new SliderHome());
 		m_chooser.addObject("rightSwitch2Vault MP", new SwitchVaultRoutine(new RightSwitchVaultMPRoutine()));
 		SmartDashboard.putData("Auto mode", m_chooser);
 
@@ -206,7 +206,6 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
-		Robot.slider.resetEncoders();
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetGyro();
 		enabledLooper.start();

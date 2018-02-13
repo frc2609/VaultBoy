@@ -23,19 +23,14 @@ public class LaunchMP extends Command {
     public LaunchMP(int id){
     	this.id = id;
     }
-    private void generate(){
-     	RobotMap.plannedPath[id] = Robot.pathGenerator.trajectoryGenerator(RobotMap.mpRoutine.path[id]); // Generate the path
 
-		System.out.println(RobotMap.plannedPath[id].getLeftTrajectory().length());
-    	RobotMap.isGenerated[id] = true;
-    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetEncoders();
     	Robot.isDriveTrainMPActive = false;
 //        RobotMap.ahrs.zeroYaw();
-    	generate();
+    	Robot.pathGenerator.generate(id);
         System.out.println("Starting init LaunchMP");
         try{
         	Robot.drivetrain.initMP(id);

@@ -56,6 +56,8 @@ public class RobotMap {
 	public static BeaverTalonSRX slider;
 	public static BeaverTalonSRX intakeRollerLeft;
 	public static BeaverTalonSRX intakeRollerRight;
+	public static BeaverTalonSRX shooterRight;
+	public static BeaverTalonSRX shooterLeft;
 	
 	//misc
 	public static AHRS ahrs;
@@ -81,6 +83,9 @@ public class RobotMap {
 		driveLeft2 = new BeaverTalonSRX(2);
 		driveRight1 = new BeaverTalonSRX(11);
 		driveRight2 = new BeaverTalonSRX(10);
+
+		shooterLeft = new BeaverTalonSRX(5);
+		shooterRight = new BeaverTalonSRX(7);
 
 		driveLeft1.setInverted(true);
 		driveLeft2.setInverted(true);
@@ -111,8 +116,13 @@ public class RobotMap {
 		intakeRollerLeft.setNeutralMode(NeutralMode.Brake);
 		intakeRollerRight.setNeutralMode(NeutralMode.Brake);
 		
-		slider.setInverted(true);
-		slider.setSensorPhase(true);
+		slider.setInverted(false); // +ve is in and -ve is out
+		slider.setSensorPhase(false);
+
+		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 0);
+		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
+		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
+		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 		slider.configOpenloopRamp(0.1, 10);
 		
 		//pneumatics

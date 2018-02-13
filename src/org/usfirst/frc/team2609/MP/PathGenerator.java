@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2609.MP;
 
+import org.usfirst.frc.team2609.robot.Robot;
+import org.usfirst.frc.team2609.robot.RobotMap;
+
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -59,4 +62,10 @@ public class PathGenerator {
         System.out.println("generated in:" + fastGenTime);
         return FastModifier;
 	}
+    public void generate(int id){
+     	RobotMap.plannedPath[id] = Robot.pathGenerator.trajectoryGenerator(RobotMap.mpRoutine.path[id]); // Generate the path
+
+		System.out.println(RobotMap.plannedPath[id].getLeftTrajectory().length());
+    	RobotMap.isGenerated[id] = true;
+    }
 }

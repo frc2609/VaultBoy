@@ -126,6 +126,33 @@ public class Logger {
 	        }
     	}
     }
+    
+    public void logMM() {
+    	if(this.wantToLog()){
+	        try {
+	        	//int ,%d
+	        	//double ,%.3f
+	        	this.writer.write(String.format("%.3f", Timer.getFPGATimestamp()));
+//	        	this.writer.write(String.format(",%d", new java.util.Date().getTime()));
+	            this.writer.write(String.format(",%d", RobotMap.slider.getActiveTrajectoryPosition()));
+	            this.writer.write(String.format(",%d", RobotMap.slider.getActiveTrajectoryVelocity()));
+	            this.writer.write(String.format(",%d", RobotMap.slider.getSelectedSensorPosition(0)));
+	            this.writer.write(String.format(",%d", RobotMap.slider.getSelectedSensorVelocity(0)));
+	            
+
+	            
+	            
+	            
+	            
+	           
+	            
+	            this.writer.newLine();
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+    	}
+    }
     public void logInterpolatedMP(double[] leftInterpolated, double[] rightInterpolated){
     	try {
         	//int ,%d
@@ -148,7 +175,7 @@ public class Logger {
             this.writer.write(String.format(",%.3f", rightInterpolated[4]));
             this.writer.write(String.format(",%.3f", Pathfinder.boundHalfDegrees(Math.toDegrees(rightInterpolated[6]))));
             
-            this.writer.write(String.format(",%.3f", (double)RobotMap.ahrs.getYaw()));
+            this.writer.write(String.format(",%.3f", (double)-RobotMap.ahrs.getYaw()));
             this.writer.write(String.format(",%.3f", (double)RobotMap.ahrs.getAngle()));
             
             

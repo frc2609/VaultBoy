@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2609.robot.subsystems;
 
+import org.usfirst.frc.team2609.MP.Loop;
+import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -11,8 +13,29 @@ import enums.DriveState;
  *
  */
 public class Slider extends Subsystem {
+	
+	
+	private final org.usfirst.frc.team2609.MP.Loop mLoop = new Loop() {
+		@Override
+		public void onStart(){
+			System.out.println("Starting Slider loop");
+		}
+		@Override
+		public void onLoop(){
+			synchronized (Slider.this){
+//				Robot.logger.logMM();
+			}
+		}
+		@Override
+		public void onStop(){
+			System.out.println("Ending Slider loop");
+		}
+	};
 
-    // Put methods for controlling this subsystem
+	public Loop getLooper(){
+		return mLoop;
+	}
+	// Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
 	public void sliderPower(double power){

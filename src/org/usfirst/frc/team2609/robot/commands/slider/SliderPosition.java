@@ -32,7 +32,7 @@ public class SliderPosition extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 		requires(Robot.slider);
-    	this.sliderTarget = sliderTarget;
+    	this.sliderTarget = -sliderTarget; //!!!!!!!!!!!!
     }
 
     // Called just before this Command runs the first time
@@ -49,8 +49,8 @@ public class SliderPosition extends Command {
         sliderF = SmartDashboard.getNumber("Slider F: ",0.5281);
         
         RobotMap.slider.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,0);
-        RobotMap.slider.configMotionCruiseVelocity(1937, 0);
-        RobotMap.slider.configMotionAcceleration(8000, 0);
+        RobotMap.slider.configMotionCruiseVelocity(2920, 0); //2711
+        RobotMap.slider.configMotionAcceleration(7000, 0);
         RobotMap.slider.config_kP(0,sliderP,0);
         RobotMap.slider.config_kI(0,sliderI,0);
         RobotMap.slider.config_kD(0,sliderD,0);

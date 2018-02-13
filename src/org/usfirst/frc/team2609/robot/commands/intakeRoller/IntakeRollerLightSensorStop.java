@@ -53,7 +53,7 @@ public class IntakeRollerLightSensorStop extends Command {
     		cubeCounter = 0;
     	}
     	
-    	if (cubeCounter == 5) {
+    	if (cubeCounter == 7) {
     		return true;
 		}
     	else{

@@ -7,10 +7,12 @@
 
 package org.usfirst.frc.team2609.robot;
 
+import org.usfirst.frc.team2609.robot.commands.LaunchMP;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
+import org.usfirst.frc.team2609.robot.commands.automation.SwitchScore;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
-import org.usfirst.frc.team2609.robot.commands.shooterActivator.ShooterActivatorSetState;
+import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 
@@ -81,9 +83,10 @@ public class OI {
 		driverButton2.whenPressed(new IntakeRollerPower(0,12));
 		
 		driverButton3 = new JoystickButton(driverStick, 3);
-//		driverButton3.whenPressed(new clawState(ClawState.OPEN));
+//		driverButton3.whenPressed(new LaunchMP(0));
 //		
-//		driverButton4 = new JoystickButton(driverStick, 4);
+		driverButton4 = new JoystickButton(driverStick, 4);
+		driverButton4.whenPressed(new SwitchScore());
 //		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
 		
 		driverButton5 = new JoystickButton(driverStick, 5);
@@ -96,7 +99,7 @@ public class OI {
 		driverButton6.whenPressed(new SliderPosition(500));
 		
 		driverButton6 = new JoystickButton(driverStick, 8);
-		driverButton6.whenPressed(new SliderPosition(7200));
+		driverButton6.whenPressed(new SliderPosition(8900));
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
 		driverButton9.whenPressed(new SliderHome());

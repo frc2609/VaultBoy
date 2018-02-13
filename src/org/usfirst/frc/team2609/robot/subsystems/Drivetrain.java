@@ -186,7 +186,7 @@ public class Drivetrain extends Subsystem {
     }
     
     public double nativeVelToFPSL(double nativeVel){
-    	return ((nativeVel*10)/4)/MPConstants.leftEncPerFeet;
+    	return -((nativeVel*10)/4)/MPConstants.leftEncPerFeet;
     }
     public double nativeVelToFPSR(double nativeVel){
     	return ((nativeVel*10)/4)/MPConstants.rightEncPerFeet;

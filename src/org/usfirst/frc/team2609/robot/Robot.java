@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
+import enums.ShooterActivatorState;
 
 import org.usfirst.frc.team2609.MP.Logger;
 import org.usfirst.frc.team2609.MP.Looper;
@@ -20,6 +21,7 @@ import org.usfirst.frc.team2609.MP.MPConstants;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.MP.PathGenerator;
 import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
+import org.usfirst.frc.team2609.robot.commands.auton.LeftSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.RightSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
@@ -87,6 +89,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("trapezoid", new DriveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
 		m_chooser.addObject("slider reset", new SliderHome());
 		m_chooser.addObject("rightSwitch2Vault MP", new SwitchVaultRoutine(new RightSwitchVaultMPRoutine()));
+		m_chooser.addObject("leftSwitch2Vault MP", new SwitchVaultRoutine(new LeftSwitchVaultMPRoutine()));
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		MPConstants.sdPut();
@@ -114,10 +117,10 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Steering D: ", 0.0);
     	SmartDashboard.putNumber("Steering Max: ", 0.2);
     	//Slider PID
-		SmartDashboard.putNumber("Slider P: ", 0.4);
+		SmartDashboard.putNumber("Slider P: ", 0.5);
     	SmartDashboard.putNumber("Slider I: ", 0.0);
     	SmartDashboard.putNumber("Slider D: ", 0.0);
-    	SmartDashboard.putNumber("Slider F: ", 0.49);
+    	SmartDashboard.putNumber("Slider F: ", 0.32);
     	SmartDashboard.putNumber("Slider Max: ", 1.0);
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);
     	SmartDashboard.putNumber("Slider DR: ", 100);
@@ -125,6 +128,7 @@ public class Robot extends TimedRobot {
     	
     	try{
     		enabledLooper.register(drivetrain.getLooper());
+    		enabledLooper.register(slider.getLooper());
     	} catch(Throwable t){
     		System.out.println(t.getMessage());
     		System.out.println(t.getStackTrace());
@@ -270,13 +274,15 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		Robot.drivetrain.resetEncoders();
-		
+		Robot.drivetrain.resetGyro();
+		logger.openFile();
+		RobotMap.mpRoutine = new RightSwitchVaultMPRoutine();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
-		
-//		new DriveTeleop().start();
+		shooterActivator.setShooterActivatorState(ShooterActivatorState.OUT);
+		new DriveTeleop().start();
 		
 		enabledLooper.start();
 	}
@@ -323,15 +329,19 @@ public class Robot extends TimedRobot {
 				RobotMap.slider.getMotorOutputVoltage());
 		SmartDashboard.putNumber("slider.current",
 				RobotMap.slider.getOutputCurrent());
+		SmartDashboard.putNumber("slider.getSelectedSensorPosition0",
+				RobotMap.slider.getSelectedSensorPosition(0));
+		
+//		RobotMap.slider.set(0.15);
 		
 		if (OI.driverButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.2);
 		}
 		if (OI.driverButton3.get()){
-			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
-			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, -OI.driverStick.getRawAxis(3)*0.4);
-			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
-			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.4);
+			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
+			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, -OI.driverStick.getRawAxis(3));
+			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
+			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
 		}
 //		Robot.drivetrain.setDrive(DriveState.AUTON, m_oi.driverStick.getRawAxis(1), m_oi.driverStick.getRawAxis(3));
 	}

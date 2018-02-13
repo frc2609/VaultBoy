@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2609.robot.commands.shooterActivator;
+package org.usfirst.frc.team2609.robot.commands.shooter;
 
 import org.usfirst.frc.team2609.robot.Robot;
 

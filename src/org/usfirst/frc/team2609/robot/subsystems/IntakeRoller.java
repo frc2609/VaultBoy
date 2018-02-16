@@ -3,6 +3,7 @@ package org.usfirst.frc.team2609.robot.subsystems;
 import org.usfirst.frc.team2609.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +19,7 @@ public class IntakeRoller extends Subsystem {
 	
 	public void setIntakePower(double leftPower, double rightPower){
 		RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, leftPower);
-		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, -rightPower);
+		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, rightPower);
 	}
     
     public double intakeRollerLeftCurrent(){
@@ -27,6 +28,22 @@ public class IntakeRoller extends Subsystem {
     
     public double intakeRollerRightCurrent(){
     	return RobotMap.intakeRollerRight.getOutputCurrent();
+    }
+    public void intakeRollerSetR(double speed){
+    	RobotMap.intakeRollerRight.set(speed);
+    }
+    public void intakeRollerSetL(double speed){
+    	RobotMap.intakeRollerLeft.set(speed);
+    }
+    
+    public void intakeRollerBrakeMode(boolean brakeMode){
+    	if(brakeMode){
+    		RobotMap.intakeRollerLeft.setNeutralMode(NeutralMode.Brake);
+    		RobotMap.intakeRollerRight.setNeutralMode(NeutralMode.Brake);
+    	}else{
+    		RobotMap.intakeRollerLeft.setNeutralMode(NeutralMode.Coast);
+    		RobotMap.intakeRollerRight.setNeutralMode(NeutralMode.Coast);
+    	}
     }
 
     public boolean intakeRollerCubeSensor(){

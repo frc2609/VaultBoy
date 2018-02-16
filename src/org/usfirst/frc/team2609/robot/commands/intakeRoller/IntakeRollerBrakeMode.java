@@ -8,37 +8,24 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeRollerPower extends Command {
+public class IntakeRollerBrakeMode extends Command {
 
-	double currentThreshold;
-	double power;
-	double timeInit;
-	double timeCurrent;
-	boolean timesUp;
+	boolean brakeMode;
 	
-    public IntakeRollerPower(double power,double currentThreshold) {
+    public IntakeRollerBrakeMode(boolean brakeMode) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.intakeRoller);
-    	this.currentThreshold = currentThreshold;
-    	this.power = power;
+    	this.brakeMode = brakeMode;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.intakeRoller.intakeRollerBrakeMode(brakeMode);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		if (Timer.getFPGATimestamp() > timeInit + 0.1) {
-			if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)
-					&& (Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)) {
-				Robot.intakeRoller.setIntakePower(power, power);
-			} else {
-				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.setIntakePower(0, 0);
-			}
-		}
     }
 
     // Make this return true when this Command no longer needs to run execute()

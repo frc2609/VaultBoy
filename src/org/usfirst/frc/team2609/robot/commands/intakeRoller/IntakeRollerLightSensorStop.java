@@ -4,6 +4,7 @@ import org.usfirst.frc.team2609.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -33,13 +34,27 @@ public class IntakeRollerLightSensorStop extends Command {
     protected void execute() {
     	
     	
-		if (Timer.getFPGATimestamp() > timeInit + 0.1) {
-			if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)
-					&& (Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)) {
-				Robot.intakeRoller.setIntakePower(power, power);
-			} else {
+    	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
+    		if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.setIntakePower(0, 0);
+				Robot.intakeRoller.intakeRollerSetR(0);
+				Robot.intakeRoller.intakeRollerSetL(0);
+				System.out.println("BOTH");
+			}
+    		else if (Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) {
+				timeInit = Timer.getFPGATimestamp();
+				Robot.intakeRoller.intakeRollerSetR(0);
+				Robot.intakeRoller.intakeRollerSetL(0);
+//				Robot.intakeRoller.intakeRollerSetL(power);
+			}
+    		else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
+				timeInit = Timer.getFPGATimestamp();
+//				Robot.intakeRoller.intakeRollerSetR(power);
+				Robot.intakeRoller.intakeRollerSetR(0);
+				Robot.intakeRoller.intakeRollerSetL(0);
+			} else {
+				Robot.intakeRoller.intakeRollerSetL(power);
+				Robot.intakeRoller.intakeRollerSetR(power);
 			}
 		}
     }
@@ -59,12 +74,11 @@ public class IntakeRollerLightSensorStop extends Command {
     	else{
     		return false;
     	}
-        
+        //return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intakeRoller.setIntakePower(0,0);
     }
 
     // Called when another command which requires one or more of the same

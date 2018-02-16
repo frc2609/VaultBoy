@@ -16,10 +16,10 @@ public class IntakeActivator extends Subsystem {
 	public void setIntakeActivatorState(IntakeActivatorState desiredState){
 		switch(desiredState){
 		case IN:
-			RobotMap.intakeActivator.set(DoubleSolenoid.Value.kReverse);
+			RobotMap.intakeActivator.set(DoubleSolenoid.Value.kForward);
 			break;
 		case OUT:
-			RobotMap.intakeActivator.set(DoubleSolenoid.Value.kForward);
+			RobotMap.intakeActivator.set(DoubleSolenoid.Value.kReverse);
 			break;
 		default:
 			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kReverse);

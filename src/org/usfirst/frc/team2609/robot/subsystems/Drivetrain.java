@@ -22,6 +22,7 @@ public class Drivetrain extends Subsystem {
 	private int currID;
 	private double timeStarted;
 	private static boolean reverse;
+	private double last_world_linear_accel_x,last_world_linear_accel_y;
 	public EncoderFollower left,right;
 	
 	
@@ -251,6 +252,22 @@ public class Drivetrain extends Subsystem {
 			System.out.println("NOT GENERATED!!!");
 		}
 		
+    }
+    public boolean collisionDetected(){
+        double curr_world_linear_accel_x = RobotMap.ahrs.getWorldLinearAccelX();
+        double currentJerkX = curr_world_linear_accel_x - last_world_linear_accel_x;
+        last_world_linear_accel_x = curr_world_linear_accel_x;
+        double curr_world_linear_accel_y = RobotMap.ahrs.getWorldLinearAccelY();
+        double currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
+        last_world_linear_accel_y = curr_world_linear_accel_y;
+//        System.out.println("X Jerk " + Math.abs(currentJerkX));
+//        System.out.println("Y Jerk " + Math.abs(currentJerkY));
+        if ( ( Math.abs(currentJerkX) > 0.5 ) ||
+             ( Math.abs(currentJerkY) > 0.5) ) {
+            return true;
+        }else{
+        	return false;
+        }
     }
 }
 

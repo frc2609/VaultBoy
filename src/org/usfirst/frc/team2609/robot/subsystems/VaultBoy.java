@@ -29,8 +29,6 @@ public class VaultBoy extends Subsystem {
     }
 
     public void initDefaultCommand() {
-		RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, 0);
-		RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, 0);
     }
 }
 

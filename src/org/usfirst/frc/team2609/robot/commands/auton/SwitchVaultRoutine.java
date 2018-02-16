@@ -26,11 +26,11 @@ public class SwitchVaultRoutine extends CommandGroup {
     	addParallel(new SliderHome());
     	addParallel(new ShooterRoller(1));
     	addSequential(new LaunchMP(0));
-    	addSequential(new ShooterActivatorSetState(ShooterActivatorState.IN));
+    	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
     	addSequential(new TimerDelay(1.5));
     	addSequential(new SwitchScore());
 //    	addSequential(new Delay(2));
-    	addSequential(new ShooterActivatorSetState(ShooterActivatorState.OUT));
+    	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new LaunchMP(1));
     	addParallel(new CubeCollect());
 //    	addSequential(new Delay(2));

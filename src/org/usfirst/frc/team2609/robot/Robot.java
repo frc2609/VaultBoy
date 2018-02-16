@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2609.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -185,6 +186,10 @@ public class Robot extends TimedRobot {
 				RobotMap.slider.getOutputCurrent());
 		SmartDashboard.putNumber("slider.error",
 				RobotMap.slider.getClosedLoopError(0));
+		SmartDashboard.putBoolean("ahrs collision",
+				drivetrain.collisionDetected());
+		
+		SmartDashboard.putNumber("rollertime", 0.1);
 		
 		MPConstants.sdGet();
 		
@@ -212,6 +217,7 @@ public class Robot extends TimedRobot {
 		}
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetGyro();
+		Robot.intakeRoller.intakeRollerBrakeMode(true);
 		enabledLooper.start();
 		logger.openFile();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
@@ -275,15 +281,17 @@ public class Robot extends TimedRobot {
 		}
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetGyro();
+		Robot.intakeRoller.intakeRollerBrakeMode(true);
+		
 		logger.openFile();
 		RobotMap.mpRoutine = new RightSwitchVaultMPRoutine();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
-		shooterActivator.setShooterActivatorState(ShooterActivatorState.OUT);
+		shooterActivator.setShooterActivatorState(ShooterActivatorState.UP);
 		new DriveTeleop().start();
-		
+		new SliderHome().start();
 		enabledLooper.start();
 	}
 
@@ -332,14 +340,16 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("slider.getSelectedSensorPosition0",
 				RobotMap.slider.getSelectedSensorPosition(0));
 		
-//		RobotMap.slider.set(0.15);
+		
+//		RobotMap.intakeRollerLeft.set(0.75);
+//		RobotMap.intakeRollerRight.set(0.75);
 		
 		if (OI.driverButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.2);
 		}
 		if (OI.driverButton3.get()){
 			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, -OI.driverStick.getRawAxis(3));
+			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
 			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
 			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
 		}

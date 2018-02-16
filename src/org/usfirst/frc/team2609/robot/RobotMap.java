@@ -17,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -59,6 +60,8 @@ public class RobotMap {
 	public static BeaverTalonSRX shooterRight;
 	public static BeaverTalonSRX shooterLeft;
 	
+	
+	
 	//misc
 	public static AHRS ahrs;
 	public static PowerDistributionPanel pdp;
@@ -77,7 +80,13 @@ public class RobotMap {
     public static MPRoutine mpRoutine;
 	
 	public static void init(){
-		
+
+		try {
+			CameraServer.getInstance().startAutomaticCapture();
+//			CameraServer.getInstance().startAutomaticCapture(1);
+        } catch (RuntimeException ex ) {
+            DriverStation.reportError("Error instantiating camera:  " + ex.getMessage(), true);
+        }
 		//drivetrain
 		driveLeft1 = new BeaverTalonSRX(1);
 		driveLeft2 = new BeaverTalonSRX(2);
@@ -111,10 +120,10 @@ public class RobotMap {
 		slider = new BeaverTalonSRX(6);
 		intakeRollerLeft = new BeaverTalonSRX(4);
 		intakeRollerRight = new BeaverTalonSRX(8);
-		cubeSensor = new DigitalInput(0);
+		cubeSensor = new DigitalInput(9);
 		
-		intakeRollerLeft.setNeutralMode(NeutralMode.Brake);
-		intakeRollerRight.setNeutralMode(NeutralMode.Brake);
+		intakeRollerLeft.setInverted(true);
+		intakeRollerRight.setInverted(true);
 		
 		slider.setInverted(false); // +ve is in and -ve is out
 		slider.setSensorPhase(false);
@@ -125,9 +134,11 @@ public class RobotMap {
 		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 		slider.configOpenloopRamp(0.1, 10);
 		
+		vaultBoyRight.setInverted(true);
+		
 		//pneumatics
-		shooterActivator = new DoubleSolenoid(0,1,2);
-		intakeActivator = new DoubleSolenoid(0,0,3);
+		shooterActivator = new DoubleSolenoid(0,0,3);
+		intakeActivator = new DoubleSolenoid(0,1,2);
 		
 		//misc
 		pdp = new PowerDistributionPanel(12);
@@ -139,6 +150,8 @@ public class RobotMap {
 		}catch (RuntimeException ex){
 			DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
 		}
+		
+		
 		
 		
 	}

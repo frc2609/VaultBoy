@@ -15,10 +15,10 @@ public class ShooterActivator extends Subsystem {
     // here. Call these from Commands.
 	public void setShooterActivatorState(ShooterActivatorState desiredState){
 		switch(desiredState){
-		case IN:
+		case UP:
 			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kReverse);
 			break;
-		case OUT:
+		case DOWN:
 			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kForward);
 			break;
 		default:

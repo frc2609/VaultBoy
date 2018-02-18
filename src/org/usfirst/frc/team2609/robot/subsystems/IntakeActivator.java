@@ -29,5 +29,7 @@ public class IntakeActivator extends Subsystem {
     public void initDefaultCommand() {
     	
     }
+    
+    //TODO add getenum
 }
 

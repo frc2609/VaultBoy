@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2609.robot;
 
 import org.usfirst.frc.team2609.BeaverTalonSRX;
+import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.MP.MPConstants;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 
@@ -17,6 +18,8 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.VideoSink;
+import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,6 +27,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
+import enums.DriveActivatorState;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
@@ -74,16 +78,28 @@ public class RobotMap {
     
     
     //MP
-    public static TankModifier[] plannedPath;
-    public static boolean[] isGenerated;
-    public static boolean[] isDoneMP;
-    public static MPRoutine mpRoutine;
-	
+    public static TankModifier[] plannedPathL;
+    public static TankModifier[] plannedPathR;
+    public static boolean[] isGeneratedR;
+    public static boolean[] isDoneMPR;
+    public static boolean[] isGeneratedL;
+    public static boolean[] isDoneMPL;
+    public static MPRoutine mpRoutineL;
+    public static MPRoutine mpRoutineR;
+    public static AutoSide activeSide;
+    public static DriveActivatorState teleopState;
+    
+    public static String gameData;
+//    public static VideoSink server;
 	public static void init(){
 
 		try {
-			CameraServer.getInstance().startAutomaticCapture();
-//			CameraServer.getInstance().startAutomaticCapture(1);
+			CameraServer.getInstance().startAutomaticCapture(0);
+			CameraServer.getInstance().startAutomaticCapture(1);
+//			cam1 = CameraServer.getInstance().
+//			cam2 = CameraServer.getInstance().startAutomaticCapture(1);
+//			server = CameraServer.getInstance().getServer();
+			// cancer
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating camera:  " + ex.getMessage(), true);
         }
@@ -150,9 +166,11 @@ public class RobotMap {
 		}catch (RuntimeException ex){
 			DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
 		}
+
+		shooterLeft.configOpenloopRamp(0, 0);
+		shooterRight.configOpenloopRamp(0, 0);
 		
-		
-		
+//		server.setSource(cam1);
 		
 	}
 	

@@ -13,7 +13,9 @@ import org.usfirst.frc.team2609.robot.commands.automation.SwitchScore;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
+import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
+import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -71,41 +73,81 @@ public class OI {
 	
 	public static Joystick operatorStick;
 	public static JoystickButton operatorButton1;
+	public static JoystickButton operatorButton2;
+	public static JoystickButton operatorButton3;
+	public static JoystickButton operatorButton4;
+	public static JoystickButton operatorButton5;
+	public static JoystickButton operatorButton6;
+	public static JoystickButton operatorButton7;
+	public static JoystickButton operatorButton8;
 	
 	public OI(){
 		driverStick = new Joystick(0);
 		operatorStick = new Joystick(1);
 		
+		//driver inputs
 		driverButton1 = new JoystickButton(driverStick, 1);
-		driverButton1.whileHeld(new IntakeRollerPower(0.75,12));
+		driverButton1.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+		
 
 		driverButton2 = new JoystickButton(driverStick, 2);
-		driverButton2.whenPressed(new IntakeRollerPower(0,12));
+		driverButton2.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
+		
+
+		driverButton5 = new JoystickButton(driverStick, 5);
+		driverButton5.whileHeld(new VaultBoyPower(0.5));
+		driverButton5.whileHeld(new IntakeRollerPower(0.4,5));
+		driverButton5.whileHeld(new ShooterRoller(-0.3));
+		driverButton5.whenReleased(new VaultBoyPower(0));
+		driverButton5.whenReleased(new IntakeRollerPower(0,5));
+		driverButton5.whenReleased(new ShooterRoller(0));
 		
 		driverButton3 = new JoystickButton(driverStick, 3);
 //		driverButton3.whenPressed(new LaunchMP(0));
 //		
-		driverButton4 = new JoystickButton(driverStick, 4);
-		driverButton4.whenPressed(new SwitchScore());
+		driverButton7 = new JoystickButton(driverStick, 7);
+		driverButton7.whileHeld(new VaultBoyPower(-0.5));
+		driverButton7.whileHeld(new IntakeRollerPower(-0.4,5));
+		driverButton7.whileHeld(new ShooterRoller(-0.3));
+		driverButton7.whenReleased(new VaultBoyPower(0));
+		driverButton7.whenReleased(new IntakeRollerPower(0,5));
+		driverButton7.whenReleased(new ShooterRoller(0));
 //		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
 		
-		driverButton5 = new JoystickButton(driverStick, 5);
-		driverButton5.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
 		
 		driverButton6 = new JoystickButton(driverStick, 6);
-		driverButton6.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+//		driverButton6.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+		driverButton6.whenPressed(new CubeCollect());
 		
-		driverButton6 = new JoystickButton(driverStick, 7);
-		driverButton6.whenPressed(new SliderPosition(500));
+		driverButton7 = new JoystickButton(driverStick, 7);
 		
-		driverButton6 = new JoystickButton(driverStick, 8);
-		driverButton6.whenPressed(new SliderPosition(8900));
+		driverButton8 = new JoystickButton(driverStick, 8);
+		driverButton8.whenPressed(new SwitchScore());
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
-		driverButton9.whenPressed(new SliderHome());
+		driverButton9.whenPressed(new SliderPosition(500));
+//		driverButton9.whenPressed(new SliderHome());
 		
 		driverButton10 = new JoystickButton(driverStick, 10);
-		driverButton10.whenPressed(new CubeCollect());
 		
+		//operator inputs
+		operatorButton1 = new JoystickButton(operatorStick, 1);
+		operatorButton1.whenPressed(new SliderHome());
+//		operatorButton1.whenPressed(new SliderPosition(500));
+//		operatorButton1.whileHeld(new IntakeRollerPower(0.75,12));
+		operatorButton2 = new JoystickButton(operatorStick, 2);
+//		operatorButton2.whileHeld(new VaultBoyPower(0.75));
+		operatorButton3 = new JoystickButton(operatorStick, 3);
+//		operatorButton3.whenPressed(new LaunchMP(0));
+		operatorButton4 = new JoystickButton(operatorStick, 4);
+//		operatorButton4.whileHeld(new VaultBoyPower(-0.75));
+		operatorButton5 = new JoystickButton(operatorStick, 5);
+//		operatorButton5.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
+		operatorButton6 = new JoystickButton(operatorStick, 6);
+//		operatorButton6.whenPressed(new CubeCollect());
+		operatorButton7 = new JoystickButton(operatorStick, 7);
+//		operatorButton7.whenPressed(new SliderPosition(500));
+		operatorButton8 = new JoystickButton(operatorStick, 8);
+//		operatorButton8.whenPressed(new SwitchScore());
 	}
 }

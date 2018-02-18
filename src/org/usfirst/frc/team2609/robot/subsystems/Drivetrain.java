@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2609.robot.subsystems;
 
+import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.MP.Loop;
 import org.usfirst.frc.team2609.MP.MPConstants;
 import org.usfirst.frc.team2609.robot.Robot;
@@ -91,7 +92,12 @@ public class Drivetrain extends Subsystem {
 					if (left.isFinished(Timer.getFPGATimestamp(), timeStarted)
 							&& right.isFinished(Timer.getFPGATimestamp(), timeStarted)) {
 						Robot.isDriveTrainMPActive = false;
-						RobotMap.isDoneMP[currID] = true;
+						if(RobotMap.activeSide == AutoSide.LEFT){
+							RobotMap.isDoneMPL[currID] = true;
+						}else{
+							RobotMap.isDoneMPR[currID] = true;
+						}
+//						RobotMap.isDoneMP[currID] = true;
 						setDrive(DriveState.AUTON, 0, 0);
 						System.out.println("Both trajectories finished");
 					} else {
@@ -207,18 +213,32 @@ public class Drivetrain extends Subsystem {
     
     public void initMP(int id){
 		this.currID = id;
+		boolean isGeneratedCurr,isDoneCurr,isReverseCurr;
 		MPConstants.sdGet();
-		RobotMap.isDoneMP[currID] = false;
-		if (RobotMap.isGenerated[id] && !RobotMap.mpRoutine.isReverse[id]) { // The point of this is to make sure that the trajectory has been generated.
+		if (RobotMap.activeSide == AutoSide.LEFT) {
+			isDoneCurr = RobotMap.isDoneMPL[currID];
+			isGeneratedCurr = RobotMap.isGeneratedL[id];
+			isReverseCurr = RobotMap.mpRoutineL.isReverse[id];
+			left = new EncoderFollower(RobotMap.plannedPathL[id].getLeftTrajectory());
+			right = new EncoderFollower(RobotMap.plannedPathL[id].getRightTrajectory());
+			this.reverse = isReverseCurr;
+		} else {
+			isDoneCurr = RobotMap.isDoneMPR[currID];
+			isGeneratedCurr = RobotMap.isGeneratedR[id];
+			isReverseCurr = RobotMap.mpRoutineR.isReverse[id];
+			left = new EncoderFollower(RobotMap.plannedPathR[id].getLeftTrajectory());
+			right = new EncoderFollower(RobotMap.plannedPathR[id].getRightTrajectory());
+			this.reverse = isReverseCurr;
+		}
+		
+		if (isGeneratedCurr && !isReverseCurr) { // The point of this is to make sure that the trajectory has been generated.
 			
 			this.resetEncoders();
-			left = new EncoderFollower(RobotMap.plannedPath[id].getLeftTrajectory());
 			left.configureEncoder(RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); // 4096 magenc
 			left.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 
 //			left.configurePIDVA(0, 0, 0, 1 / 10, 0);
 
-			right = new EncoderFollower(RobotMap.plannedPath[id].getRightTrajectory());
 			right.configureEncoder(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); //4096
 			right.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 
@@ -226,30 +246,33 @@ public class Drivetrain extends Subsystem {
 
 			Robot.isDriveTrainMPActive = true;
 			this.timeStarted = Timer.getFPGATimestamp();
-			this.reverse = RobotMap.mpRoutine.isReverse[id];
 			System.out.println("Starting #" + id +  " MP loop at: "+ this.timeStarted);
 		}
-		else if (RobotMap.isGenerated[id] && RobotMap.mpRoutine.isReverse[id]){
+		else if (isGeneratedCurr && isReverseCurr){
 
 			this.resetEncoders();
-			left = new EncoderFollower(RobotMap.plannedPath[id].getLeftTrajectory());
 			left.configureEncoder(RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); // 4096 magenc
 //			left.configurePIDVA(0, 0, 0, 1 / 10, 0);
 
 			left.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 
-			right = new EncoderFollower(RobotMap.plannedPath[id].getRightTrajectory());
+			
 			right.configureEncoder(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); //4096
 			right.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 //			right.configurePIDVA(0, 0, 0, 1 / 10, 0);
 
 			Robot.isDriveTrainMPActive = true;
 			this.timeStarted = Timer.getFPGATimestamp();
-			this.reverse = RobotMap.mpRoutine.isReverse[id];
 			System.out.println("Starting #" + id +  " MP loop at: "+ this.timeStarted);
 			System.out.println("!!!!!REVERSE!!!!!");
 		}else{
 			System.out.println("NOT GENERATED!!!");
+		}
+
+		if(RobotMap.activeSide == AutoSide.LEFT){
+			RobotMap.isDoneMPL[currID] = false;
+		}else{
+			RobotMap.isDoneMPR[currID] = false;
 		}
 		
     }

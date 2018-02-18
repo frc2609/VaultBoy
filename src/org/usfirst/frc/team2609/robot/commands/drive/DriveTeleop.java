@@ -5,6 +5,7 @@ import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import enums.DriveActivatorState;
 import enums.DriveState;
 
 /**
@@ -30,6 +31,10 @@ public class DriveTeleop extends Command {
     protected void execute() {
 		double X = OI.driverStick.getRawAxis(0);
         double Y = -OI.driverStick.getRawAxis(1);
+        if (Robot.m_oi.driverButton3.get()){
+            Y = OI.driverStick.getRawAxis(1);
+        }
+        	
         double leftPower = 0;
         double rightPower = 0;
         double deadzone = 0.15;
@@ -39,8 +44,10 @@ public class DriveTeleop extends Command {
         	rightPower 	=0;
         }
         else{
-        	leftPower	= Y+(X*(1-Math.abs(.2*Y)));
-        	rightPower	= Y-(X*(1-Math.abs(.2*Y)));
+//        	leftPower	= Y+(X*(1-Math.abs(.2*Y)));
+//        	rightPower	= Y-(X*(1-Math.abs(.2*Y)));
+        	leftPower	= Y+X;
+        	rightPower	= Y-X;
         }
 
     	Robot.drivetrain.setDrive(DriveState.TELEOP,leftPower,rightPower);

@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2609.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
+import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.MP.MPConstants;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.robot.RobotMap;
@@ -10,15 +12,27 @@ import org.usfirst.frc.team2609.robot.RobotMap;
  *
  */
 public class SetMPRoutine extends Command {
-    public SetMPRoutine(MPRoutine routine) {
+	MPRoutine routineSL, routineSR;
+    public SetMPRoutine(MPRoutine routineSL, MPRoutine routineSR) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	RobotMap.mpRoutine = routine;
     	MPConstants.sdGet();
+    	this.routineSL = routineSL;
+    	this.routineSR = routineSR;
+    	RobotMap.mpRoutineL = routineSL;
+    	RobotMap.mpRoutineR = routineSR;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	RobotMap.gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	if(RobotMap.gameData.length() > 0){
+    		if(RobotMap.gameData.charAt(0)=='L'){
+    			RobotMap.activeSide = AutoSide.LEFT;
+    		}else{
+    			RobotMap.activeSide = AutoSide.RIGHT;
+    		}
+    	}
     	
     }
 

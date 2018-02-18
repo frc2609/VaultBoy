@@ -1,9 +1,11 @@
 package org.usfirst.frc.team2609.robot.commands;
 
+import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.RobotMap;
 
-
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -30,7 +32,11 @@ public class LaunchMP extends Command {
     	Robot.drivetrain.resetEncoders();
     	Robot.isDriveTrainMPActive = false;
 //        RobotMap.ahrs.zeroYaw();
-    	Robot.pathGenerator.generate(id);
+    	if(Robot.pathGenerator.ActiveName != RobotMap.mpRoutineL.name){
+            System.out.println("MP " + RobotMap.mpRoutineR.name + " IS NOT GENERATED! GENERATING AT " + DriverStation.getInstance().getMatchTime());
+//        	Robot.pathGenerator.generateAll();
+    		
+    	}
         System.out.println("Starting init LaunchMP");
         try{
         	Robot.drivetrain.initMP(id);
@@ -59,7 +65,12 @@ public class LaunchMP extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return RobotMap.isDoneMP[id];
+        if(RobotMap.activeSide == AutoSide.LEFT)
+        	{
+        	return RobotMap.isDoneMPL[id];
+        	}else{
+        		return RobotMap.isDoneMPR[id];
+        	}
     }
 
     // Called once after isFinished returns true

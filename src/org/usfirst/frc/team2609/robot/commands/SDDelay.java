@@ -1,25 +1,25 @@
-package org.usfirst.frc.team2609.robot.commands.shooter;
+package org.usfirst.frc.team2609.robot.commands;
 
-import org.usfirst.frc.team2609.robot.RobotMap;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import enums.DriveActivatorState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class ShooterRoller extends Command {
-	double speed;
-    public ShooterRoller(double speed) {
+public class SDDelay extends Command {
+
+	double time,startTime;
+    public SDDelay() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	RobotMap.shooterLeft.set(speed);
-    	RobotMap.shooterRight.set(-speed);
+    	startTime = Timer.getFPGATimestamp();
+    	time = SmartDashboard.getNumber("Auto delay", 0);
+    	System.out.println(time);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,17 +28,11 @@ public class ShooterRoller extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return (Timer.getFPGATimestamp()>=(startTime+time));
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	if(speed>0){
-    		RobotMap.teleopState = DriveActivatorState.DISABLED;
-    	}else{
-    		RobotMap.teleopState = DriveActivatorState.ACTIVE;
-    		
-    	}
     }
 
     // Called when another command which requires one or more of the same

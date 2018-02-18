@@ -19,7 +19,11 @@ public class ShooterActivator extends Subsystem {
 			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kReverse);
 			break;
 		case DOWN:
-			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kForward);
+//			if ((Math.abs(RobotMap.slider.getSelectedSensorPosition(0)-500))<=100 && RobotMap.intakeActivator.get() == DoubleSolenoid.Value.kReverse){
+				RobotMap.shooterActivator.set(DoubleSolenoid.Value.kForward);
+//			}else{
+//				System.out.println("SLIDER OUT");
+//			}
 			break;
 		default:
 			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kReverse);

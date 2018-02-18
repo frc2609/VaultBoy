@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2609.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -80,17 +81,16 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		RobotMap.init(); // imports all of RobotMap, required to not crash on
 							// start up
-		
+
+//		CameraServer.getInstance().startAutomaticCapture();
 		enabledLooper = new Looper();
 
 		m_oi = new OI();
-		m_chooser.addDefault("testOnton", new TestOnton());
+		m_chooser.addDefault("Switch2Vault MP", new SwitchVaultRoutine());
 		m_chooser.addObject("switchVaultMiddle", new SwitchVaultMiddle());
 		m_chooser.addObject("testOnton", new TestOnton());
 		m_chooser.addObject("trapezoid", new DriveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
 		m_chooser.addObject("slider reset", new SliderHome());
-		m_chooser.addObject("rightSwitch2Vault MP", new SwitchVaultRoutine(new RightSwitchVaultMPRoutine()));
-		m_chooser.addObject("leftSwitch2Vault MP", new SwitchVaultRoutine(new LeftSwitchVaultMPRoutine()));
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		MPConstants.sdPut();
@@ -119,13 +119,16 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Steering Max: ", 0.2);
     	//Slider PID
 		SmartDashboard.putNumber("Slider P: ", 0.5);
-    	SmartDashboard.putNumber("Slider I: ", 0.0);
+    	SmartDashboard.putNumber("Slider I: ", 0.0001);
     	SmartDashboard.putNumber("Slider D: ", 0.0);
     	SmartDashboard.putNumber("Slider F: ", 0.32);
     	SmartDashboard.putNumber("Slider Max: ", 1.0);
     	SmartDashboard.putNumber("Slider Eps: ", 1.0);
     	SmartDashboard.putNumber("Slider DR: ", 100);
     	SmartDashboard.putNumber("Slider DC: ", 5);
+    	
+    	
+    	SmartDashboard.putNumber("Auto delay", 0);
     	
     	try{
     		enabledLooper.register(drivetrain.getLooper());
@@ -192,7 +195,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("rollertime", 0.1);
 		
 		MPConstants.sdGet();
-		
+
+		pathGenerator.generateAll();
 		
 	}
 
@@ -284,7 +288,6 @@ public class Robot extends TimedRobot {
 		Robot.intakeRoller.intakeRollerBrakeMode(true);
 		
 		logger.openFile();
-		RobotMap.mpRoutine = new RightSwitchVaultMPRoutine();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
@@ -340,19 +343,23 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("slider.getSelectedSensorPosition0",
 				RobotMap.slider.getSelectedSensorPosition(0));
 		
+
+    	SmartDashboard.putNumber("ShooterL curr: ", RobotMap.shooterLeft.getOutputCurrent());
+    	SmartDashboard.putNumber("ShooterR curr: ", RobotMap.shooterRight.getOutputCurrent());
+		
 		
 //		RobotMap.intakeRollerLeft.set(0.75);
 //		RobotMap.intakeRollerRight.set(0.75);
 		
-		if (OI.driverButton2.get()){
-			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.2);
-		}
-		if (OI.driverButton3.get()){
-			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-		}
+//		if (OI.driverButton2.get()){
+//			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.2);
+//		}
+//		if (OI.driverButton3.get()){
+//			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
+//			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
+//			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
+//			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
+//		}
 //		Robot.drivetrain.setDrive(DriveState.AUTON, m_oi.driverStick.getRawAxis(1), m_oi.driverStick.getRawAxis(3));
 	}
 

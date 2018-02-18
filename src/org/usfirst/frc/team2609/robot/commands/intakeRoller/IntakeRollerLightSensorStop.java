@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2609.robot.commands.intakeRoller;
 
 import org.usfirst.frc.team2609.robot.Robot;
+import org.usfirst.frc.team2609.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,7 +34,7 @@ public class IntakeRollerLightSensorStop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	if(RobotMap.intakeActivator.get() == DoubleSolenoid.Value.kForward){
     	
     	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
     		if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
@@ -57,6 +59,11 @@ public class IntakeRollerLightSensorStop extends Command {
 				Robot.intakeRoller.intakeRollerSetR(power);
 			}
 		}
+    	}else{
+			Robot.intakeRoller.intakeRollerSetR(0);
+			Robot.intakeRoller.intakeRollerSetL(0);
+    		
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -68,7 +75,7 @@ public class IntakeRollerLightSensorStop extends Command {
     		cubeCounter = 0;
     	}
     	
-    	if (cubeCounter == 7) {
+    	if (cubeCounter >= 10) {
     		return true;
 		}
     	else{

@@ -23,7 +23,7 @@ public class Slider extends Subsystem {
 		@Override
 		public void onLoop(){
 			synchronized (Slider.this){
-//				Robot.logger.logMM();
+//				Robot.logger.logTele();
 			}
 		}
 		@Override

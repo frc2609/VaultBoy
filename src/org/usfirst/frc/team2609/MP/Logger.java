@@ -85,6 +85,18 @@ public class Logger {
 	        }
     	}
     }
+    public void openFileTele() {
+    	if(this.wantToLog() || this.ds.isFMSAttached()){
+	        try{
+	            path = this.getPath();
+	            this.writer = new BufferedWriter(new FileWriter(path));
+	            this.writer.write("FPGATime, shooterL, shooterR, vaultboyL, vaultboyR");
+	            this.writer.newLine();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+    	}
+    }
     
     private String getPath() {
     	this.fileName = SmartDashboard.getString(SDFileName, "beaverlog");
@@ -96,7 +108,32 @@ public class Logger {
             return String.format("/home/lvuser/beaverlogs/%d_log.csv", ++this.max);
         }
     }
-   
+    public void logTele() {
+    	if(this.wantToLog()){
+	        try {
+	        	//int ,%d
+	        	//double ,%.3f
+	        	this.writer.write(String.format("%.3f", Timer.getFPGATimestamp()));
+//	        	this.writer.write(String.format(",%d", new java.util.Date().getTime()));
+	            this.writer.write(String.format(",%.3f", RobotMap.shooterLeft.getOutputCurrent()));
+	            this.writer.write(String.format(",%.3f", RobotMap.shooterRight.getOutputCurrent()));
+	            this.writer.write(String.format(",%.3f", RobotMap.vaultBoyLeft.getOutputCurrent()));
+	            this.writer.write(String.format(",%.3f", RobotMap.vaultBoyRight.getOutputCurrent()));
+	            
+
+	            
+	            
+	            
+	            
+	           
+	            
+	            this.writer.newLine();
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+    	}
+    }
     public void logAll() {
     	if(this.wantToLog()){
 	        try {

@@ -29,6 +29,10 @@ public class LaunchMP extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	RobotMap.driveLeft1.configOpenloopRamp(0, 0);
+    	RobotMap.driveLeft2.configOpenloopRamp(0, 0);
+    	RobotMap.driveRight1.configOpenloopRamp(0, 0);
+    	RobotMap.driveRight2.configOpenloopRamp(0, 0);
     	Robot.drivetrain.resetEncoders();
     	Robot.isDriveTrainMPActive = false;
 //        RobotMap.ahrs.zeroYaw();

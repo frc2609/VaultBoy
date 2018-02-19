@@ -33,7 +33,6 @@ public class IntakeRollerPower extends Command {
 		if (Timer.getFPGATimestamp() > timeInit + 0.1) {
 			if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)
 					&& (Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)) {
-				Robot.intakeRoller.setIntakePower(power, power);
 			} else {
 				timeInit = Timer.getFPGATimestamp();
 				Robot.intakeRoller.setIntakePower(0, 0);

@@ -287,7 +287,7 @@ public class Robot extends TimedRobot {
 		Robot.drivetrain.resetGyro();
 		Robot.intakeRoller.intakeRollerBrakeMode(true);
 		
-		logger.openFile();
+		logger.openFileTele();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);

@@ -18,6 +18,8 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.cscore.VideoSink;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -94,8 +96,12 @@ public class RobotMap {
 	public static void init(){
 
 		try {
-			CameraServer.getInstance().startAutomaticCapture(0);
-			CameraServer.getInstance().startAutomaticCapture(1);
+			UsbCamera cameraFront = CameraServer.getInstance().startAutomaticCapture(0);
+			UsbCamera cameraRear = CameraServer.getInstance().startAutomaticCapture(1);
+			cameraFront.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 15);
+			cameraRear.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 15);
+//			CameraServer.getInstance().startAutomaticCapture(0);
+//			CameraServer.getInstance().startAutomaticCapture(1);
 //			cam1 = CameraServer.getInstance().
 //			cam2 = CameraServer.getInstance().startAutomaticCapture(1);
 //			server = CameraServer.getInstance().getServer();

@@ -5,6 +5,7 @@ import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSe
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStop;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStopAuto;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
+import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerVaultBoyStop;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
@@ -28,11 +29,11 @@ public class CubeCollectAuto2 extends CommandGroup {
     	addSequential(new SliderPosition(7300));
     	//addParallel(new VaultBoyPower(-0.2,10));
     	//addParallel(new VaultBoyPower(.5));
-    	addSequential(new IntakeRollerLightSensorStopAuto(0.8,0.6,6));
+    	addSequential(new IntakeRollerLightSensorStopAuto(0.6,6));
     	//addParallel(new IntakeRollerPower(-.2,4.5));
     	//addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 //    	addSequential(new SliderPosition(7300));
-    	addParallel(new IntakeRollerPower(.25,5));
+    	addParallel(new IntakeRollerPowerNoCurrent(.25));
 //    	addParallel(new VaultBoyPower(.1));
     	
     	//addParallel(new VaultBoyPower(0.25,10));

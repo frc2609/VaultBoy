@@ -14,7 +14,9 @@ import org.usfirst.frc.team2609.robot.commands.automation.CubeCollectAuto2;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScore;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScoreAuto;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
+import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStop;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
+import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
@@ -39,18 +41,21 @@ public class SwitchVaultRoutine extends CommandGroup {
     	addSequential(new SwitchScoreAuto());
     	
     	addParallel(new ParallelPosition());
-//    	addParallel(new SliderPosition(7300));
     	addSequential(new LaunchMP(1));
-    	addParallel(new IntakeRollerPower(.6,5));
+    	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addParallel(new CubeCollectAuto());
     	addSequential(new LaunchMP(2));
+//    	addParallel(new SliderPosition(500));
     	// PUT PARALELLSHOOT HERE
-    	addParallel(new IntakeRollerPower(.25,5));
     	addParallel(new ParallelShoot());
     	addSequential(new LaunchMP(3));
-    	addParallel(new CubeCollectAuto2());
+    	addParallel(new VaultBoyPower(0));
+    	addParallel(new IntakeRollerLightSensorStop(0.45,5));
+    	addSequential(new Delay(0.4));
+    	addParallel(new IntakeRollerPowerNoCurrent(.5));
+//    	addParallel(new IntakeRollerLightSensorStop(0.45,5));
+    	
     	addSequential(new LaunchMP(4));
-    	addParallel(new IntakeRollerPower(.25,5));
     	addParallel(new ParallelShoot());
     	addSequential(new LaunchMP(5));
 //    	addParallel(new VaultBoyPower(1));

@@ -71,7 +71,7 @@ public class SliderPosition extends Command {
     // Called once after isFinished returns true
     protected void end() {
 //    	Robot.slider.sliderPower(0);
-//    	System.out.println("Got to " + sliderTarget);
+    	System.out.println("Got to " + sliderTarget);
     }
 
     // Called when another command which requires one or more of the same

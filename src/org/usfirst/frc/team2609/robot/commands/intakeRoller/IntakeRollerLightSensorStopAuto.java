@@ -35,6 +35,7 @@ public class IntakeRollerLightSensorStopAuto extends Command {
         // eg. requires(chassis);
     	requires(Robot.intakeRoller);
     	this.currentThreshold = currentThreshold;
+    	this.disableCurrentSense = false;
     	this.powerL = powerL;
     	this.powerR = powerR;
     }
@@ -53,39 +54,38 @@ public class IntakeRollerLightSensorStopAuto extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	if(disableCurrentSense){
+	protected void execute() {
+		if (disableCurrentSense) {
 			Robot.intakeRoller.intakeRollerSetL(powerL);
 			Robot.intakeRoller.intakeRollerSetR(powerR);
-    		
-    	}else{
-    		
-    	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
-    		if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
-				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.intakeRollerSetR(0);
-				Robot.intakeRoller.intakeRollerSetL(0);
-				System.out.println("BOTH");
-			}
-    		else if (Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) {
-				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.intakeRollerSetR(0);
-				Robot.intakeRoller.intakeRollerSetL(0);
-				System.out.println("L");
-//				Robot.intakeRoller.intakeRollerSetL(power);
-			}
-    		else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
-				timeInit = Timer.getFPGATimestamp();
-//				Robot.intakeRoller.intakeRollerSetR(power);
-				Robot.intakeRoller.intakeRollerSetR(0);
-				Robot.intakeRoller.intakeRollerSetL(0);
-				System.out.println("R");
-			} else {
-				Robot.intakeRoller.intakeRollerSetL(powerL);
-				Robot.intakeRoller.intakeRollerSetR(powerR);
+
+		} else {
+
+			if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
+				if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold)
+						&& (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
+					timeInit = Timer.getFPGATimestamp();
+					Robot.intakeRoller.intakeRollerSetR(0);
+					Robot.intakeRoller.intakeRollerSetL(0);
+					System.out.println("BOTH");
+				} else if (Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) {
+					timeInit = Timer.getFPGATimestamp();
+					Robot.intakeRoller.intakeRollerSetR(0);
+					Robot.intakeRoller.intakeRollerSetL(0);
+					System.out.println("L");
+					// Robot.intakeRoller.intakeRollerSetL(power);
+				} else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
+					timeInit = Timer.getFPGATimestamp();
+					// Robot.intakeRoller.intakeRollerSetR(power);
+					Robot.intakeRoller.intakeRollerSetR(0);
+					Robot.intakeRoller.intakeRollerSetL(0);
+					System.out.println("R");
+				} else {
+					Robot.intakeRoller.intakeRollerSetL(powerL);
+					Robot.intakeRoller.intakeRollerSetR(powerR);
+				}
 			}
 		}
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

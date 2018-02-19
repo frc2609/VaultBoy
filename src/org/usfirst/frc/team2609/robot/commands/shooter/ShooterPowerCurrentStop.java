@@ -33,6 +33,12 @@ public class ShooterPowerCurrentStop extends Command {
     protected void execute() {
     	RobotMap.shooterLeft.set(power);
     	RobotMap.shooterRight.set(-power);
+    	if(RobotMap.pdp.getVoltage()<=10){
+    		currentLimit++;
+    	}
+    	if(RobotMap.pdp.getVoltage()<=8){
+    		currentLimit++;
+    	}
     	if((RobotMap.shooterLeft.getOutputCurrent()>currentLimit)&&(RobotMap.shooterRight.getOutputCurrent()>currentLimit)){
     		currentLatch = true;
     	}

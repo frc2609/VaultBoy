@@ -62,6 +62,7 @@ public class PathGenerator {
 		if (ActiveName != RobotMap.mpRoutineL.name) {
 			if (lengthL > -1) {
 				for (int i = 0; i <= lengthL; i++) {
+					if(!RobotMap.isGeneratedL.equals(null)){
 					if (!RobotMap.isGeneratedL[i]) {
 						System.out.println("Generating " + RobotMap.mpRoutineL.name + " section " + i);
 						generate(i, AutoSide.LEFT);
@@ -69,6 +70,11 @@ public class PathGenerator {
 					} else {
 						generatedLenL++;
 
+					}
+					}
+					else{
+						System.out.println("Is generated L equals null: " + RobotMap.isGeneratedL.equals(null));
+						
 					}
 				}
 			}

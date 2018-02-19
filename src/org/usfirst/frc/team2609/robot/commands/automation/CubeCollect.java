@@ -25,15 +25,15 @@ public class CubeCollect extends CommandGroup {
     	addParallel(new IntakeRollerPower(0,12));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
-    	addSequential(new SliderPosition(6600));
+    	addSequential(new SliderPosition(7300));
     	//addParallel(new VaultBoyPower(-0.2,10));
     	//addParallel(new VaultBoyPower(.5));
-    	addSequential(new IntakeRollerLightSensorStop(0.35,5));
+    	addSequential(new IntakeRollerLightSensorStop(0.45,5));
     	addSequential(new ShooterRoller(0));
     	//addParallel(new IntakeRollerPower(-.2,4.5));
     	//addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 //    	addSequential(new SliderPosition(7300));
-    	addParallel(new IntakeRollerPower(.1,5));
+    	addParallel(new IntakeRollerPower(.25,5));
     	addParallel(new VaultBoyPower(.1));
     	
     	//addParallel(new VaultBoyPower(0.25,10));

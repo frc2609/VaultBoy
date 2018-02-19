@@ -342,18 +342,21 @@ public class Robot extends TimedRobot {
 				RobotMap.slider.getOutputCurrent());
 		SmartDashboard.putNumber("slider.getSelectedSensorPosition0",
 				RobotMap.slider.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("slider.getSelectedSensorVel",
+				RobotMap.slider.getSelectedSensorVelocity(0));
 		
 
     	SmartDashboard.putNumber("ShooterL curr: ", RobotMap.shooterLeft.getOutputCurrent());
     	SmartDashboard.putNumber("ShooterR curr: ", RobotMap.shooterRight.getOutputCurrent());
+    	SmartDashboard.putBoolean("CubeDetect: ", RobotMap.cubeSensor.get());
 		
 		
 //		RobotMap.intakeRollerLeft.set(0.75);
 //		RobotMap.intakeRollerRight.set(0.75);
 		
-//		if (OI.driverButton2.get()){
-//			RobotMap.slider.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3)*0.2);
-//		}
+		if (OI.operatorButton2.get()){
+			RobotMap.slider.set(ControlMode.PercentOutput, OI.operatorStick.getRawAxis(3)*0.2);
+		}
 //		if (OI.driverButton3.get()){
 //			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
 //			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));

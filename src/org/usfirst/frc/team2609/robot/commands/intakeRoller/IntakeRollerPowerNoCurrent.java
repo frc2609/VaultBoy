@@ -1,23 +1,25 @@
-package org.usfirst.frc.team2609.robot.commands.slider;
+package org.usfirst.frc.team2609.robot.commands.intakeRoller;
 
 import org.usfirst.frc.team2609.robot.Robot;
-import org.usfirst.frc.team2609.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SliderPower extends Command {
+public class IntakeRollerPowerNoCurrent extends Command {
 
 	double currentThreshold;
 	double power;
+	double timeInit;
+	double timeCurrent;
+	boolean timesUp;
 	
-    public SliderPower(double power,double currentThreshold) {
+    public IntakeRollerPowerNoCurrent(double power) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.slider);
-    	this.currentThreshold = currentThreshold;
+    	requires(Robot.intakeRoller);
     	this.power = power;
     }
 
@@ -27,17 +29,16 @@ public class SliderPower extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.slider.sliderPower(power);
+				Robot.intakeRoller.setIntakePower(power, power);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.slider.sliderCurrent() > currentThreshold && RobotMap.slider.getSelectedSensorVelocity(0)<30);
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.slider.sliderPower(0);
     }
 
     // Called when another command which requires one or more of the same

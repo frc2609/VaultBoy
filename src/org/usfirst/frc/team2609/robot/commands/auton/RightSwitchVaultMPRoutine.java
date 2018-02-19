@@ -18,13 +18,13 @@ public class RightSwitchVaultMPRoutine extends MPRoutine {
 				new Waypoint(9, -4, Pathfinder.d2r(0))});
 		super.setPath(1, new Waypoint[]{
 				new Waypoint(0,	0,Pathfinder.d2r(0)),
-				new Waypoint(7, 4, Pathfinder.d2r(0))});
+				new Waypoint(5.75, 4, Pathfinder.d2r(0))});
 		super.setPath(2, new Waypoint[]{
 				new Waypoint(0,	0,Pathfinder.d2r(0)),
-				new Waypoint(3.82, 0, Pathfinder.d2r(0))});
+				new Waypoint(2.57, 0, Pathfinder.d2r(0))});
 		super.setPath(3, new Waypoint[]{
 				new Waypoint(0,	0,Pathfinder.d2r(0)),
-				new Waypoint(6.25, 3.25, Pathfinder.d2r(0))});
+				new Waypoint(6.25, 3.5, Pathfinder.d2r(0))});
 		super.setPath(4, new Waypoint[]{
 				new Waypoint(0,	0,Pathfinder.d2r(0)),
 				new Waypoint(7.4, -1.75, -Pathfinder.d2r(30))});
@@ -35,6 +35,7 @@ public class RightSwitchVaultMPRoutine extends MPRoutine {
 		super.setReverse(1, true);
 		super.setReverse(2, false);
 		super.setReverse(3, true);
+		super.setReverse(4, false);
 		super.setReverse(5, true);
 		
 		super.name = "Right Switch Vault";

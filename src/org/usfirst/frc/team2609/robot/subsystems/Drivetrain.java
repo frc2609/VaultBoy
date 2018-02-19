@@ -234,12 +234,12 @@ public class Drivetrain extends Subsystem {
 		if (isGeneratedCurr && !isReverseCurr) { // The point of this is to make sure that the trajectory has been generated.
 			
 			this.resetEncoders();
-			left.configureEncoder(RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); // 4096 magenc
+			left.configureEncoder(0, 4096, 0.5); // 4096 magenc
 			left.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 
 //			left.configurePIDVA(0, 0, 0, 1 / 10, 0);
 
-			right.configureEncoder(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); //4096
+			right.configureEncoder(0, 4096, 0.5); //4096
 			right.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 
 //			right.configurePIDVA(0, 0, 0, 1 / 10, 0);
@@ -251,13 +251,13 @@ public class Drivetrain extends Subsystem {
 		else if (isGeneratedCurr && isReverseCurr){
 
 			this.resetEncoders();
-			left.configureEncoder(RobotMap.driveLeft1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); // 4096 magenc
+			left.configureEncoder(0, 4096, 0.5); // 4096 magenc
 //			left.configurePIDVA(0, 0, 0, 1 / 10, 0);
 
 			left.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 
 			
-			right.configureEncoder(RobotMap.driveRight1.getSensorCollection().getQuadraturePosition(), 4096, 0.5); //4096
+			right.configureEncoder(0, 4096, 0.5); //4096
 			right.configurePIDVA(MPConstants.kP, MPConstants.kI, MPConstants.kD, 1 / MPConstants.kV, MPConstants.kA);
 //			right.configurePIDVA(0, 0, 0, 1 / 10, 0);
 

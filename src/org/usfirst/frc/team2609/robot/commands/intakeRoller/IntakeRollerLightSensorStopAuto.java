@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class IntakeRollerLightSensorStop extends Command {
+public class IntakeRollerLightSensorStopAuto extends Command {
 
 	double currentThreshold;
 	double powerL;
@@ -20,8 +20,9 @@ public class IntakeRollerLightSensorStop extends Command {
 	double cubeCounter;
 	double timeCurrent;
 	boolean timesUp;
+	boolean disableCurrentSense = false;
 	
-    public IntakeRollerLightSensorStop(double power,double currentThreshold) {
+    public IntakeRollerLightSensorStopAuto(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.intakeRoller);
@@ -29,11 +30,20 @@ public class IntakeRollerLightSensorStop extends Command {
     	this.powerL = power;
     	this.powerR = power;
     }
-    public IntakeRollerLightSensorStop(double powerL,double powerR,double currentThreshold) {
+    public IntakeRollerLightSensorStopAuto(double powerL,double powerR,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.intakeRoller);
     	this.currentThreshold = currentThreshold;
+    	this.powerL = powerL;
+    	this.powerR = powerR;
+    }
+    public IntakeRollerLightSensorStopAuto(double powerL,double powerR,boolean disableCurrent) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.intakeRoller);
+    	this.currentThreshold = -1000; //hehe
+    	this.disableCurrentSense = true; // to make sure you dont pass on (double,double,false)
     	this.powerL = powerL;
     	this.powerR = powerR;
     }
@@ -44,8 +54,12 @@ public class IntakeRollerLightSensorStop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(RobotMap.intakeActivator.get() == DoubleSolenoid.Value.kForward){
-    	
+    	if(disableCurrentSense){
+			Robot.intakeRoller.intakeRollerSetL(powerL);
+			Robot.intakeRoller.intakeRollerSetR(powerR);
+    		
+    	}else{
+    		
     	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
     		if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
 				timeInit = Timer.getFPGATimestamp();
@@ -57,6 +71,7 @@ public class IntakeRollerLightSensorStop extends Command {
 				timeInit = Timer.getFPGATimestamp();
 				Robot.intakeRoller.intakeRollerSetR(0);
 				Robot.intakeRoller.intakeRollerSetL(0);
+				System.out.println("L");
 //				Robot.intakeRoller.intakeRollerSetL(power);
 			}
     		else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
@@ -64,15 +79,12 @@ public class IntakeRollerLightSensorStop extends Command {
 //				Robot.intakeRoller.intakeRollerSetR(power);
 				Robot.intakeRoller.intakeRollerSetR(0);
 				Robot.intakeRoller.intakeRollerSetL(0);
+				System.out.println("R");
 			} else {
 				Robot.intakeRoller.intakeRollerSetL(powerL);
 				Robot.intakeRoller.intakeRollerSetR(powerR);
 			}
 		}
-    	}else{
-			Robot.intakeRoller.intakeRollerSetR(0);
-			Robot.intakeRoller.intakeRollerSetL(0);
-    		
     	}
     }
 

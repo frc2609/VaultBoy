@@ -22,21 +22,29 @@ import enums.ShooterActivatorState;
 public class CubeCollectAuto extends CommandGroup {
 
     public CubeCollectAuto() {
+    	addSequential(new ShooterRoller(-0.3));
+    	addParallel(new VaultBoyPower(0));
+    	addParallel(new IntakeRollerPower(0,12));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
-//    	addSequential(new SliderPosition(7300));
-    	addSequential(new IntakeRollerLightSensorStopAuto(0.6,6));
+    	addSequential(new SliderPosition(7300));
+    	//addParallel(new VaultBoyPower(-0.2,10));
+    	//addParallel(new VaultBoyPower(.5));
+    	addSequential(new IntakeRollerLightSensorStop(0.45,5));
+    	addSequential(new ShooterRoller(0));
     	//addParallel(new IntakeRollerPower(-.2,4.5));
     	//addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 //    	addSequential(new SliderPosition(7300));
-    	addParallel(new IntakeRollerPowerNoCurrent(.25));
-//    	addParallel(new VaultBoyPower(.1));
+    	addParallel(new IntakeRollerPower(.25,5));
+    	addParallel(new VaultBoyPower(.1));
     	
     	//addParallel(new VaultBoyPower(0.25,10));
     	//addParallel(new IntakeRollerPower(-.2,12));
     	addSequential(new SliderPosition(500));
-    	//addParallel(new IntakeRollerPower(0,12));
+//    	addParallel(new IntakeRollerPower(0,12));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
+    	addSequential(new VaultBoyPower(0));
+    	addSequential(new IntakeRollerPower(0,5));
     	addSequential(new RumbleOP());
     }
 }

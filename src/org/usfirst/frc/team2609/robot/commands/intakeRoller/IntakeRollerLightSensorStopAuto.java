@@ -54,38 +54,37 @@ public class IntakeRollerLightSensorStopAuto extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		if (disableCurrentSense) {
-			Robot.intakeRoller.intakeRollerSetL(powerL);
-			Robot.intakeRoller.intakeRollerSetR(powerR);
-
-		} else {
-
-			if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
-				if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold)
-						&& (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
-					timeInit = Timer.getFPGATimestamp();
-					Robot.intakeRoller.intakeRollerSetR(0);
-					Robot.intakeRoller.intakeRollerSetL(0);
-					System.out.println("BOTH");
-				} else if (Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) {
-					timeInit = Timer.getFPGATimestamp();
-					Robot.intakeRoller.intakeRollerSetR(0);
-					Robot.intakeRoller.intakeRollerSetL(0);
-					System.out.println("L");
-					// Robot.intakeRoller.intakeRollerSetL(power);
-				} else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
-					timeInit = Timer.getFPGATimestamp();
-					// Robot.intakeRoller.intakeRollerSetR(power);
-					Robot.intakeRoller.intakeRollerSetR(0);
-					Robot.intakeRoller.intakeRollerSetL(0);
-					System.out.println("R");
-				} else {
-					Robot.intakeRoller.intakeRollerSetL(powerL);
-					Robot.intakeRoller.intakeRollerSetR(powerR);
-				}
+    protected void execute() {
+    	if(RobotMap.intakeActivator.get() == DoubleSolenoid.Value.kForward){
+    	
+    	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
+    		if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
+				timeInit = Timer.getFPGATimestamp();
+				Robot.intakeRoller.intakeRollerSetR(-powerR*0.5);
+				Robot.intakeRoller.intakeRollerSetL(-powerL*0.5);
+				System.out.println("BOTH");
+			}
+    		else if (Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) {
+				timeInit = Timer.getFPGATimestamp();
+				Robot.intakeRoller.intakeRollerSetR(-powerR*0.5);
+				Robot.intakeRoller.intakeRollerSetL(-powerL*0.5);
+//				Robot.intakeRoller.intakeRollerSetL(power);
+			}
+    		else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
+				timeInit = Timer.getFPGATimestamp();
+//				Robot.intakeRoller.intakeRollerSetR(power);
+				Robot.intakeRoller.intakeRollerSetR(-powerR*0.5);
+				Robot.intakeRoller.intakeRollerSetL(-powerL*0.5);
+			} else {
+				Robot.intakeRoller.intakeRollerSetL(powerL);
+				Robot.intakeRoller.intakeRollerSetR(powerR);
 			}
 		}
+    	}else{
+			Robot.intakeRoller.intakeRollerSetR(0);
+			Robot.intakeRoller.intakeRollerSetL(0);
+    		
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

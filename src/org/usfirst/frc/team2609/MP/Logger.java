@@ -90,7 +90,7 @@ public class Logger {
 	        try{
 	            path = this.getPath();
 	            this.writer = new BufferedWriter(new FileWriter(path));
-	            this.writer.write("FPGATime, shooterL, shooterR, vaultboyL, vaultboyR");
+	            this.writer.write("FPGATime, shooterL, shooterR, shooterVoltageL, shooterVoltageR, vaultboyL, vaultboyR, vaultboyVoltageL, vaultboyVoltageR");
 	            this.writer.newLine();
 	        } catch (IOException e) {
 	            e.printStackTrace();
@@ -117,8 +117,12 @@ public class Logger {
 //	        	this.writer.write(String.format(",%d", new java.util.Date().getTime()));
 	            this.writer.write(String.format(",%.3f", RobotMap.shooterLeft.getOutputCurrent()));
 	            this.writer.write(String.format(",%.3f", RobotMap.shooterRight.getOutputCurrent()));
+	            this.writer.write(String.format(",%.3f", RobotMap.shooterLeft.getOutputVoltage()));
+	            this.writer.write(String.format(",%.3f", RobotMap.shooterRight.getOutputVoltage()));
 	            this.writer.write(String.format(",%.3f", RobotMap.vaultBoyLeft.getOutputCurrent()));
 	            this.writer.write(String.format(",%.3f", RobotMap.vaultBoyRight.getOutputCurrent()));
+	            this.writer.write(String.format(",%.3f", RobotMap.vaultBoyLeft.getOutputVoltage()));
+	            this.writer.write(String.format(",%.3f", RobotMap.vaultBoyRight.getOutputVoltage()));
 	            
 
 	            

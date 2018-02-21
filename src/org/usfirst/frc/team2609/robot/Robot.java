@@ -127,7 +127,6 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Slider DR: ", 100);
     	SmartDashboard.putNumber("Slider DC: ", 5);
     	
-    	
     	SmartDashboard.putNumber("Auto delay", 0);
     	
     	try{
@@ -137,6 +136,10 @@ public class Robot extends TimedRobot {
     		System.out.println(t.getMessage());
     		System.out.println(t.getStackTrace());
     	}
+    	
+    	//testing
+    	SmartDashboard.putNumber("vaultBoy testing", 0);
+    	SmartDashboard.putNumber("intake testing", 0);
 	}
 
 	/**
@@ -350,9 +353,8 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("ShooterR curr: ", RobotMap.shooterRight.getOutputCurrent());
     	SmartDashboard.putBoolean("CubeDetect: ", RobotMap.cubeSensor.get());
 		
-		
-//		RobotMap.intakeRollerLeft.set(0.75);
-//		RobotMap.intakeRollerRight.set(0.75);
+//		RobotMap.vaultBoyLeft.set(SmartDashboard.getNumber("vaultBoy testing", 0));
+//		RobotMap.vaultBoyRight.set(SmartDashboard.getNumber("vaultBoy testing", 0));
 		
 		if (OI.operatorButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.operatorStick.getRawAxis(3)*0.2);

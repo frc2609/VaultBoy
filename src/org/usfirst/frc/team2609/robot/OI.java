@@ -98,10 +98,10 @@ public class OI {
 
 		driverButton5 = new JoystickButton(driverStick, 5);
 		driverButton5.whileHeld(new VaultBoyPower(0.5));
-		driverButton5.whileHeld(new IntakeRollerPower(0.4,5));
+		driverButton5.whileHeld(new IntakeRollerPowerNoCurrent(0.4));
 		driverButton5.whileHeld(new ShooterRoller(-0.3));
 		driverButton5.whenReleased(new VaultBoyPower(0));
-		driverButton5.whenReleased(new IntakeRollerPower(0,5));
+		driverButton5.whenReleased(new IntakeRollerPowerNoCurrent(0));
 		driverButton5.whenReleased(new ShooterRoller(0));
 		
 		driverButton3 = new JoystickButton(driverStick, 3);
@@ -110,16 +110,16 @@ public class OI {
 		driverButton4 = new JoystickButton(driverStick, 4);
 		driverButton4.whenPressed(new SliderPosition(500));
 		driverButton4.whenPressed(new VaultBoyPower(0));
-		driverButton4.whenPressed(new IntakeRollerPower(0,5));
+		driverButton4.whenPressed(new IntakeRollerPowerNoCurrent(0));
 		driverButton4.whenPressed(new ShooterRoller(0));
 		driverButton4.whenPressed(new ShooterActivatorSetState(ShooterActivatorState.UP));
 //		
 		driverButton7 = new JoystickButton(driverStick, 7);
 		driverButton7.whileHeld(new VaultBoyPower(-0.5));
-		driverButton7.whileHeld(new IntakeRollerPower(-0.4,5));
+		driverButton7.whileHeld(new IntakeRollerPowerNoCurrent(-0.4));
 		driverButton7.whileHeld(new ShooterRoller(-0.3));
 		driverButton7.whenReleased(new VaultBoyPower(0));
-		driverButton7.whenReleased(new IntakeRollerPower(0,5));
+		driverButton7.whenReleased(new IntakeRollerPowerNoCurrent(0));
 		driverButton7.whenReleased(new ShooterRoller(0));
 //		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
 		

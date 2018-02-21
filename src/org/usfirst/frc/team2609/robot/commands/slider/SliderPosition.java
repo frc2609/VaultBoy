@@ -44,7 +44,7 @@ public class SliderPosition extends Command {
         sliderD = (double)SmartDashboard.getNumber("Slider D: ",0);
         sliderMax = (double)SmartDashboard.getNumber("Slider Max: ",0);
         sliderDC = (int)SmartDashboard.getNumber("Slider DC: ",0);
-        sliderDR = SmartDashboard.getNumber("Slider DR: ",0);
+        sliderDR = SmartDashboard.getNumber("Slider DR: ",100);
         sliderEps = SmartDashboard.getNumber("Slider Eps: ",0);
         sliderF = SmartDashboard.getNumber("Slider F: ",0.5281);
         

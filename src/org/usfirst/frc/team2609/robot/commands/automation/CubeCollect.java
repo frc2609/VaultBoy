@@ -4,6 +4,7 @@ import org.usfirst.frc.team2609.robot.commands.RumbleOP;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStop;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
+import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerVaultBoyStop;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
@@ -18,6 +19,7 @@ import enums.ShooterActivatorState;
  *
  */
 public class CubeCollect extends CommandGroup {
+
 
     public CubeCollect() {
     	addSequential(new ShooterRoller(-0.3));

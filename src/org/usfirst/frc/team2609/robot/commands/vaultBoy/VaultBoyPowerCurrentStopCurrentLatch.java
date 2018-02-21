@@ -8,7 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class VaultBoyPowerCurrentStop extends Command {
+
+// author: Akos
+// who didnt approve of this at 1045 on stop build: Greg and Reid
+public class VaultBoyPowerCurrentStopCurrentLatch extends Command {
 
 	double currentThreshold;
 	double power;
@@ -16,7 +19,7 @@ public class VaultBoyPowerCurrentStop extends Command {
 	double latchTime;
 	boolean currentLatch;
 	
-    public VaultBoyPowerCurrentStop(double power,double currentLimit) {
+    public VaultBoyPowerCurrentStopCurrentLatch(double power,double currentLimit) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.vaultBoy);
@@ -43,7 +46,7 @@ public class VaultBoyPowerCurrentStop extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return (((Robot.vaultBoy.vaultBoyLeftCurrent()<currentLimit)||(Robot.vaultBoy.vaultBoyLeftCurrent()<currentLimit))
-        		&&currentLatch&&((Math.abs(latchTime-Timer.getFPGATimestamp()))<0.2));
+        		&&currentLatch&&((Math.abs(latchTime-Timer.getFPGATimestamp()))<1));
     }
 
     // Called once after isFinished returns true

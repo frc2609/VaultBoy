@@ -135,6 +135,7 @@ public class RobotMap {
 		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 0);
 		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
 		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
+
 		
 		//vault boy
 		vaultBoyLeft = new BeaverTalonSRX(3);
@@ -157,6 +158,10 @@ public class RobotMap {
 		slider.configOpenloopRamp(0.1, 10);
 		
 		vaultBoyRight.setInverted(true);
+		vaultBoyLeft.enableVoltageCompensation(true);
+		vaultBoyLeft.configVoltageCompSaturation(12, 0);
+		vaultBoyRight.enableVoltageCompensation(true);
+		vaultBoyRight.configVoltageCompSaturation(12, 0);
 		
 		//pneumatics
 		shooterActivator = new DoubleSolenoid(0,0,3);

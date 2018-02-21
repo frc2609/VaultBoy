@@ -9,6 +9,7 @@ import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoC
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterPowerCurrentStop;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
+import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
 import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPowerCurrentStop;
 
@@ -23,15 +24,16 @@ public class SwitchScore extends CommandGroup {
 
     public SwitchScore() {
     	addSequential(new ShooterRoller(0.8));
+    	addSequential(new SliderPosition(500));
     	addSequential(new IntakeRollerBrakeMode(false));
     	addParallel(new IntakeRollerPowerNoCurrent(-0.1));
-    	addSequential(new VaultBoyPowerCurrentStop(-0.3,3));
+    	addSequential(new VaultBoyPowerCurrentStop(-0.3,1.8));
     	addSequential(new IntakeRollerBrakeMode(true));
     	addSequential(new VaultBoyPower(0));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 //    	addSequential(new Delay(0.1));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
-    	addSequential(new ShooterPowerCurrentStop(1,20));
+    	addSequential(new ShooterPowerCurrentStop(1,20));//change current based on graph, greg explain this command to me because  i dont know what the FUCK IS GOING ON!!!!!!!!!!!!!!!!!! >X(
     	addSequential(new Delay(0.4));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeRollerPowerNoCurrent(0));

@@ -45,20 +45,17 @@ public class SwitchVaultRoutine extends CommandGroup {
     	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addParallel(new CubeCollectAuto());
     	addSequential(new LaunchMP(2));
-//    	addParallel(new SliderPosition(500));
     	// PUT PARALELLSHOOT HERE
     	addParallel(new ParallelShoot());
     	addSequential(new LaunchMP(3));
     	addParallel(new VaultBoyPower(0));
     	addParallel(new IntakeRollerLightSensorStop(0.45,5));
     	addSequential(new Delay(0.4));
-    	addParallel(new IntakeRollerPowerNoCurrent(.5));
-//    	addParallel(new IntakeRollerLightSensorStop(0.45,5));
+    	addParallel(new IntakeRollerPower(.65,5));
     	
     	addSequential(new LaunchMP(4));
+    	addParallel(new IntakeRollerPower(.65,5));
     	addParallel(new ParallelShoot());
     	addSequential(new LaunchMP(5));
-//    	addParallel(new VaultBoyPower(1));
-//    	addParallel(new IntakeRollerPower(0.75,12));
     }
 }

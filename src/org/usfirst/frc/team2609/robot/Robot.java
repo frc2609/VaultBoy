@@ -297,7 +297,9 @@ public class Robot extends TimedRobot {
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
 		shooterActivator.setShooterActivatorState(ShooterActivatorState.UP);
 		new DriveTeleop().start();
-		new SliderHome().start();
+		if(RobotMap.isHomed){
+			new SliderHome().start();
+		}
 		enabledLooper.start();
 	}
 

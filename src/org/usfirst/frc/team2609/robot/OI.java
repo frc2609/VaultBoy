@@ -97,8 +97,8 @@ public class OI {
 		
 
 		driverButton5 = new JoystickButton(driverStick, 5);
-		driverButton5.whileHeld(new VaultBoyPower(0.5));
-		driverButton5.whileHeld(new IntakeRollerPowerNoCurrent(0.4));
+		driverButton5.whileHeld(new VaultBoyPower(0.75));
+		driverButton5.whileHeld(new IntakeRollerPowerNoCurrent(0.45));
 		driverButton5.whileHeld(new ShooterRoller(-0.3));
 		driverButton5.whenReleased(new VaultBoyPower(0));
 		driverButton5.whenReleased(new IntakeRollerPowerNoCurrent(0));
@@ -134,6 +134,8 @@ public class OI {
 		driverButton8.whenPressed(new SwitchScore());
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
+		driverButton9.whenPressed(new IntakeRollerPower(0.65,5));
+		
 
 //		driverButton9.whenPressed(new SliderHome());
 		

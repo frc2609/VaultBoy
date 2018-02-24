@@ -13,10 +13,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ParallelShoot extends CommandGroup {
 
     public ParallelShoot() {
-
     	addSequential(new TimerDelay(1.5));
     	addParallel(new VaultBoyPower(1));
-    	addParallel(new IntakeRollerLightSensorStop(0.45,5));
+    	addParallel(new IntakeRollerPowerNoCurrent(0.45));
 //    	addParallel(new IntakeRollerPowerNoCurrent(0.75));
     	addSequential(new TimerDelay(1.5));
     }

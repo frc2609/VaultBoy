@@ -48,7 +48,7 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
-
+	public static boolean isHomed = false;
 	//drivetrain
 	public static BeaverTalonSRX driveLeft1;
 	public static BeaverTalonSRX driveLeft2;
@@ -180,7 +180,9 @@ public class RobotMap {
 
 		shooterLeft.configOpenloopRamp(0, 0);
 		shooterRight.configOpenloopRamp(0, 0);
-		
+
+		intakeRollerRight.setInverted(false);
+		intakeRollerLeft.setInverted(false);
 //		server.setSource(cam1);
 		
 	}

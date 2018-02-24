@@ -3,6 +3,7 @@ package org.usfirst.frc.team2609.robot.commands.automation;
 import org.usfirst.frc.team2609.robot.commands.RumbleOP;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStop;
+import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStopNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerVaultBoyStop;
@@ -30,7 +31,8 @@ public class CubeCollect extends CommandGroup {
     	addSequential(new SliderPosition(7300));
     	//addParallel(new VaultBoyPower(-0.2,10));
     	//addParallel(new VaultBoyPower(.5));
-    	addSequential(new IntakeRollerLightSensorStop(0.45,5));
+//    	addSequential(new IntakeRollerPowerNoCurrent(.65));
+    	addSequential(new IntakeRollerLightSensorStop(0.65,5));
     	addSequential(new ShooterRoller(0));
     	//addParallel(new IntakeRollerPower(-.2,4.5));
     	//addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));

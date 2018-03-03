@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SPI;
 import enums.DriveActivatorState;
 import jaci.pathfinder.modifiers.TankModifier;
@@ -92,9 +93,11 @@ public class RobotMap {
     public static DriveActivatorState teleopState;
     
     public static String gameData;
-//    public static VideoSink server;
+    public static VideoSink server;
+    public static Relay led;
 	public static void init(){
-
+		
+		led = new Relay(1);
 		try {
 			UsbCamera cameraFront = CameraServer.getInstance().startAutomaticCapture(0);
 			UsbCamera cameraRear = CameraServer.getInstance().startAutomaticCapture(1);
@@ -104,7 +107,7 @@ public class RobotMap {
 //			CameraServer.getInstance().startAutomaticCapture(1);
 //			cam1 = CameraServer.getInstance().
 //			cam2 = CameraServer.getInstance().startAutomaticCapture(1);
-//			server = CameraServer.getInstance().getServer();
+			server = CameraServer.getInstance().getServer();
 			// cancer
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating camera:  " + ex.getMessage(), true);

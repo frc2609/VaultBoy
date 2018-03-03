@@ -31,9 +31,9 @@ public class SwitchScore extends CommandGroup {
     	addSequential(new IntakeRollerBrakeMode(true));
     	addSequential(new VaultBoyPower(0));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
-//    	addSequential(new Delay(0.1));
+    	addSequential(new Delay(0.1));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
-    	addSequential(new ShooterPowerCurrentStop(1,20));//change current based on graph, greg explain this command to me because  i dont know what the FUCK IS GOING ON!!!!!!!!!!!!!!!!!! >X(
+    	addSequential(new ShooterPowerCurrentStop(0.8,20));//change current based on graph, greg explain this command to me because  i dont know what the FUCK IS GOING ON!!!!!!!!!!!!!!!!!! >X(
     	addSequential(new Delay(0.4));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeRollerPowerNoCurrent(0));

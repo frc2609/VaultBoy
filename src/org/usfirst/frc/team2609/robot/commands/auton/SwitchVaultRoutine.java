@@ -5,6 +5,8 @@ import org.usfirst.frc.team2609.robot.commands.Delay;
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
 import org.usfirst.frc.team2609.robot.commands.ParallelPosition;
 import org.usfirst.frc.team2609.robot.commands.ParallelShoot;
+import org.usfirst.frc.team2609.robot.commands.ParallelShoot2;
+import org.usfirst.frc.team2609.robot.commands.ParallelVaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.SDDelay;
 import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.TimerDelay;
@@ -37,25 +39,35 @@ public class SwitchVaultRoutine extends CommandGroup {
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
     	addParallel(new ShooterRoller(1));
-    	addSequential(new LaunchMP(0));	
-    	addSequential(new SwitchScoreAuto());
+    	addSequential(new LaunchMP(0));
+    	// at the switch
     	
+    	addSequential(new SwitchScoreAuto());
     	addParallel(new ParallelPosition());
     	addSequential(new LaunchMP(1));
+    	// in front of the cube stack
+    	
     	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addParallel(new CubeCollectAuto());
     	addSequential(new LaunchMP(2));
+    	// picked up cube
+    	
     	// PUT PARALELLSHOOT HERE
     	addParallel(new ParallelShoot());
     	addSequential(new LaunchMP(3));
-    	addParallel(new VaultBoyPower(0));
-    	addParallel(new IntakeRollerLightSensorStop(0.45,5));
-    	addSequential(new Delay(0.4));
-    	addParallel(new IntakeRollerPower(.65,5));
+    	// shot into vault
     	
+
+    	addParallel(new ParallelVaultBoyPower());
+    	addParallel(new IntakeRollerPower(0.45,5));
     	addSequential(new LaunchMP(4));
-    	addParallel(new IntakeRollerPower(.65,5));
-    	addParallel(new ParallelShoot());
+//    	addParallel(new IntakeRollerPower(.45,5));
+//    	addSequential(new Delay(0.4));
+    	// side cube from the stack
+    	
+    	addParallel(new IntakeRollerPower(.45,5));
+    	addParallel(new ParallelShoot2());
     	addSequential(new LaunchMP(5));
+    	// at the vault
     }
 }

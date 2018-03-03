@@ -20,7 +20,7 @@ public class IntakeRollerPower extends Command {
     public IntakeRollerPower(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-//    	requires(Robot.intakeRoller);
+    	requires(Robot.intakeRoller);
     	this.currentThreshold = currentThreshold;
     	this.power = power;
     }

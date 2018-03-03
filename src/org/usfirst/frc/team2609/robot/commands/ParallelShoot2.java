@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class ParallelShoot extends CommandGroup {
+public class ParallelShoot2 extends CommandGroup {
 
-    public ParallelShoot() {
+    public ParallelShoot2() {
     	addSequential(new TimerDelay(1.5));
     	addParallel(new VaultBoyPower(1));
-    	addParallel(new IntakeRollerPower(0.45,5));
+//    	addParallel(new IntakeRollerPower(0.45,5));
 //    	addParallel(new IntakeRollerPowerNoCurrent(0.75));
     	addSequential(new TimerDelay(1.5));
     }

@@ -95,6 +95,15 @@ public class OI {
 		driverButton2 = new JoystickButton(driverStick, 2);
 		driverButton2.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
 		
+		driverButton3 = new JoystickButton(driverStick, 3);
+		driverButton3.whenPressed(new SwitchScore());
+
+		driverButton4 = new JoystickButton(driverStick, 4);
+		driverButton4.whenPressed(new SliderPosition(500));
+		driverButton4.whenPressed(new VaultBoyPower(0));
+		driverButton4.whenPressed(new IntakeRollerPowerNoCurrent(0));
+		driverButton4.whenPressed(new ShooterRoller(0));
+		driverButton4.whenPressed(new ShooterActivatorSetState(ShooterActivatorState.UP));
 
 		driverButton5 = new JoystickButton(driverStick, 5);
 		driverButton5.whileHeld(new VaultBoyPower(0.75));
@@ -104,16 +113,10 @@ public class OI {
 		driverButton5.whenReleased(new IntakeRollerPowerNoCurrent(0));
 		driverButton5.whenReleased(new ShooterRoller(0));
 		
-		driverButton3 = new JoystickButton(driverStick, 3);
-//		driverButton3.whenPressed(new LaunchMP(0));
-
-		driverButton4 = new JoystickButton(driverStick, 4);
-		driverButton4.whenPressed(new SliderPosition(500));
-		driverButton4.whenPressed(new VaultBoyPower(0));
-		driverButton4.whenPressed(new IntakeRollerPowerNoCurrent(0));
-		driverButton4.whenPressed(new ShooterRoller(0));
-		driverButton4.whenPressed(new ShooterActivatorSetState(ShooterActivatorState.UP));
-//		
+		driverButton6 = new JoystickButton(driverStick, 6);
+//		driverButton6.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+		driverButton6.whenPressed(new CubeCollect());
+		
 		driverButton7 = new JoystickButton(driverStick, 7);
 		driverButton7.whileHeld(new VaultBoyPower(-0.5));
 		driverButton7.whileHeld(new IntakeRollerPowerNoCurrent(-0.4));
@@ -123,21 +126,11 @@ public class OI {
 		driverButton7.whenReleased(new ShooterRoller(0));
 //		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
 		
-		
-		driverButton6 = new JoystickButton(driverStick, 6);
-//		driverButton6.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
-		driverButton6.whenPressed(new CubeCollect());
-		
-		driverButton7 = new JoystickButton(driverStick, 7);
-		
 		driverButton8 = new JoystickButton(driverStick, 8);
-		driverButton8.whenPressed(new SwitchScore());
+//		driverButton8.whenPressed(new SwitchScore());
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
-		driverButton9.whenPressed(new IntakeRollerPower(0.65,5));
-		
-
-//		driverButton9.whenPressed(new SliderHome());
+		driverButton9.whenPressed(new IntakeRollerPower(0.45,5));
 		
 		driverButton10 = new JoystickButton(driverStick, 10);
 		
@@ -148,7 +141,7 @@ public class OI {
 //		operatorButton1.whileHeld(new IntakeRollerPower(0.75,12));
 		operatorButton2 = new JoystickButton(operatorStick, 2);
 		operatorButton2.whenPressed(new IntakeRollerPowerNoCurrent(.25));
-		//		operatorButton2.whileHeld(new VaultBoyPower(0.75));
+//		operatorButton2.whileHeld(new VaultBoyPower(0.75));
 		operatorButton3 = new JoystickButton(operatorStick, 3);
 //		operatorButton3.whenPressed(new LaunchMP(0));
 		operatorButton4 = new JoystickButton(operatorStick, 4);

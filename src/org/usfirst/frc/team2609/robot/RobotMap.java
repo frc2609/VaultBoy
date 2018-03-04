@@ -93,7 +93,7 @@ public class RobotMap {
     public static DriveActivatorState teleopState;
     
     public static String gameData;
-    public static VideoSink server;
+//    public static VideoSink server;
     public static Relay led;
 	public static void init(){
 		
@@ -107,7 +107,7 @@ public class RobotMap {
 //			CameraServer.getInstance().startAutomaticCapture(1);
 //			cam1 = CameraServer.getInstance().
 //			cam2 = CameraServer.getInstance().startAutomaticCapture(1);
-			server = CameraServer.getInstance().getServer();
+//			server = CameraServer.getInstance().getServer();
 			// cancer
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating camera:  " + ex.getMessage(), true);

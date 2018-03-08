@@ -9,8 +9,10 @@ import org.usfirst.frc.team2609.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -291,6 +293,66 @@ public class Drivetrain extends Subsystem {
         }else{
         	return false;
         }
+    }
+    
+    public void initSd(){
+    	//Left drive PID
+    			SmartDashboard.putNumber("DriveLeft P: ", 0.0002);
+    	    	SmartDashboard.putNumber("DriveLeft I: ", 0.000);
+    	    	SmartDashboard.putNumber("DriveLeft D: ", 0.0);
+    	    	SmartDashboard.putNumber("DriveLeft Max: ", 0.8);
+    	    	SmartDashboard.putNumber("DriveLeft Eps: ", 1.0);
+    	    	SmartDashboard.putNumber("DriveLeft DR: ", 10);
+    	    	SmartDashboard.putNumber("DriveLeft DC: ", 5);
+    	    	//Right drive PID
+    			SmartDashboard.putNumber("DriveRight P: ", 0.0002);
+    	    	SmartDashboard.putNumber("DriveRight I: ", 0.000);
+    	    	SmartDashboard.putNumber("DriveRight D: ", 0.0);
+    	    	SmartDashboard.putNumber("DriveRight Max: ", 0.8);
+    	    	SmartDashboard.putNumber("DriveRight Eps: ", 1.0);
+    	    	SmartDashboard.putNumber("DriveRight DR: ", 10);
+    	    	SmartDashboard.putNumber("DriveRight DC: ", 5);//Steering heading correction PID
+    			SmartDashboard.putNumber("Steering P: ", 0.0003);
+    	    	SmartDashboard.putNumber("Steering I: ", 0.000);
+    	    	SmartDashboard.putNumber("Steering D: ", 0.0);
+    	    	SmartDashboard.putNumber("Steering Max: ", 0.2);
+    }
+    public void outputSd(){
+    	// drivetrain
+    			
+    			SmartDashboard.putNumber("Gyro.getYaw", RobotMap.ahrs.getYaw());
+    			SmartDashboard.putNumber("driveLeft.getPosition",
+    					Robot.drivetrain.getInverseLeftEncoderInches());
+    			SmartDashboard.putNumber("driveRight.getPosition",
+    					Robot.drivetrain.getRightEncoderInches());
+    			SmartDashboard.putNumber("driveLeft.getQuadPosition",
+    					Robot.drivetrain.getLeftQuad());
+    			SmartDashboard.putNumber("driveRight.getQuadPosition",
+    					Robot.drivetrain.getRightQuad());
+    			SmartDashboard.putNumber("driveLeft.voltage",
+    					RobotMap.driveLeft1.getMotorOutputVoltage());
+    			SmartDashboard.putNumber("driveRight.voltage",
+    					RobotMap.driveRight1.getMotorOutputVoltage());
+    			SmartDashboard.putBoolean("ahrs collision",
+    					this.collisionDetected());
+    }
+    
+    public boolean initialSensorCheck(){
+
+    	int sensorLStatus = RobotMap.driveLeft1.getSensorCollection().getPulseWidthRiseToRiseUs();
+    	if (sensorLStatus == 0) {
+            DriverStation.reportError("Could not detect Left encoder: ", false);
+        }
+    	int sensorRStatus = RobotMap.driveRight1.getSensorCollection().getPulseWidthRiseToRiseUs();
+    	if (sensorRStatus == 0) {
+            DriverStation.reportError("Could not detect Right encoder: ", false);
+        }
+    	
+    	if(sensorLStatus == 0 || sensorRStatus == 0){
+    		return true;
+    	}else{
+    		return false;
+    	}
     }
 }
 

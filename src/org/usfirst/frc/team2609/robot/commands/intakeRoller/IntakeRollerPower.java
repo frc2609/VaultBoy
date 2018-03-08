@@ -20,7 +20,7 @@ public class IntakeRollerPower extends Command {
     public IntakeRollerPower(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.currentThreshold = currentThreshold;
     	this.power = power;
     }
@@ -32,28 +32,28 @@ public class IntakeRollerPower extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
-    		if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
+    		if ((Robot.intake.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intake.intakeRollerRightCurrent() > currentThreshold)) {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.intakeRollerSetR(-power*0.5);
-				Robot.intakeRoller.intakeRollerSetL(-power*0.5);
+				Robot.intake.intakeRollerSetR(-power*0.5);
+				Robot.intake.intakeRollerSetL(-power*0.5);
 				System.out.println("AUTO JITTER");
 			}
-    		else if (Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) {
+    		else if (Robot.intake.intakeRollerLeftCurrent() > currentThreshold) {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.intakeRollerSetR(-power*0.5);
-				Robot.intakeRoller.intakeRollerSetL(-power*0.5);
+				Robot.intake.intakeRollerSetR(-power*0.5);
+				Robot.intake.intakeRollerSetL(-power*0.5);
 				System.out.println("AUTO JITTER");
 //				Robot.intakeRoller.intakeRollerSetL(power);
 			}
-    		else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
+    		else if (Robot.intake.intakeRollerRightCurrent() > currentThreshold) {
 				timeInit = Timer.getFPGATimestamp();
 //				Robot.intakeRoller.intakeRollerSetR(power);
-				Robot.intakeRoller.intakeRollerSetR(-power*0.5);
-				Robot.intakeRoller.intakeRollerSetL(-power*0.5);
+				Robot.intake.intakeRollerSetR(-power*0.5);
+				Robot.intake.intakeRollerSetL(-power*0.5);
 				System.out.println("AUTO JITTER");
 			} else {
-				Robot.intakeRoller.intakeRollerSetL(power);
-				Robot.intakeRoller.intakeRollerSetR(power);
+				Robot.intake.intakeRollerSetL(power);
+				Robot.intake.intakeRollerSetR(power);
 			}
 		}
     }

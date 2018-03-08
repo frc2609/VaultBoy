@@ -19,13 +19,13 @@ public class IntakeRollerPowerNoCurrent extends Command {
     public IntakeRollerPowerNoCurrent(double power) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.power = power;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-		Robot.intakeRoller.setIntakePower(power, power);
+		Robot.intake.setIntakePower(power, power);
     }
 
     // Called repeatedly when this Command is scheduled to run

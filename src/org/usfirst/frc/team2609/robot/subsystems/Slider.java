@@ -6,14 +6,25 @@ import org.usfirst.frc.team2609.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
 
 /**
  *
  */
 public class Slider extends Subsystem {
-	
+	public boolean initialSensorCheck(){
+
+    	int sensorSStatus = RobotMap.slider.getSensorCollection().getPulseWidthRiseToRiseUs();
+    	if (sensorSStatus == 0) {
+            DriverStation.reportError("Could not detect Slider encoder: ", false);
+            return true;
+        }else{
+        	return false;
+        }
+    }
 	
 	private final org.usfirst.frc.team2609.MP.Loop mLoop = new Loop() {
 		@Override
@@ -58,4 +69,34 @@ public class Slider extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    public void outputSd(){
+
+		//slider
+		SmartDashboard.putNumber("slider.getPosition",
+				RobotMap.slider.getSensorCollection().getQuadraturePosition());
+		SmartDashboard.putNumber("slider.voltage",
+				RobotMap.slider.getMotorOutputVoltage());
+		SmartDashboard.putNumber("slider.current",
+				RobotMap.slider.getOutputCurrent());
+		SmartDashboard.putNumber("slider.error",
+				RobotMap.slider.getClosedLoopError(0));
+		SmartDashboard.putNumber("slider.getSelectedSensorPosition0",
+				RobotMap.slider.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("slider.getSelectedSensorVel",
+				RobotMap.slider.getSelectedSensorVelocity(0));
+		
+    }
+    public void initSd(){
+    	//Slider PID
+    			SmartDashboard.putNumber("Slider P: ", 0.5);
+    	    	SmartDashboard.putNumber("Slider I: ", 0.0001);
+    	    	SmartDashboard.putNumber("Slider D: ", 0.0);
+    	    	SmartDashboard.putNumber("Slider F: ", 0.32);
+    	    	SmartDashboard.putNumber("Slider Max: ", 1.0);
+    	    	SmartDashboard.putNumber("Slider Eps: ", 1.0);
+    	    	SmartDashboard.putNumber("Slider DR: ", 100);
+    	    	SmartDashboard.putNumber("Slider DC: ", 5);
+    }
+    
+    
 }

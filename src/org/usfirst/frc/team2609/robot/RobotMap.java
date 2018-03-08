@@ -99,18 +99,16 @@ public class RobotMap {
 		
 		led = new Relay(1);
 		try {
-			UsbCamera cameraFront = CameraServer.getInstance().startAutomaticCapture(0);
 			UsbCamera cameraRear = CameraServer.getInstance().startAutomaticCapture(1);
-			cameraFront.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 15);
 			cameraRear.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 15);
-//			CameraServer.getInstance().startAutomaticCapture(0);
-//			CameraServer.getInstance().startAutomaticCapture(1);
-//			cam1 = CameraServer.getInstance().
-//			cam2 = CameraServer.getInstance().startAutomaticCapture(1);
-//			server = CameraServer.getInstance().getServer();
-			// cancer
         } catch (RuntimeException ex ) {
-            DriverStation.reportError("Error instantiating camera:  " + ex.getMessage(), true);
+            DriverStation.reportError("Error instantiating Rear camera:  " + ex.getMessage(), true);
+        }
+		try {
+			UsbCamera cameraFront = CameraServer.getInstance().startAutomaticCapture(0);
+			cameraFront.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 15);
+        } catch (RuntimeException ex ) {
+            DriverStation.reportError("Error instantiating Front camera:  " + ex.getMessage(), true);
         }
 		//drivetrain
 		driveLeft1 = new BeaverTalonSRX(1);
@@ -125,12 +123,9 @@ public class RobotMap {
 		driveLeft2.setInverted(true);
 		driveRight1.setInverted(false);
 		driveRight2.setInverted(false);
-
-		driveLeft1.setEncPerRevsQuad(MPConstants.leftEncPerFeet); // to feet
-		driveRight1.setEncPerRevsQuad(MPConstants.rightEncPerFeet);
 		
 		driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		
+		driveRight1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
 		driveLeft1.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
 		driveLeft1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
@@ -139,6 +134,8 @@ public class RobotMap {
 		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
 		driveRight1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
 
+		driveLeft1.setEncPerRevsQuad(MPConstants.leftEncPerFeet); // to feet
+		driveRight1.setEncPerRevsQuad(MPConstants.rightEncPerFeet);
 		
 		//vault boy
 		vaultBoyLeft = new BeaverTalonSRX(3);

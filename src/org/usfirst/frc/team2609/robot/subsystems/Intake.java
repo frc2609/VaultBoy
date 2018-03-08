@@ -5,18 +5,31 @@ import org.usfirst.frc.team2609.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
+import enums.IntakeActivatorState;
 
 /**
  *
  */
-public class IntakeRoller extends Subsystem {
+public class Intake extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	
+	public void setIntakeActivatorState(IntakeActivatorState desiredState){
+		switch(desiredState){
+		case IN:
+			RobotMap.intakeActivator.set(DoubleSolenoid.Value.kForward);
+			break;
+		case OUT:
+			RobotMap.intakeActivator.set(DoubleSolenoid.Value.kReverse);
+			break;
+		default:
+			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kReverse);
+		}
+	}
 	public void setIntakePower(double leftPower, double rightPower){
 		RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, leftPower);
 		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, rightPower);
@@ -54,6 +67,17 @@ public class IntakeRoller extends Subsystem {
     public void initDefaultCommand() {
 		RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, 0);
 		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, 0);
+    }
+    public void outputSd(){
+		//intake
+		SmartDashboard.putNumber("intakeRollerLeft.voltage",
+				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
+		SmartDashboard.putNumber("intakeRollerRight.voltage",
+				RobotMap.intakeRollerRight.getMotorOutputVoltage());
+		SmartDashboard.putNumber("intakeRollerLeft.current",
+				RobotMap.intakeRollerLeft.getOutputCurrent());
+		SmartDashboard.putNumber("intakeRollerRight.current",
+				RobotMap.intakeRollerRight.getOutputCurrent());
     }
 }
 

@@ -15,13 +15,13 @@ public class IntakeRollerBrakeMode extends Command {
     public IntakeRollerBrakeMode(boolean brakeMode) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.brakeMode = brakeMode;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.intakeRoller.intakeRollerBrakeMode(brakeMode);
+    	Robot.intake.intakeRollerBrakeMode(brakeMode);
     }
 
     // Called repeatedly when this Command is scheduled to run

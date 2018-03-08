@@ -20,7 +20,7 @@ public class IntakeActivatorSetState extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.intakeActivator.setIntakeActivatorState(desiredState);
+    	Robot.intake.setIntakeActivatorState(desiredState);
     }
 
     // Called repeatedly when this Command is scheduled to run

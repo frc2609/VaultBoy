@@ -24,7 +24,7 @@ public class IntakeRollerLightSensorStop extends Command {
     public IntakeRollerLightSensorStop(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.currentThreshold = currentThreshold;
     	this.powerL = power;
     	this.powerR = power;
@@ -32,7 +32,7 @@ public class IntakeRollerLightSensorStop extends Command {
     public IntakeRollerLightSensorStop(double powerL,double powerR,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.currentThreshold = currentThreshold;
     	this.powerL = powerL;
     	this.powerR = powerR;
@@ -47,38 +47,38 @@ public class IntakeRollerLightSensorStop extends Command {
     	if(RobotMap.intakeActivator.get() == DoubleSolenoid.Value.kForward){
     	
     	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
-    		if ((Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold)) {
+    		if ((Robot.intake.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intake.intakeRollerRightCurrent() > currentThreshold)) {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.intakeRollerSetR(-powerR*0.5);
-				Robot.intakeRoller.intakeRollerSetL(-powerL*0.5);
+				Robot.intake.intakeRollerSetR(-powerR*0.5);
+				Robot.intake.intakeRollerSetL(-powerL*0.5);
 				System.out.println("BOTH");
 			}
-    		else if (Robot.intakeRoller.intakeRollerLeftCurrent() > currentThreshold) {
+    		else if (Robot.intake.intakeRollerLeftCurrent() > currentThreshold) {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.intakeRollerSetR(-powerR*0.5);
-				Robot.intakeRoller.intakeRollerSetL(-powerL*0.5);
+				Robot.intake.intakeRollerSetR(-powerR*0.5);
+				Robot.intake.intakeRollerSetL(-powerL*0.5);
 //				Robot.intakeRoller.intakeRollerSetL(power);
 			}
-    		else if (Robot.intakeRoller.intakeRollerRightCurrent() > currentThreshold) {
+    		else if (Robot.intake.intakeRollerRightCurrent() > currentThreshold) {
 				timeInit = Timer.getFPGATimestamp();
 //				Robot.intakeRoller.intakeRollerSetR(power);
-				Robot.intakeRoller.intakeRollerSetR(-powerR*0.5);
-				Robot.intakeRoller.intakeRollerSetL(-powerL*0.5);
+				Robot.intake.intakeRollerSetR(-powerR*0.5);
+				Robot.intake.intakeRollerSetL(-powerL*0.5);
 			} else {
-				Robot.intakeRoller.intakeRollerSetL(powerL);
-				Robot.intakeRoller.intakeRollerSetR(powerR);
+				Robot.intake.intakeRollerSetL(powerL);
+				Robot.intake.intakeRollerSetR(powerR);
 			}
 		}
     	}else{
-			Robot.intakeRoller.intakeRollerSetR(0);
-			Robot.intakeRoller.intakeRollerSetL(0);
+			Robot.intake.intakeRollerSetR(0);
+			Robot.intake.intakeRollerSetL(0);
     		
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.intakeRoller.intakeRollerCubeSensor()){
+    	if (Robot.intake.intakeRollerCubeSensor()){
     		cubeCounter++;
     	}
     	else{

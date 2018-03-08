@@ -20,7 +20,7 @@ public class ShooterActivatorSetState extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooterActivator.setShooterActivatorState(desiredState);
+    	Robot.shooter.setShooterActivatorState(desiredState);
     }
 
     // Called repeatedly when this Command is scheduled to run

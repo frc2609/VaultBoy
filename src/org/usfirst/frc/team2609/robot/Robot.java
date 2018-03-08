@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2609.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
 import enums.ShooterActivatorState;
 
+import org.usfirst.frc.team2609.BeaverTalonSRX;
 import org.usfirst.frc.team2609.MP.Logger;
 import org.usfirst.frc.team2609.MP.Looper;
 import org.usfirst.frc.team2609.MP.MPConstants;
@@ -32,12 +34,12 @@ import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 import org.usfirst.frc.team2609.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team2609.robot.subsystems.IntakeActivator;
-import org.usfirst.frc.team2609.robot.subsystems.IntakeRoller;
-import org.usfirst.frc.team2609.robot.subsystems.ShooterActivator;
+import org.usfirst.frc.team2609.robot.subsystems.Intake;
+import org.usfirst.frc.team2609.robot.subsystems.Shooter;
 import org.usfirst.frc.team2609.robot.subsystems.Slider;
 import org.usfirst.frc.team2609.robot.subsystems.VaultBoy;
 
+import com.ctre.CANTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
@@ -54,9 +56,8 @@ public class Robot extends TimedRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final VaultBoy vaultBoy = new VaultBoy();
 	public static final Slider slider = new Slider();
-	public static final IntakeRoller intakeRoller = new IntakeRoller();
-	public static final ShooterActivator shooterActivator = new ShooterActivator();
-	public static final IntakeActivator intakeActivator = new IntakeActivator();
+	public static final Intake intake = new Intake();
+	public static final Shooter shooter= new Shooter();
 	
 	//mp subsystems
 	public static final Logger logger = Logger.getInstance();
@@ -69,6 +70,8 @@ public class Robot extends TimedRobot {
 	public static final double ticksToInches = 0.00460194236365692368915426276848;		//inches/count
 	
 	public static boolean isDriveTrainMPActive;
+	
+	public static boolean driveSensors, sliderSensor;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -94,38 +97,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		MPConstants.sdPut();
-		// TODO: PUT THIS IN THE DRIVETRAIN SUBSYSTEM
-		//SmartDashboard Values initialization
-		//Left drive PID
-		SmartDashboard.putNumber("DriveLeft P: ", 0.0002);
-    	SmartDashboard.putNumber("DriveLeft I: ", 0.000);
-    	SmartDashboard.putNumber("DriveLeft D: ", 0.0);
-    	SmartDashboard.putNumber("DriveLeft Max: ", 0.8);
-    	SmartDashboard.putNumber("DriveLeft Eps: ", 1.0);
-    	SmartDashboard.putNumber("DriveLeft DR: ", 10);
-    	SmartDashboard.putNumber("DriveLeft DC: ", 5);
-    	//Right drive PID
-		SmartDashboard.putNumber("DriveRight P: ", 0.0002);
-    	SmartDashboard.putNumber("DriveRight I: ", 0.000);
-    	SmartDashboard.putNumber("DriveRight D: ", 0.0);
-    	SmartDashboard.putNumber("DriveRight Max: ", 0.8);
-    	SmartDashboard.putNumber("DriveRight Eps: ", 1.0);
-    	SmartDashboard.putNumber("DriveRight DR: ", 10);
-    	SmartDashboard.putNumber("DriveRight DC: ", 5);
-    	//Steering heading correction PID
-		SmartDashboard.putNumber("Steering P: ", 0.0003);
-    	SmartDashboard.putNumber("Steering I: ", 0.000);
-    	SmartDashboard.putNumber("Steering D: ", 0.0);
-    	SmartDashboard.putNumber("Steering Max: ", 0.2);
-    	//Slider PID
-		SmartDashboard.putNumber("Slider P: ", 0.5);
-    	SmartDashboard.putNumber("Slider I: ", 0.0001);
-    	SmartDashboard.putNumber("Slider D: ", 0.0);
-    	SmartDashboard.putNumber("Slider F: ", 0.32);
-    	SmartDashboard.putNumber("Slider Max: ", 1.0);
-    	SmartDashboard.putNumber("Slider Eps: ", 1.0);
-    	SmartDashboard.putNumber("Slider DR: ", 100);
-    	SmartDashboard.putNumber("Slider DC: ", 5);
+		drivetrain.initSd();
+		slider.initSd();
     	
     	SmartDashboard.putNumber("Auto delay", 0);
     	
@@ -136,10 +109,9 @@ public class Robot extends TimedRobot {
     		System.out.println(t.getMessage());
     		System.out.println(t.getStackTrace());
     	}
+    	driveSensors = drivetrain.initialSensorCheck();
+    	sliderSensor = slider.initialSensorCheck();
     	
-    	//testing
-    	SmartDashboard.putNumber("vaultBoy testing", 0);
-    	SmartDashboard.putNumber("intake testing", 0);
 	}
 
 	/**
@@ -159,43 +131,11 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 
-		// drivetrain
-		SmartDashboard.putNumber("Gyro.getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft.getPosition",
-				Robot.drivetrain.getInverseLeftEncoderInches());
-		SmartDashboard.putNumber("driveRight.getPosition",
-				Robot.drivetrain.getRightEncoderInches());
-		SmartDashboard.putNumber("driveLeft.voltage",
-				RobotMap.driveLeft1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("driveRight.voltage",
-				RobotMap.driveRight1.getMotorOutputVoltage());
-		//intake
-		SmartDashboard.putNumber("intakeRollerLeft.voltage",
-				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
-		SmartDashboard.putNumber("intakeRollerRight.voltage",
-				RobotMap.intakeRollerRight.getMotorOutputVoltage());
-		SmartDashboard.putNumber("intakeRollerLeft.current",
-				RobotMap.intakeRollerLeft.getOutputCurrent());
-		SmartDashboard.putNumber("intakeRollerRight.current",
-				RobotMap.intakeRollerRight.getOutputCurrent());
-		//vaultboy
-		SmartDashboard.putNumber("vaultBoyLeft.current",
-				RobotMap.vaultBoyLeft.getOutputCurrent());
-		SmartDashboard.putNumber("vaultBoyRight.current",
-				RobotMap.vaultBoyRight.getOutputCurrent());
-		//slider
-		SmartDashboard.putNumber("slider.getPosition",
-				RobotMap.slider.getSensorCollection().getQuadraturePosition());
-		SmartDashboard.putNumber("slider.voltage",
-				RobotMap.slider.getMotorOutputVoltage());
-		SmartDashboard.putNumber("slider.current",
-				RobotMap.slider.getOutputCurrent());
-		SmartDashboard.putNumber("slider.error",
-				RobotMap.slider.getClosedLoopError(0));
-		SmartDashboard.putBoolean("ahrs collision",
-				drivetrain.collisionDetected());
-		
-		SmartDashboard.putNumber("rollertime", 0.1);
+		drivetrain.outputSd();
+		intake.outputSd();
+		slider.outputSd();
+		vaultBoy.outputSd();
+		shooter.outputSd();
 		
 		MPConstants.sdGet();
 
@@ -224,7 +164,7 @@ public class Robot extends TimedRobot {
 		}
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetGyro();
-		Robot.intakeRoller.intakeRollerBrakeMode(true);
+		Robot.intake.intakeRollerBrakeMode(true);
 		enabledLooper.start();
 		logger.openFile();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
@@ -240,62 +180,28 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 
-		// drivetrain
-		SmartDashboard.putNumber("Gyro.getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft.getPosition",
-				Robot.drivetrain.getInverseLeftEncoderInches());
-		SmartDashboard.putNumber("driveRight.getPosition",
-				Robot.drivetrain.getRightEncoderInches());
-		SmartDashboard.putNumber("driveLeft.getQuadPosition",
-				Robot.drivetrain.getLeftQuad());
-		SmartDashboard.putNumber("driveRight.getQuadPosition",
-				Robot.drivetrain.getRightQuad());
-		SmartDashboard.putNumber("driveLeft.voltage",
-				RobotMap.driveLeft1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("driveRight.voltage",
-				RobotMap.driveRight1.getMotorOutputVoltage());
-		//intake
-		SmartDashboard.putNumber("intakeRollerLeft.voltage",
-				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
-		SmartDashboard.putNumber("intakeRollerRight.voltage",
-				RobotMap.intakeRollerRight.getMotorOutputVoltage());
-		SmartDashboard.putNumber("intakeRollerLeft.current",
-				RobotMap.intakeRollerLeft.getOutputCurrent());
-		SmartDashboard.putNumber("intakeRollerRight.current",
-				RobotMap.intakeRollerRight.getOutputCurrent());
-		//vaultboy
-		SmartDashboard.putNumber("vaultBoyLeft.current",
-				RobotMap.vaultBoyLeft.getOutputCurrent());
-		SmartDashboard.putNumber("vaultBoyRight.current",
-				RobotMap.vaultBoyRight.getOutputCurrent());
-		//slider
-		SmartDashboard.putNumber("slider.getPosition",
-				RobotMap.slider.getSensorCollection().getQuadraturePosition());
-		SmartDashboard.putNumber("slider.voltage",
-				RobotMap.slider.getMotorOutputVoltage());
-		SmartDashboard.putNumber("slider.current",
-				RobotMap.slider.getOutputCurrent());
+		drivetrain.outputSd();
+		intake.outputSd();
+		slider.outputSd();
+		vaultBoy.outputSd();
+		shooter.outputSd();
 	}
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetGyro();
-		Robot.intakeRoller.intakeRollerBrakeMode(true);
+		Robot.intake.intakeRollerBrakeMode(true);
 		
 		logger.openFileTele();
 		RobotMap.driveLeft1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
-		shooterActivator.setShooterActivatorState(ShooterActivatorState.UP);
+		shooter.setShooterActivatorState(ShooterActivatorState.UP);
 		new DriveTeleop().start();
 		if(!RobotMap.isHomed){
 			new SliderHome().start();
@@ -310,64 +216,18 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		// drivetrain
-		SmartDashboard.putNumber("Gyro.getYaw", RobotMap.ahrs.getYaw());
-		SmartDashboard.putNumber("driveLeft.getPosition",
-				Robot.drivetrain.getInverseLeftEncoderInches());
-		SmartDashboard.putNumber("driveRight.getPosition",
-				Robot.drivetrain.getRightEncoderInches());
-		SmartDashboard.putNumber("driveLeft.voltage",
-				RobotMap.driveLeft1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("driveRight.voltage",
-				RobotMap.driveRight1.getMotorOutputVoltage());
-		SmartDashboard.putNumber("driveLeft.getQuadPosition",
-				Robot.drivetrain.getLeftQuad());
-		SmartDashboard.putNumber("driveRight.getQuadPosition",
-				Robot.drivetrain.getRightQuad());
-		//intake
-		SmartDashboard.putNumber("intakeRollerLeft.voltage",
-				RobotMap.intakeRollerLeft.getMotorOutputVoltage());
-		SmartDashboard.putNumber("intakeRollerRight.voltage",
-				RobotMap.intakeRollerRight.getMotorOutputVoltage());
-		SmartDashboard.putNumber("intakeRollerLeft.current",
-				RobotMap.intakeRollerLeft.getOutputCurrent());
-		SmartDashboard.putNumber("intakeRollerRight.current",
-				RobotMap.intakeRollerRight.getOutputCurrent());
-		//vaultboy
-		SmartDashboard.putNumber("vaultBoyLeft.current",
-				RobotMap.vaultBoyLeft.getOutputCurrent());
-		SmartDashboard.putNumber("vaultBoyRight.current",
-				RobotMap.vaultBoyRight.getOutputCurrent());
-		//slider
-		SmartDashboard.putNumber("slider.getPosition",
-				RobotMap.slider.getSensorCollection().getQuadraturePosition());
-		SmartDashboard.putNumber("slider.voltage",
-				RobotMap.slider.getMotorOutputVoltage());
-		SmartDashboard.putNumber("slider.current",
-				RobotMap.slider.getOutputCurrent());
-		SmartDashboard.putNumber("slider.getSelectedSensorPosition0",
-				RobotMap.slider.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber("slider.getSelectedSensorVel",
-				RobotMap.slider.getSelectedSensorVelocity(0));
-		
+		drivetrain.outputSd();
+		intake.outputSd();
+		slider.outputSd();
+		vaultBoy.outputSd();
+		shooter.outputSd();
 
-    	SmartDashboard.putNumber("ShooterL curr: ", RobotMap.shooterLeft.getOutputCurrent());
-    	SmartDashboard.putNumber("ShooterR curr: ", RobotMap.shooterRight.getOutputCurrent());
     	SmartDashboard.putBoolean("CubeDetect: ", RobotMap.cubeSensor.get());
 		
-//		RobotMap.vaultBoyLeft.set(SmartDashboard.getNumber("vaultBoy testing", 0));
-//		RobotMap.vaultBoyRight.set(SmartDashboard.getNumber("vaultBoy testing", 0));
 		
 		if (OI.operatorButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.operatorStick.getRawAxis(3)*0.2);
 		}
-//		if (OI.driverButton3.get()){
-//			RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-//			RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-//			RobotMap.vaultBoyLeft.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-//			RobotMap.vaultBoyRight.set(ControlMode.PercentOutput, OI.driverStick.getRawAxis(3));
-//		}
-//		Robot.drivetrain.setDrive(DriveState.AUTON, m_oi.driverStick.getRawAxis(1), m_oi.driverStick.getRawAxis(3));
 	}
 
 	/**

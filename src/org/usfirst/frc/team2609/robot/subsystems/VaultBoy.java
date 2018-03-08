@@ -5,6 +5,7 @@ import org.usfirst.frc.team2609.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
 
 /**
@@ -29,6 +30,15 @@ public class VaultBoy extends Subsystem {
     }
 
     public void initDefaultCommand() {
+    }
+    public void outputSd(){
+
+		//vaultboy
+		SmartDashboard.putNumber("vaultBoyLeft.current",
+				RobotMap.vaultBoyLeft.getOutputCurrent());
+		SmartDashboard.putNumber("vaultBoyRight.current",
+				RobotMap.vaultBoyRight.getOutputCurrent());
+		SmartDashboard.putNumber("rollertime", 0.1);
     }
 }
 

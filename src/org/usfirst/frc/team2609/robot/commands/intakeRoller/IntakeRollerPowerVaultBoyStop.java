@@ -19,7 +19,7 @@ public class IntakeRollerPowerVaultBoyStop extends Command {
     public IntakeRollerPowerVaultBoyStop(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.currentThreshold = currentThreshold;
     	this.power = power;
     }
@@ -31,12 +31,12 @@ public class IntakeRollerPowerVaultBoyStop extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 		if (Timer.getFPGATimestamp() > timeInit + 0.1) {
-			if ((Robot.intakeRoller.intakeRollerLeftCurrent() < currentThreshold)
-					&& (Robot.intakeRoller.intakeRollerRightCurrent() < currentThreshold)) {
-				Robot.intakeRoller.setIntakePower(power, power);
+			if ((Robot.intake.intakeRollerLeftCurrent() < currentThreshold)
+					&& (Robot.intake.intakeRollerRightCurrent() < currentThreshold)) {
+				Robot.intake.setIntakePower(power, power);
 			} else {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intakeRoller.setIntakePower(0, 0);
+				Robot.intake.setIntakePower(0, 0);
 			}
 		}
     }
@@ -48,7 +48,7 @@ public class IntakeRollerPowerVaultBoyStop extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intakeRoller.setIntakePower(0,0);
+    	Robot.intake.setIntakePower(0,0);
     }
 
     // Called when another command which requires one or more of the same

@@ -24,7 +24,7 @@ public class IntakeRollerLightSensorStopNoCurrent extends Command {
     public IntakeRollerLightSensorStopNoCurrent(double power,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.currentThreshold = currentThreshold;
     	this.powerL = power;
     	this.powerR = power;
@@ -32,7 +32,7 @@ public class IntakeRollerLightSensorStopNoCurrent extends Command {
     public IntakeRollerLightSensorStopNoCurrent(double powerL,double powerR,double currentThreshold) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intakeRoller);
+    	requires(Robot.intake);
     	this.currentThreshold = currentThreshold;
     	this.powerL = powerL;
     	this.powerR = powerR;
@@ -44,13 +44,13 @@ public class IntakeRollerLightSensorStopNoCurrent extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-				Robot.intakeRoller.intakeRollerSetL(powerL);
-				Robot.intakeRoller.intakeRollerSetR(powerR);
+				Robot.intake.intakeRollerSetL(powerL);
+				Robot.intake.intakeRollerSetR(powerR);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.intakeRoller.intakeRollerCubeSensor()){
+    	if (Robot.intake.intakeRollerCubeSensor()){
     		cubeCounter++;
     	}
     	else{

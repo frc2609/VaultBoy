@@ -217,6 +217,12 @@ public class Drivetrain extends Subsystem {
 		this.currID = id;
 		boolean isGeneratedCurr,isDoneCurr,isReverseCurr;
 		MPConstants.sdGet();
+		if(Robot.driveSensors){
+			// fallback
+			MPConstants.kP = 0;
+			MPConstants.kI = 0;
+			MPConstants.kD = 0;
+		}
 		if (RobotMap.activeSide == AutoSide.LEFT) {
 			isDoneCurr = RobotMap.isDoneMPL[currID];
 			isGeneratedCurr = RobotMap.isGeneratedL[id];

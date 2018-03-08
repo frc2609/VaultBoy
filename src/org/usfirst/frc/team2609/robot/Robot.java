@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
 import enums.ShooterActivatorState;
 
+import java.util.Map;
+
 import org.usfirst.frc.team2609.BeaverTalonSRX;
 import org.usfirst.frc.team2609.MP.Logger;
 import org.usfirst.frc.team2609.MP.Looper;
@@ -25,6 +27,7 @@ import org.usfirst.frc.team2609.MP.MPConstants;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.MP.PathGenerator;
 import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
+import org.usfirst.frc.team2609.robot.commands.auton.FallbackCheck;
 import org.usfirst.frc.team2609.robot.commands.auton.LeftSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.RightSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
@@ -58,6 +61,7 @@ public class Robot extends TimedRobot {
 	public static final Slider slider = new Slider();
 	public static final Intake intake = new Intake();
 	public static final Shooter shooter= new Shooter();
+	public static FallbackCheck fallback;
 	
 	//mp subsystems
 	public static final Logger logger = Logger.getInstance();
@@ -68,13 +72,15 @@ public class Robot extends TimedRobot {
 	
 	public static final double inchesToTicks = 217.29954896813443176978263159127;		//counts/inch
 	public static final double ticksToInches = 0.00460194236365692368915426276848;		//inches/count
+	public static Map<String, Command> autoMap;
 	
 	public static boolean isDriveTrainMPActive;
 	
 	public static boolean driveSensors, sliderSensor;
 	
+	String m_autonomousString;
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<String> m_chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -87,13 +93,18 @@ public class Robot extends TimedRobot {
 
 //		CameraServer.getInstance().startAutomaticCapture();
 		enabledLooper = new Looper();
-
+		
+		// DEFAULT!! MAKE SURE SPELLING MATCHES .addDefault
+		autoMap.put("SwitchVaultRoutine", new SwitchVaultRoutine()); 
+		
+		
+		
+		fallback = new FallbackCheck();
 		m_oi = new OI();
-		m_chooser.addDefault("Switch2Vault MP", new SwitchVaultRoutine());
-		m_chooser.addObject("switchVaultMiddle", new SwitchVaultMiddle());
-		m_chooser.addObject("testOnton", new TestOnton());
-		m_chooser.addObject("trapezoid", new DriveStraightTrapezoid(10,70,80,0.2,0.5,0.1,0));
-		m_chooser.addObject("slider reset", new SliderHome());
+		m_chooser.addDefault("Switch2Vault MP", "SwitchVaultRoutine"); // make sure this is in the map
+		// loop through map and .addObject here
+		
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		MPConstants.sdPut();
@@ -157,7 +168,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = fallback.getCheckedAutoCommand(m_chooser.getSelected());
+//		m_autonomousCommand = m_chooser.getSelected();
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();

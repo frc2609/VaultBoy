@@ -31,7 +31,7 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 				new Waypoint(7, -1.2, -Pathfinder.d2r(30))});
 		super.setPath(5, new Waypoint[]{
 				new Waypoint(0,	0,Pathfinder.d2r(30)),
-				new Waypoint(6.9, 1.75, Pathfinder.d2r(0))}); // 1.25 in quals
+				new Waypoint(6.9, 1.25, Pathfinder.d2r(0))}); // 1.25 in quals
 		super.setReverse(0, false);
 		super.setReverse(1, true);
 		super.setReverse(2, false);

@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SPI;
@@ -92,6 +93,8 @@ public class RobotMap {
     public static AutoSide activeSide;
     public static DriveActivatorState teleopState;
     
+    
+    public static Alliance alliance = Alliance.Invalid;
     public static String gameData;
 //    public static VideoSink server;
     public static Relay led;

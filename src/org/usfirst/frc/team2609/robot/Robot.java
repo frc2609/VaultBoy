@@ -9,6 +9,7 @@ package org.usfirst.frc.team2609.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveState;
 import enums.ShooterActivatorState;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.usfirst.frc.team2609.BeaverTalonSRX;
@@ -33,6 +35,7 @@ import org.usfirst.frc.team2609.robot.commands.auton.RightSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
+import org.usfirst.frc.team2609.robot.commands.auton.fallbacks.FallbackSwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
@@ -69,10 +72,12 @@ public class Robot extends TimedRobot {
 	private Looper enabledLooper;
 
 	public static OI m_oi;
+	private DriverStation m_ds = DriverStation.getInstance();
 	
 	public static final double inchesToTicks = 217.29954896813443176978263159127;		//counts/inch
 	public static final double ticksToInches = 0.00460194236365692368915426276848;		//inches/count
-	public static Map<String, Command> autoMap;
+	public static Map<String, Command> autoMap = new HashMap<String, Command>();
+	public static Map<String, Command> fallbackMap = new HashMap<String, Command>();
 	
 	public static boolean isDriveTrainMPActive;
 	
@@ -96,6 +101,7 @@ public class Robot extends TimedRobot {
 		
 		// DEFAULT!! MAKE SURE SPELLING MATCHES .addDefault
 		autoMap.put("SwitchVaultRoutine", new SwitchVaultRoutine()); 
+		fallbackMap.put("SwitchVaultRoutine", new FallbackSwitchVaultRoutine());
 		
 		
 		
@@ -149,8 +155,14 @@ public class Robot extends TimedRobot {
 		shooter.outputSd();
 		
 		MPConstants.sdGet();
-
-		pathGenerator.generateAll();
+//		System.out.println(RobotMap.alliance);
+		if(RobotMap.alliance != m_ds.getAlliance()){
+			RobotMap.alliance = m_ds.getAlliance();
+			RobotMap.mpRoutineL.setPathsWithOffset(RobotMap.alliance);
+			RobotMap.mpRoutineR.setPathsWithOffset(RobotMap.alliance);
+			pathGenerator.generateAll();
+			DriverStation.reportError("NEW CONTROL DATA!", true);
+		}
 		
 	}
 

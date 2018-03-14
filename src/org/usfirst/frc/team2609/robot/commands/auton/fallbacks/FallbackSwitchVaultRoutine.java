@@ -73,4 +73,7 @@ public class FallbackSwitchVaultRoutine extends CommandGroup {
     	addSequential(new LaunchMP(5));
     	// at the vault
     }
+    public void forceSetMP(){
+    	new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine());
+    }
 }

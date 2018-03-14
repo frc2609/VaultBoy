@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2609.robot.commands.auton;
+package org.usfirst.frc.team2609.robot.commands.auton.fallbacks;
 
 import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.MP.MPRoutine;
@@ -10,7 +10,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
-public class LeftSwitchVaultMPRoutine extends MPRoutine {
+public class FallbackLeftSwitchVaultMPRoutine extends MPRoutine {
 	static final int length = 6; // 0,1,2
 	static final AutoSide side = AutoSide.LEFT;
 
@@ -33,7 +33,7 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 			new Waypoint(0,	0,Pathfinder.d2r(30)),
 			new Waypoint(6.9, 1.25, Pathfinder.d2r(0))}; // 1.25 in quals
 	
-	public LeftSwitchVaultMPRoutine() {
+	public FallbackLeftSwitchVaultMPRoutine() {
 		super(length, side);
 		
 		super.setReverse(0, false);

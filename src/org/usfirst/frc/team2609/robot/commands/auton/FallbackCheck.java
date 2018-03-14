@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2609.robot.commands.auton;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.usfirst.frc.team2609.robot.Robot;
@@ -8,19 +9,15 @@ import org.usfirst.frc.team2609.robot.commands.auton.fallbacks.FallbackSwitchVau
 import edu.wpi.first.wpilibj.command.Command;
 
 public class FallbackCheck {
-	Map<String, Command> autoMap;
-	Map<String, Command> fallbackMap;
 	public FallbackCheck(){
-		this.autoMap = Robot.autoMap;
-		fallbackMap.put("SwitchVaultRoutine", new FallbackSwitchVaultRoutine());
 		
 	}
 	public Command getCheckedAutoCommand(String pickedCommand){
 		// Fallbackcheck here
 		if(Robot.driveSensors){
-			return fallbackMap.get(pickedCommand);
+			return Robot.fallbackMap.get(pickedCommand);
 		}else{
-			return autoMap.get(pickedCommand);
+			return Robot.autoMap.get(pickedCommand);
 		}
 	}
 }

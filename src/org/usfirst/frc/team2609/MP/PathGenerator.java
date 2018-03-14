@@ -53,13 +53,12 @@ public class PathGenerator {
 			RobotMap.isGeneratedR[id] = true;
 		}
 	}
-
 	public void generateAll() {
 		int lengthL = RobotMap.mpRoutineL.path.length - 1;
 		int generatedLenL = -1;
 		int lengthR = RobotMap.mpRoutineR.path.length - 1;
 		int generatedLenR = -1;
-		if (ActiveName != RobotMap.mpRoutineL.name) {
+		if (ActiveName != RobotMap.mpRoutineL.name && RobotMap.mpRoutineL.isPathSet) {
 			if (lengthL > -1) {
 				for (int i = 0; i <= lengthL; i++) {
 					if(!RobotMap.isGeneratedL.equals(null)){

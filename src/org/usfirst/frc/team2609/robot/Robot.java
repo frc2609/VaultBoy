@@ -32,6 +32,7 @@ import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.FallbackCheck;
 import org.usfirst.frc.team2609.robot.commands.auton.LeftSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.RightSwitchVaultMPRoutine;
+import org.usfirst.frc.team2609.robot.commands.auton.SwitchSwitchRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
@@ -101,13 +102,16 @@ public class Robot extends TimedRobot {
 		
 		// DEFAULT!! MAKE SURE SPELLING MATCHES .addDefault
 		autoMap.put("SwitchVaultRoutine", new SwitchVaultRoutine()); 
+		autoMap.put("SwitchSwitchRoutine", new SwitchSwitchRoutine()); 
 		fallbackMap.put("SwitchVaultRoutine", new FallbackSwitchVaultRoutine());
+		fallbackMap.put("SwitchSwitchRoutine", new SwitchSwitchRoutine());
 		
 		
 		
 		fallback = new FallbackCheck();
 		m_oi = new OI();
-		m_chooser.addDefault("Switch2Vault MP", "SwitchVaultRoutine"); // make sure this is in the map
+		m_chooser.addDefault("Switch2Vault MP", "SwitchSwitchRoutine"); // make sure this is in the map
+		m_chooser.addObject("Switch2Switch MP", "SwitchSwitchRoutine"); // make sure this is in the map
 		// loop through map and .addObject here
 		
 		
@@ -161,7 +165,7 @@ public class Robot extends TimedRobot {
 			RobotMap.mpRoutineL.setPathsWithOffset(RobotMap.alliance);
 			RobotMap.mpRoutineR.setPathsWithOffset(RobotMap.alliance);
 			pathGenerator.generateAll();
-			DriverStation.reportError("NEW CONTROL DATA!", true);
+			DriverStation.reportWarning("NEW CONTROL DATA!", false);
 		}
 		
 	}
@@ -248,6 +252,7 @@ public class Robot extends TimedRobot {
 
     	SmartDashboard.putBoolean("CubeDetect: ", RobotMap.cubeSensor.get());
 		
+//    	RobotMap.fishing.set(OI.operatorStick.getRawAxis(1));
 		
 		if (OI.operatorButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.operatorStick.getRawAxis(3)*0.2);

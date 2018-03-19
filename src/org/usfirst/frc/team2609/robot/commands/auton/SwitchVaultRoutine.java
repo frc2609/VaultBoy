@@ -3,17 +3,19 @@ package org.usfirst.frc.team2609.robot.commands.auton;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.robot.commands.Delay;
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
-import org.usfirst.frc.team2609.robot.commands.ParallelPosition;
-import org.usfirst.frc.team2609.robot.commands.ParallelShoot;
-import org.usfirst.frc.team2609.robot.commands.ParallelShoot2;
-import org.usfirst.frc.team2609.robot.commands.ParallelVaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.SDDelay;
 import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.TimerDelay;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollectAuto;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollectAuto2;
-import org.usfirst.frc.team2609.robot.commands.automation.SwitchScore;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelPosition;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelPosition6000;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelShoot;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelShoot2;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelShooterReset;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelSwitchScore;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelVaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScoreAuto;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStop;
@@ -35,14 +37,18 @@ import enums.ShooterActivatorState;
 public class SwitchVaultRoutine extends CommandGroup {
 
     public SwitchVaultRoutine() {
-    	addSequential(new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine()));
+    	addSequential(new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine()));
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
-    	addParallel(new ShooterRoller(1));
+    	addParallel(new ShooterRoller(0.7));
+    	addParallel(new ParallelSwitchScore()); // formerly sequential switchscoreauto
     	addSequential(new LaunchMP(0));
+    	addParallel(new ShooterRoller(0));
     	// at the switch
-    	
-    	addSequential(new SwitchScoreAuto());
+
+
+    	addParallel(new ParallelShooterReset());
+    	addParallel(new LaunchMP(1));
     	addParallel(new ParallelPosition());
     	addSequential(new LaunchMP(1));
     	// in front of the cube stack
@@ -64,13 +70,14 @@ public class SwitchVaultRoutine extends CommandGroup {
 //    	addParallel(new IntakeRollerPower(.45,5));
 //    	addSequential(new Delay(0.4));
     	// side cube from the stack
-    	
+
+    	addParallel(new ParallelPosition6000());
     	addParallel(new IntakeRollerPower(.45,5));
     	addParallel(new ParallelShoot2());
     	addSequential(new LaunchMP(5));
     	// at the vault
     }
     public void forceSetMP(){
-    	new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine());
+    	new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine());
     }
 }

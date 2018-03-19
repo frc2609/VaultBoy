@@ -70,8 +70,8 @@ public class IntakeRollerLightSensorStop extends Command {
 			}
 		}
     	}else{
-			Robot.intake.intakeRollerSetR(0);
-			Robot.intake.intakeRollerSetL(0);
+			Robot.intake.intakeRollerSetR(0.2);
+			Robot.intake.intakeRollerSetL(0.2);
     		
     	}
     }

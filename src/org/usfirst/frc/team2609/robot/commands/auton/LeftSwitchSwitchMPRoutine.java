@@ -10,8 +10,8 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
-public class LeftSwitchVaultMPRoutine extends MPRoutine {
-	static final int length = 6; // 0,1,2
+public class LeftSwitchSwitchMPRoutine extends MPRoutine {
+	static final int length = 5; // 0,1,2
 	static final AutoSide side = AutoSide.LEFT;
 
 	Waypoint[] MiddleToSwitch = new Waypoint[]{
@@ -23,17 +23,11 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(2.75, 0, Pathfinder.d2r(0))};
-	Waypoint[] CubeMiddleToVault = new Waypoint[]{
+	Waypoint[] StackMiddleToSwitch = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(6.5, 1.75, Pathfinder.d2r(0))};
-	Waypoint[] VaultToSideCube = new Waypoint[]{
-			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(7, -1.2, -Pathfinder.d2r(30))};
-	Waypoint[] SideCubeToVault = new Waypoint[]{
-			new Waypoint(0,	0,Pathfinder.d2r(30)),
-			new Waypoint(6.9, 1.25, Pathfinder.d2r(0))}; // 1.25 in quals
+			new Waypoint(6, 4.25, Pathfinder.d2r(0))};
 	
-	public LeftSwitchVaultMPRoutine() {
+	public LeftSwitchSwitchMPRoutine() {
 		super(length, side);
 		
 		
@@ -44,20 +38,19 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 		super.setPath(0, MiddleToSwitch);
 		super.setPath(1, SwitchToStackMiddle);
 		super.setPath(2, StackMiddleToCubeMiddle);
-		super.setPath(3, CubeMiddleToVault);
-		super.setPath(4, SideCubeToVault);
-		super.setPath(5, VaultToSideCube);
+		super.setPath(3, StackMiddleToCubeMiddle);
+		super.setPath(4, StackMiddleToSwitch);
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here
 
-			super.name = "Left Switch Vault Blue";
+			super.name = "Left Switch Switch Blue";
 			System.out.println("BLUE OFFSETS");
 		}else if(alliance == Alliance.Red){
 			// set red offsets here
 			System.out.println("RED OFFSETS");
 
-			super.name = "Left Switch Vault Red";
+			super.name = "Left Switch Switch Red";
 		}else{
 			DriverStation.reportError("INVALID OFFSETS", false);
 		}
@@ -69,7 +62,6 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 		super.setReverse(2, false);
 		super.setReverse(3, true);
 		super.setReverse(4, false);
-		super.setReverse(5, true);
 		
 		super.isPathSet = true;
 	}

@@ -1,5 +1,6 @@
-package org.usfirst.frc.team2609.robot.commands;
+package org.usfirst.frc.team2609.robot.commands.automation;
 
+import org.usfirst.frc.team2609.robot.commands.TimerDelay;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

@@ -169,7 +169,7 @@ public class Drivetrain extends Subsystem {
     }
     
     public double getRightEncoderInches(){
-		return RobotMap.driveRight2.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
+		return RobotMap.driveRight1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
     }
     
     public double getInverseLeftEncoderInches(){
@@ -177,7 +177,7 @@ public class Drivetrain extends Subsystem {
     }
     
     public double getInverseRightEncoderInches(){
-		return -RobotMap.driveRight2.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
+		return -RobotMap.driveRight1.getSensorCollection().getQuadraturePosition() * Robot.ticksToInches;
     }
     public int getRightQuad(){
     	return RobotMap.driveRight1.getSensorCollection().getQuadraturePosition();

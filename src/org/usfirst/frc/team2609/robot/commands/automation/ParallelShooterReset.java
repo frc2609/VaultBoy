@@ -1,13 +1,19 @@
 package org.usfirst.frc.team2609.robot.commands.automation;
 
+import org.usfirst.frc.team2609.robot.commands.TimerDelay;
+import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
+import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import enums.IntakeActivatorState;
+import enums.ShooterActivatorState;
 
 /**
  *
  */
-public class VaultScoreDelayed extends CommandGroup {
+public class ParallelShooterReset extends CommandGroup {
 
-    public VaultScoreDelayed() {
+    public ParallelShooterReset() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,6 +30,9 @@ public class VaultScoreDelayed extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-//    	addSequential();
+    	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
+    	addSequential(new TimerDelay(0.5));
+
+    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
     }
 }

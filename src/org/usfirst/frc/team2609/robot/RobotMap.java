@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SPI;
@@ -67,7 +68,7 @@ public class RobotMap {
 	public static BeaverTalonSRX intakeRollerRight;
 	public static BeaverTalonSRX shooterRight;
 	public static BeaverTalonSRX shooterLeft;
-	
+//	public static PWMTalonSRX fishing;
 	
 	
 	//misc

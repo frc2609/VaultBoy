@@ -30,6 +30,7 @@ public class Intake extends Subsystem {
 			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kReverse);
 		}
 	}
+	
 	public void setIntakePower(double leftPower, double rightPower){
 		RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, leftPower);
 		RobotMap.intakeRollerRight.set(ControlMode.PercentOutput, rightPower);
@@ -78,6 +79,22 @@ public class Intake extends Subsystem {
 				RobotMap.intakeRollerLeft.getOutputCurrent());
 		SmartDashboard.putNumber("intakeRollerRight.current",
 				RobotMap.intakeRollerRight.getOutputCurrent());
+    }
+    
+    public boolean cubeDetect(){
+		//read 2 sensors
+		return (RobotMap.cubeSensor.get() && RobotMap.cubeSensor2.get());
+    }
+    
+    public void cubeDisplay(){
+    	if (cubeDetect()){
+    		RobotMap.canifier.setPWMOutput(1,100);
+    		RobotMap.canifier.setPWMOutput(0,0);
+    	}
+    	else{
+    		RobotMap.canifier.setPWMOutput(0,100);
+    		RobotMap.canifier.setPWMOutput(1,0);
+    	}
     }
 }
 

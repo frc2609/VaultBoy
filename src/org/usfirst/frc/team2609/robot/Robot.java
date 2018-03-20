@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<String> m_chooser = new SendableChooser<>();
 
+	int count = 0; // to keep track of loop count
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -167,6 +168,10 @@ public class Robot extends TimedRobot {
 			pathGenerator.generateAll();
 			DriverStation.reportWarning("NEW CONTROL DATA!", false);
 		}
+		if(count++ >= 20) { //update every 20th loop
+			intake.cubeDisplay();
+			count = 0; // reset count
+		}
 		
 	}
 
@@ -213,6 +218,10 @@ public class Robot extends TimedRobot {
 		slider.outputSd();
 		vaultBoy.outputSd();
 		shooter.outputSd();
+		if(count++ >= 20) { //update every 20th loop
+			intake.cubeDisplay();
+			count = 0; // reset count
+		}
 	}
 
 	@Override
@@ -254,6 +263,11 @@ public class Robot extends TimedRobot {
 		
 //    	RobotMap.fishing.set(OI.operatorStick.getRawAxis(1));
 		
+		if(count++ >= 20) { //update every 20th loop
+			intake.cubeDisplay();
+			count = 0; // reset count
+		}
+    	
 		if (OI.operatorButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.operatorStick.getRawAxis(3)*0.2);
 		}

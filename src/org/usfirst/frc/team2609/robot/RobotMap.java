@@ -12,6 +12,7 @@ import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.MP.MPConstants;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 
+import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -68,7 +69,6 @@ public class RobotMap {
 	public static BeaverTalonSRX intakeRollerRight;
 	public static BeaverTalonSRX shooterRight;
 	public static BeaverTalonSRX shooterLeft;
-//	public static PWMTalonSRX fishing;
 	
 	
 	//misc
@@ -76,6 +76,9 @@ public class RobotMap {
 	public static PowerDistributionPanel pdp;
 	public static Compressor compressor;
 	public static DigitalInput cubeSensor;
+	
+	public static DigitalInput cubeSensor2;	//second cube sensor
+	public static CANifier canifier;	//CANifier to display cube sensor state
 	
 	//pneumatics
     public static DoubleSolenoid shooterActivator;
@@ -98,10 +101,10 @@ public class RobotMap {
     public static Alliance alliance = Alliance.Invalid;
     public static String gameData;
 //    public static VideoSink server;
-    public static Relay led;
+
 	public static void init(){
 		
-		led = new Relay(1);
+
 		try {
 			UsbCamera cameraRear = CameraServer.getInstance().startAutomaticCapture(1);
 			cameraRear.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 15);
@@ -148,6 +151,9 @@ public class RobotMap {
 		intakeRollerLeft = new BeaverTalonSRX(4);
 		intakeRollerRight = new BeaverTalonSRX(8);
 		cubeSensor = new DigitalInput(9);
+		
+		cubeSensor2 = new DigitalInput(8); //Second cube sensor
+		canifier = new CANifier(0);		//CANifier to display cube sensor state
 		
 		intakeRollerLeft.setInverted(true);
 		intakeRollerRight.setInverted(true);

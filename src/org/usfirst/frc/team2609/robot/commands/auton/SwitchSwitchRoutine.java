@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2609.robot.commands.auton;
 
+import org.usfirst.frc.team2609.MP.AutoRoutine;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.robot.commands.Delay;
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
@@ -35,7 +36,7 @@ import enums.ShooterActivatorState;
 /**
  *
  */
-public class SwitchSwitchRoutine extends CommandGroup {
+public class SwitchSwitchRoutine extends AutoRoutine {
 
     public SwitchSwitchRoutine() {
     	addSequential(new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine()));

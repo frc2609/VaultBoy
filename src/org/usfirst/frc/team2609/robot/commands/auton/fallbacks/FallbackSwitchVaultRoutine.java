@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2609.robot.commands.auton.fallbacks;
 
+import org.usfirst.frc.team2609.MP.AutoRoutine;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.robot.commands.Delay;
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
@@ -34,7 +35,7 @@ import enums.ShooterActivatorState;
 /**
  *
  */
-public class FallbackSwitchVaultRoutine extends CommandGroup {
+public class FallbackSwitchVaultRoutine extends AutoRoutine {
 
     public FallbackSwitchVaultRoutine() {
     	// flash lights here

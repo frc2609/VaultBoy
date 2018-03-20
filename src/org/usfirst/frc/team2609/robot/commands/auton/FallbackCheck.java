@@ -3,6 +3,7 @@ package org.usfirst.frc.team2609.robot.commands.auton;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.usfirst.frc.team2609.MP.AutoRoutine;
 import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.commands.auton.fallbacks.FallbackSwitchVaultRoutine;
 
@@ -12,7 +13,7 @@ public class FallbackCheck {
 	public FallbackCheck(){
 		
 	}
-	public Command getCheckedAutoCommand(String pickedCommand){
+	public AutoRoutine getCheckedAutoCommand(String pickedCommand){
 		// Fallbackcheck here
 		if(Robot.driveSensors){
 			return Robot.fallbackMap.get(pickedCommand);

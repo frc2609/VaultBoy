@@ -23,12 +23,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.usfirst.frc.team2609.BeaverTalonSRX;
+import org.usfirst.frc.team2609.MP.AutoRoutine;
 import org.usfirst.frc.team2609.MP.Logger;
 import org.usfirst.frc.team2609.MP.Looper;
 import org.usfirst.frc.team2609.MP.MPConstants;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.MP.PathGenerator;
 import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
+import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
 import org.usfirst.frc.team2609.robot.commands.auton.FallbackCheck;
 import org.usfirst.frc.team2609.robot.commands.auton.LeftSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.RightSwitchVaultMPRoutine;
@@ -37,6 +39,7 @@ import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
 import org.usfirst.frc.team2609.robot.commands.auton.fallbacks.FallbackSwitchVaultRoutine;
+import org.usfirst.frc.team2609.robot.commands.drive.DriveGyroReset;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
@@ -77,8 +80,8 @@ public class Robot extends TimedRobot {
 	
 	public static final double inchesToTicks = 217.29954896813443176978263159127;		//counts/inch
 	public static final double ticksToInches = 0.00460194236365692368915426276848;		//inches/count
-	public static Map<String, Command> autoMap = new HashMap<String, Command>();
-	public static Map<String, Command> fallbackMap = new HashMap<String, Command>();
+	public static Map<String, AutoRoutine> autoMap = new HashMap<String, AutoRoutine>();
+	public static Map<String, AutoRoutine> fallbackMap = new HashMap<String, AutoRoutine>();
 	
 	public static boolean isDriveTrainMPActive;
 	
@@ -152,13 +155,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-
+		
 		drivetrain.outputSd();
 		intake.outputSd();
 		slider.outputSd();
 		vaultBoy.outputSd();
 		shooter.outputSd();
-		
+		fallback.getCheckedAutoCommand(m_chooser.getSelected()).forceSetMP();
 		MPConstants.sdGet();
 //		System.out.println(RobotMap.alliance);
 		if(RobotMap.alliance != m_ds.getAlliance()){

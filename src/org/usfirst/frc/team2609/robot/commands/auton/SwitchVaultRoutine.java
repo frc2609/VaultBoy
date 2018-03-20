@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2609.robot.commands.auton;
 
+import org.usfirst.frc.team2609.MP.AutoRoutine;
 import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.robot.commands.Delay;
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
@@ -34,10 +35,10 @@ import enums.ShooterActivatorState;
 /**
  *
  */
-public class SwitchVaultRoutine extends CommandGroup {
+public class SwitchVaultRoutine extends AutoRoutine {
 
     public SwitchVaultRoutine() {
-    	addSequential(new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine()));
+    	addSequential(new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine()));
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
     	addParallel(new ShooterRoller(0.7));
@@ -77,7 +78,8 @@ public class SwitchVaultRoutine extends CommandGroup {
     	addSequential(new LaunchMP(5));
     	// at the vault
     }
+
     public void forceSetMP(){
-    	new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine());
+    	new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new LeftSwitchVaultMPRoutine());
     }
 }

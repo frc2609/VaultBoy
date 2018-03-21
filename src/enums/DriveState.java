@@ -1,5 +1,5 @@
 package enums;
 
 public enum DriveState {
-	TELEOP,AUTON,DISABLE
+	TELEOP,TELEOPCHEZY,AUTON,DISABLE
 }

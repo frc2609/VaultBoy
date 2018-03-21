@@ -132,6 +132,9 @@ public class Drivetrain extends Subsystem {
 	        RobotMap.driveRight1.set(ControlMode.PercentOutput,rightPower);
 	        RobotMap.driveRight2.set(ControlMode.PercentOutput,rightPower);
 			break;
+		case TELEOPCHEZY:
+			RobotMap.drivetrainFull.curvatureDrive(leftPower,rightPower,true);
+			break;
 		case AUTON:
 			RobotMap.driveLeft1.set(ControlMode.PercentOutput,leftPower);
 	        RobotMap.driveLeft2.set(ControlMode.PercentOutput,leftPower);

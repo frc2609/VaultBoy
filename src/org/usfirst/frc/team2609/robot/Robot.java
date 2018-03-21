@@ -40,8 +40,8 @@ import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
 import org.usfirst.frc.team2609.robot.commands.auton.fallbacks.FallbackSwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveGyroReset;
-import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
+import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleopChezy;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 import org.usfirst.frc.team2609.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2609.robot.subsystems.Intake;
@@ -242,7 +242,8 @@ public class Robot extends TimedRobot {
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
 		shooter.setShooterActivatorState(ShooterActivatorState.UP);
-		new DriveTeleop().start();
+//		new DriveTeleop().start();
+		new DriveTeleopChezy().start();
 		if(!RobotMap.isHomed){
 			new SliderHome().start();
 		}

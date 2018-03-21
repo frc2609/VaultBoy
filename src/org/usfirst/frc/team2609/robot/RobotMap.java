@@ -33,6 +33,8 @@ import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import enums.DriveActivatorState;
 import jaci.pathfinder.modifiers.TankModifier;
 
@@ -60,6 +62,12 @@ public class RobotMap {
 	public static BeaverTalonSRX driveRight2;
 	              
 	public static BeaverTalonSRX driveLeftEncoder;
+	
+	//teleop Drivetrain grouped
+	public static SpeedControllerGroup drivetrainLeft;
+	public static SpeedControllerGroup drivetrainRight;
+	
+	public static DifferentialDrive drivetrainFull;
 	              
 	//vault boy   
 	public static BeaverTalonSRX vaultBoyLeft;
@@ -143,6 +151,12 @@ public class RobotMap {
 
 		driveLeft1.setEncPerRevsQuad(MPConstants.leftEncPerFeet); // to feet
 		driveRight1.setEncPerRevsQuad(MPConstants.rightEncPerFeet);
+		
+		//drivetrain teleop grouped
+		drivetrainLeft = new SpeedControllerGroup(driveLeft1,driveLeft2);
+		drivetrainRight = new SpeedControllerGroup(driveRight1,driveRight2);
+		
+		drivetrainFull = new DifferentialDrive(drivetrainLeft,drivetrainRight);
 		
 		//vault boy
 		vaultBoyLeft = new BeaverTalonSRX(3);

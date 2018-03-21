@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
 		
 		fallback = new FallbackCheck();
 		m_oi = new OI();
-		m_chooser.addDefault("Switch2Vault MP", "SwitchSwitchRoutine"); // make sure this is in the map
+		m_chooser.addDefault("Switch2Vault MP", "SwitchVaultRoutine"); // make sure this is in the map
 		m_chooser.addObject("Switch2Switch MP", "SwitchSwitchRoutine"); // make sure this is in the map
 		// loop through map and .addObject here
 		
@@ -161,10 +161,10 @@ public class Robot extends TimedRobot {
 		slider.outputSd();
 		vaultBoy.outputSd();
 		shooter.outputSd();
-		fallback.getCheckedAutoCommand(m_chooser.getSelected()).forceSetMP();
 		MPConstants.sdGet();
 //		System.out.println(RobotMap.alliance);
 		if(RobotMap.alliance != m_ds.getAlliance()){
+			fallback.getCheckedAutoCommand(m_chooser.getSelected()).forceSetMP();
 			RobotMap.alliance = m_ds.getAlliance();
 			RobotMap.mpRoutineL.setPathsWithOffset(RobotMap.alliance);
 			RobotMap.mpRoutineR.setPathsWithOffset(RobotMap.alliance);

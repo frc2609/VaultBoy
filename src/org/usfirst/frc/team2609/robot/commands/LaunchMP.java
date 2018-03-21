@@ -37,8 +37,9 @@ public class LaunchMP extends Command {
     	Robot.isDriveTrainMPActive = false;
 //        RobotMap.ahrs.zeroYaw();
     	if(Robot.pathGenerator.ActiveName != RobotMap.mpRoutineL.name){
-            System.out.println("MP " + RobotMap.mpRoutineR.name + " IS NOT GENERATED! GENERATING AT " + DriverStation.getInstance().getMatchTime());
-//        	Robot.pathGenerator.generateAll();
+            System.out.println("MP " + RobotMap.mpRoutineL.name + " IS NOT GENERATED! GENERATING AT " + DriverStation.getInstance().getMatchTime());
+            System.out.println(RobotMap.mpRoutineL.isPathSet);
+            //        	Robot.pathGenerator.generateAll();
     		
     	}
         System.out.println("Starting init LaunchMP");

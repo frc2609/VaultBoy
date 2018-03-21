@@ -16,14 +16,14 @@ import enums.ShooterActivatorState;
 /**
  *
  */
-public class ParallelSwitchScore extends CommandGroup {
+public class ParallelSwitchScorePushout extends CommandGroup {
 
-    public ParallelSwitchScore(double delay) {
+    public ParallelSwitchScorePushout(double delay) {
     	addSequential(new TimerDelay(delay));
-    	addSequential(new ShooterRoller(0.7));
+    	addParallel(new ShooterRoller(0.7));
     	addSequential(new VaultBoyPower(-0.3));
-    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
     	addSequential(new TimerDelay(0.1));
+    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
     }
 }

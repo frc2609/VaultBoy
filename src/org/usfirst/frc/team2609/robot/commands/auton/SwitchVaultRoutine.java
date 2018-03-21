@@ -38,11 +38,11 @@ import enums.ShooterActivatorState;
 public class SwitchVaultRoutine extends AutoRoutine {
 
     public SwitchVaultRoutine() {
-    	addSequential(new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine()));
+//    	addSequential(new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine()));
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
     	addParallel(new ShooterRoller(0.7));
-    	addParallel(new ParallelSwitchScore()); // formerly sequential switchscoreauto
+    	addParallel(new ParallelSwitchScore(2)); // formerly sequential switchscoreauto
     	addSequential(new LaunchMP(0));
     	addParallel(new ShooterRoller(0));
     	// at the switch
@@ -80,6 +80,6 @@ public class SwitchVaultRoutine extends AutoRoutine {
     }
 
     public void forceSetMP(){
-    	new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new LeftSwitchVaultMPRoutine());
+    	new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine());
     }
 }

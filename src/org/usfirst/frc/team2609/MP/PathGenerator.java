@@ -90,7 +90,7 @@ public class PathGenerator {
 				}
 			}
 			if (generatedLenL == lengthL && generatedLenR == lengthR) {
-				System.out.println("Generated " + RobotMap.mpRoutineR.name + " and " + RobotMap.mpRoutineR.name);
+				System.out.println("Generated " + RobotMap.mpRoutineL.name + " and " + RobotMap.mpRoutineR.name);
 				ActiveName = RobotMap.mpRoutineL.name;
 			}
 		}

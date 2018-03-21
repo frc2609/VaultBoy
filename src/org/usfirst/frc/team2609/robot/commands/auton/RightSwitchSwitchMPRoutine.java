@@ -18,13 +18,16 @@ public class RightSwitchSwitchMPRoutine extends MPRoutine {
 			new Waypoint(9, -3.25, Pathfinder.d2r(0))};
 	Waypoint[] SwitchToStackMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(6.5, 4.25, Pathfinder.d2r(0))};
+			new Waypoint(6.5, 3.75, Pathfinder.d2r(0))};
 	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(3.75, 0, Pathfinder.d2r(0))};
-	Waypoint[] StackMiddleToSwitch = new Waypoint[]{
+	Waypoint[] CubeMiddleToIntermediate = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(6.5, -4.25, Pathfinder.d2r(0))};
+			new Waypoint(3.75, -2.5, Pathfinder.d2r(0))};
+	Waypoint[] IntermediateToSwitch = new Waypoint[]{
+			new Waypoint(0,	0,Pathfinder.d2r(0)),
+			new Waypoint(6.5, -1, Pathfinder.d2r(0))};
 	
 	
 	public RightSwitchSwitchMPRoutine() {
@@ -38,8 +41,8 @@ public class RightSwitchSwitchMPRoutine extends MPRoutine {
 		super.setPath(0, MiddleToSwitch);
 		super.setPath(1, SwitchToStackMiddle);
 		super.setPath(2, StackMiddleToCubeMiddle);
-		super.setPath(3, StackMiddleToCubeMiddle);
-		super.setPath(4, StackMiddleToSwitch);
+		super.setPath(3, CubeMiddleToIntermediate);
+		super.setPath(4, IntermediateToSwitch);
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here

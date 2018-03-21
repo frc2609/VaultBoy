@@ -50,7 +50,6 @@ public class RightSwitchVaultMPRoutine extends MPRoutine {
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here
-
 			super.name = "Right Switch Vault Blue";
 			System.out.println("BLUE OFFSETS");
 		}else if(alliance == Alliance.Red){

@@ -153,7 +153,7 @@ public class RobotMap {
 		cubeSensor = new DigitalInput(9);
 		
 		cubeSensor2 = new DigitalInput(8); //Second cube sensor
-		canifier = new CANifier(0);		//CANifier to display cube sensor state
+		canifier = new CANifier(13);		//CANifier to display cube sensor state
 		
 		intakeRollerLeft.setInverted(true);
 		intakeRollerRight.setInverted(true);

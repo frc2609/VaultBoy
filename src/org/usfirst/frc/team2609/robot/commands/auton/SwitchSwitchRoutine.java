@@ -43,7 +43,7 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addSequential(new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine()));
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
-    	addParallel(new ShooterRoller(0.7));
+    	addParallel(new ShooterRoller(0.6));
     	addParallel(new ParallelSwitchScore(1.5)); // formerly sequential switchscoreauto
     	addSequential(new LaunchMP(0));
     	addParallel(new ShooterRoller(0));
@@ -51,7 +51,6 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 
 
     	addParallel(new ParallelShooterReset());
-    	addParallel(new LaunchMP(1));
     	addParallel(new ParallelPosition());
     	addSequential(new LaunchMP(1));
     	// in front of the cube stack
@@ -59,18 +58,19 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addParallel(new CubeCollectAuto());
     	addSequential(new LaunchMP(2));
-    	addParallel(new ParallelPosition500());
+//    	addParallel(new ParallelPosition500());
     	// picked up cube
     	
     	// PUT PARALELLSHOOT HERE
     	addSequential(new LaunchMP(3));
     	// shot into vault
+    	addParallel(new IntakeRollerPowerNoCurrent(0));
 
     	addParallel(new ParallelPosition500());
 
     	addParallel(new ParallelSwitchScorePushout(1.9)); // formerly sequential switchscoreauto
     	addSequential(new LaunchMP(4));
-    	addSequential(new ParallelShooterReset());
+//    	addSequential(new ParallelShooterReset());
 //    	addParallel(new IntakeRollerPower(.45,5));
 //    	addSequential(new Delay(0.4));
     	// side cube from the stack

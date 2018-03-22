@@ -2,6 +2,7 @@ package org.usfirst.frc.team2609.robot.subsystems;
 
 import org.usfirst.frc.team2609.robot.RobotMap;
 
+import com.ctre.phoenix.CANifier.LEDChannel;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
@@ -88,12 +89,12 @@ public class Intake extends Subsystem {
     
     public void cubeDisplay(){
     	if (cubeDetect()){
-    		RobotMap.canifier.setPWMOutput(1,100);
-    		RobotMap.canifier.setPWMOutput(0,0);
+    		RobotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelA);
+    		RobotMap.canifier.setLEDOutput(100, LEDChannel.LEDChannelB);
     	}
     	else{
-    		RobotMap.canifier.setPWMOutput(0,100);
-    		RobotMap.canifier.setPWMOutput(1,0);
+    		RobotMap.canifier.setLEDOutput(100, LEDChannel.LEDChannelA);
+    		RobotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelB);
     	}
     }
 }

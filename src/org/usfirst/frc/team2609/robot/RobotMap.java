@@ -174,8 +174,8 @@ public class RobotMap {
 		vaultBoyRight.configVoltageCompSaturation(12, 0);
 		
 		//pneumatics
-		shooterActivator = new DoubleSolenoid(0,0,3);
-		intakeActivator = new DoubleSolenoid(0,1,2);
+		shooterActivator = new DoubleSolenoid(0,4,7);
+		intakeActivator = new DoubleSolenoid(0,5,6);
 		
 		//misc
 		pdp = new PowerDistributionPanel(12);

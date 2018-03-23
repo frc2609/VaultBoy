@@ -33,6 +33,7 @@ import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
 import org.usfirst.frc.team2609.robot.commands.auton.FallbackCheck;
 import org.usfirst.frc.team2609.robot.commands.auton.LeftSwitchVaultMPRoutine;
+import org.usfirst.frc.team2609.robot.commands.auton.NoDriveRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.RightSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchSwitchRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
@@ -77,6 +78,7 @@ public class Robot extends TimedRobot {
 
 	public static OI m_oi;
 	private DriverStation m_ds = DriverStation.getInstance();
+	private AutoRoutine lastAuto;
 	
 	public static final double inchesToTicks = 217.29954896813443176978263159127;		//counts/inch
 	public static final double ticksToInches = 0.00460194236365692368915426276848;		//inches/count
@@ -107,8 +109,10 @@ public class Robot extends TimedRobot {
 		// DEFAULT!! MAKE SURE SPELLING MATCHES .addDefault
 		autoMap.put("SwitchVaultRoutine", new SwitchVaultRoutine()); 
 		autoMap.put("SwitchSwitchRoutine", new SwitchSwitchRoutine()); 
+		autoMap.put("NoDriveRoutine", new NoDriveRoutine()); 
 		fallbackMap.put("SwitchVaultRoutine", new FallbackSwitchVaultRoutine());
 		fallbackMap.put("SwitchSwitchRoutine", new SwitchSwitchRoutine());
+		fallbackMap.put("NoDriveRoutine", new NoDriveRoutine());
 		
 		
 		
@@ -116,6 +120,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		m_chooser.addDefault("Switch2Vault MP", "SwitchVaultRoutine"); // make sure this is in the map
 		m_chooser.addObject("Switch2Switch MP", "SwitchSwitchRoutine"); // make sure this is in the map
+		m_chooser.addObject("Nodrive", "NoDriveRoutine"); // make sure this is in the map
 		// loop through map and .addObject here
 		
 		
@@ -163,18 +168,25 @@ public class Robot extends TimedRobot {
 		shooter.outputSd();
 		MPConstants.sdGet();
 //		System.out.println(RobotMap.alliance);
-		if(RobotMap.alliance != m_ds.getAlliance()){
+		if(lastAuto != fallback.getCheckedAutoCommand(m_chooser.getSelected())){
 			fallback.getCheckedAutoCommand(m_chooser.getSelected()).forceSetMP();
-			RobotMap.alliance = m_ds.getAlliance();
 			RobotMap.mpRoutineL.setPathsWithOffset(RobotMap.alliance);
 			RobotMap.mpRoutineR.setPathsWithOffset(RobotMap.alliance);
-			pathGenerator.generateAll();
+			pathGenerator.generateAll();	
 			DriverStation.reportWarning("NEW CONTROL DATA!", false);
+			lastAuto = fallback.getCheckedAutoCommand(m_chooser.getSelected());
+			
+		}
+		if(RobotMap.alliance != m_ds.getAlliance()){
+			RobotMap.alliance = m_ds.getAlliance();
+			DriverStation.reportWarning("NEW ALLIANCE DATA!", false);
 		}
 		if(count++ >= 20) { //update every 20th loop
 			intake.cubeDisplay();
 			count = 0; // reset count
 		}
+
+		pathGenerator.generateAll();
 		
 	}
 

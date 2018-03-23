@@ -41,15 +41,14 @@ public class SwitchVaultRoutine extends AutoRoutine {
 //    	addSequential(new SetMPRoutine(new LeftSwitchVaultMPRoutine(), new RightSwitchVaultMPRoutine()));
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
-    	addParallel(new ShooterRoller(0.7));
-    	addParallel(new ParallelSwitchScore(2)); // formerly sequential switchscoreauto
+    	addParallel(new ShooterRoller(0.65));
+//    	addParallel(new ParallelSwitchScore(2)); // formerly sequential switchscoreauto
     	addSequential(new LaunchMP(0));
-    	addParallel(new ShooterRoller(0));
+    	addSequential(new SwitchScoreAuto());
     	// at the switch
 
 
     	addParallel(new ParallelShooterReset());
-    	addParallel(new LaunchMP(1));
     	addParallel(new ParallelPosition());
     	addSequential(new LaunchMP(1));
     	// in front of the cube stack

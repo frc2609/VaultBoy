@@ -43,10 +43,9 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addSequential(new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine()));
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
-    	addParallel(new ShooterRoller(0.6));
-    	addParallel(new ParallelSwitchScore(1.5)); // formerly sequential switchscoreauto
+    	addParallel(new ShooterRoller(0.65));
     	addSequential(new LaunchMP(0));
-    	addParallel(new ShooterRoller(0));
+    	addSequential(new SwitchScoreAuto());
     	// at the switch
 
 
@@ -68,8 +67,9 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 
     	addParallel(new ParallelPosition500());
 
-    	addParallel(new ParallelSwitchScorePushout(1.9)); // formerly sequential switchscoreauto
+//    	addParallel(new ParallelSwitchScorePushout(1.9)); // formerly sequential switchscoreauto
     	addSequential(new LaunchMP(4));
+    	addSequential(new SwitchScoreAuto());
 //    	addSequential(new ParallelShooterReset());
 //    	addParallel(new IntakeRollerPower(.45,5));
 //    	addSequential(new Delay(0.4));

@@ -25,14 +25,7 @@ public class SetMPRoutine extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	RobotMap.gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	if(RobotMap.gameData.length() > 0){
-    		if(RobotMap.gameData.charAt(0)=='L'){
-    			RobotMap.activeSide = AutoSide.LEFT;
-    		}else{
-    			RobotMap.activeSide = AutoSide.RIGHT;
-    		}
-    	}
+
     	
     }
 

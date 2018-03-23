@@ -18,7 +18,7 @@ public class RightSwitchSwitchMPRoutine extends MPRoutine {
 			new Waypoint(9, -3.25, Pathfinder.d2r(0))};
 	Waypoint[] SwitchToStackMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(6.5, 3.75, Pathfinder.d2r(0))};
+			new Waypoint(6.5, 4, Pathfinder.d2r(0))};
 	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(3.75, 0, Pathfinder.d2r(0))};

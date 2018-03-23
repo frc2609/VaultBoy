@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.usfirst.frc.team2609.BeaverTalonSRX;
 import org.usfirst.frc.team2609.MP.AutoRoutine;
+import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.MP.Logger;
 import org.usfirst.frc.team2609.MP.Looper;
 import org.usfirst.frc.team2609.MP.MPConstants;
@@ -142,6 +143,14 @@ public class Robot extends TimedRobot {
     	driveSensors = drivetrain.initialSensorCheck();
     	sliderSensor = slider.initialSensorCheck();
     	
+    	RobotMap.gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	if(RobotMap.gameData.length() > 0){
+    		if(RobotMap.gameData.charAt(0)=='L'){
+    			RobotMap.activeSide = AutoSide.LEFT;
+    		}else{
+    			RobotMap.activeSide = AutoSide.RIGHT;
+    		}
+    	}
 	}
 
 	/**
@@ -167,7 +176,6 @@ public class Robot extends TimedRobot {
 		vaultBoy.outputSd();
 		shooter.outputSd();
 		MPConstants.sdGet();
-//		System.out.println(RobotMap.alliance);
 		if(lastAuto != fallback.getCheckedAutoCommand(m_chooser.getSelected())){
 			fallback.getCheckedAutoCommand(m_chooser.getSelected()).forceSetMP();
 			RobotMap.mpRoutineL.setPathsWithOffset(RobotMap.alliance);
@@ -219,6 +227,14 @@ public class Robot extends TimedRobot {
 		RobotMap.driveLeft2.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight1.setNeutralMode(NeutralMode.Brake);
 		RobotMap.driveRight2.setNeutralMode(NeutralMode.Brake);
+		RobotMap.gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	if(RobotMap.gameData.length() > 0){
+    		if(RobotMap.gameData.charAt(0)=='L'){
+    			RobotMap.activeSide = AutoSide.LEFT;
+    		}else{
+    			RobotMap.activeSide = AutoSide.RIGHT;
+    		}
+    	}
 	}
 
 	/**
@@ -228,6 +244,8 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 
+		
+		System.out.println(RobotMap.activeSide.toString());
 		drivetrain.outputSd();
 		intake.outputSd();
 		slider.outputSd();

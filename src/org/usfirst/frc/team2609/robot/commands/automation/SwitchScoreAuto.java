@@ -20,7 +20,7 @@ import enums.ShooterActivatorState;
 public class SwitchScoreAuto extends CommandGroup {
 
     public SwitchScoreAuto() {
-    	addSequential(new ShooterRoller(1));
+    	addSequential(new ShooterRoller(0.65));
     	addSequential(new IntakeRollerBrakeMode(false));
     	addParallel(new IntakeRollerPowerNoCurrent(-0.1));
     	addSequential(new VaultBoyPowerCurrentStop(-0.3,3));
@@ -29,7 +29,7 @@ public class SwitchScoreAuto extends CommandGroup {
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 //    	addSequential(new Delay(0.1));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
-    	addSequential(new ShooterPowerCurrentStop(1,20));
+    	addSequential(new ShooterPowerCurrentStop(0.65,20));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeRollerPowerNoCurrent(0));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));

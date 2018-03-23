@@ -96,7 +96,7 @@ public class OI {
 		driverButton2.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
 		
 		driverButton3 = new JoystickButton(driverStick, 3);
-		driverButton3.whenPressed(new SwitchScore());
+		driverButton3.whenPressed(new SwitchScore(0.6));
 
 		driverButton4 = new JoystickButton(driverStick, 4);
 		driverButton4.whenPressed(new SliderPosition(500));
@@ -127,6 +127,7 @@ public class OI {
 //		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
 		
 		driverButton8 = new JoystickButton(driverStick, 8);
+		driverButton8.whenPressed(new SwitchScore(0.7));
 //		driverButton8.whenPressed(new SwitchScore());
 		
 		driverButton9 = new JoystickButton(driverStick, 9);

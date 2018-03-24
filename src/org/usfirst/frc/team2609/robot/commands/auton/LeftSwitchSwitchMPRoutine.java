@@ -11,7 +11,7 @@ import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class LeftSwitchSwitchMPRoutine extends MPRoutine {
-	static final int length = 7; // 0,1,2
+	static final int length = 6; // 0,1,2
 	static final AutoSide side = AutoSide.LEFT;
 
 	Waypoint[] MiddleToSwitch = new Waypoint[]{
@@ -28,10 +28,7 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 			new Waypoint(6.5, 4.25, Pathfinder.d2r(0))};
 	Waypoint[] SwitchTo2ndIntermediate = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(5, 1, Pathfinder.d2r(30))};
-	Waypoint[] IntermediateTo2ndCube = new Waypoint[]{
-			new Waypoint(0,	0, -Pathfinder.d2r(30)),
-			new Waypoint(4, 4, -Pathfinder.d2r(30))};
+			new Waypoint(5, 3, Pathfinder.d2r(0))};
 	
 	public LeftSwitchSwitchMPRoutine() {
 		super(length, side);
@@ -47,7 +44,6 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 		super.setPath(3, StackMiddleToCubeMiddle);
 		super.setPath(4, StackMiddleToSwitch);
 		super.setPath(5, SwitchTo2ndIntermediate);
-		super.setPath(6, IntermediateTo2ndCube);
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here

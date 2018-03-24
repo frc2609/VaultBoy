@@ -70,10 +70,7 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 //    	addParallel(new ParallelSwitchScorePushout(1.9)); // formerly sequential switchscoreauto
     	addSequential(new LaunchMP(4));
     	addSequential(new SwitchScoreAuto());
-    	addParallel(new ParallelPosition());
     	addSequential(new LaunchMP(5));
-    	addParallel(new IntakeRollerPower(0.45,5));
-    	addSequential(new LaunchMP(6));
 //    	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addSequential(new LaunchMP(6));
 //    	addSequential(new ParallelShooterReset());

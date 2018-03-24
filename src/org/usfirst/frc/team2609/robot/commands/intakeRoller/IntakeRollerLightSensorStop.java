@@ -49,21 +49,21 @@ public class IntakeRollerLightSensorStop extends Command {
     	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
     		if ((Robot.intake.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intake.intakeRollerRightCurrent() > currentThreshold)) {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intake.intakeRollerSetR(-powerR*0.5);
-				Robot.intake.intakeRollerSetL(-powerL*0.5);
+				Robot.intake.intakeRollerSetR(-powerR*0.75);
+				Robot.intake.intakeRollerSetL(-powerL*0.75);
 				System.out.println("BOTH");
 			}
     		else if (Robot.intake.intakeRollerLeftCurrent() > currentThreshold) {
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intake.intakeRollerSetR(-powerR*0.5);
-				Robot.intake.intakeRollerSetL(-powerL*0.5);
+				Robot.intake.intakeRollerSetR(-powerR*0.75);
+				Robot.intake.intakeRollerSetL(-powerL*0.75);
 //				Robot.intakeRoller.intakeRollerSetL(power);
 			}
     		else if (Robot.intake.intakeRollerRightCurrent() > currentThreshold) {
 				timeInit = Timer.getFPGATimestamp();
 //				Robot.intakeRoller.intakeRollerSetR(power);
-				Robot.intake.intakeRollerSetR(-powerR*0.5);
-				Robot.intake.intakeRollerSetL(-powerL*0.5);
+				Robot.intake.intakeRollerSetR(-powerR*0.75);
+				Robot.intake.intakeRollerSetL(-powerL*0.75);
 			} else {
 				Robot.intake.intakeRollerSetL(powerL);
 				Robot.intake.intakeRollerSetR(powerR);

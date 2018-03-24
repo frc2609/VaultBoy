@@ -29,7 +29,7 @@ public class DriveTeleop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		double X = Math.pow(OI.driverStick.getRawAxis(0), 3);
+		double X = OI.driverStick.getRawAxis(0)*0.8;
         double Y = -OI.driverStick.getRawAxis(1);
         if (Robot.m_oi.driverButton3.get()){
             Y = OI.driverStick.getRawAxis(1);

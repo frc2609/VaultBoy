@@ -11,13 +11,11 @@ import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollectAuto;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollectAuto2;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelPosition;
-import org.usfirst.frc.team2609.robot.commands.automation.ParallelPosition500;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelPosition6000;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelShoot;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelShoot2;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelShooterReset;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelSwitchScore;
-import org.usfirst.frc.team2609.robot.commands.automation.ParallelSwitchScorePushout;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelVaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScoreAuto;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
@@ -37,52 +35,15 @@ import enums.ShooterActivatorState;
 /**
  *
  */
-public class SwitchSwitchRoutine extends AutoRoutine {
+public class CrossLineRoutine extends AutoRoutine {
 
-    public SwitchSwitchRoutine() {
-//    	addSequential(new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine()));
+    public CrossLineRoutine() {
     	addSequential(new SDDelay());
-    	addParallel(new SliderHome());
-    	addParallel(new ShooterRoller(0.65));
     	addSequential(new LaunchMP(0));
-    	addSequential(new SwitchScoreAuto());
-    	// at the switch
-
-
-    	addParallel(new ParallelShooterReset());
-    	addParallel(new ParallelPosition());
-    	addSequential(new LaunchMP(1));
-    	// in front of the cube stack
     	
-    	addParallel(new IntakeRollerPowerNoCurrent(.5));
-//    	addParallel(new CubeCollectAuto());
-    	addSequential(new LaunchMP(2));
-//    	addParallel(new ParallelPosition500());
-    	// picked up cube
-    	
-    	// PUT PARALELLSHOOT HERE
-    	addSequential(new LaunchMP(3));
-    	// shot into vault
-    	addParallel(new IntakeRollerPowerNoCurrent(0));
-
-    	addParallel(new ParallelPosition500());
-
-//    	addParallel(new ParallelSwitchScorePushout(1.9)); // formerly sequential switchscoreauto
-    	addSequential(new LaunchMP(4));
-    	addSequential(new SwitchScoreAuto());
-    	addParallel(new ParallelPosition());
-    	addSequential(new LaunchMP(5));
-    	addParallel(new IntakeRollerPower(0.45,5));
-    	addSequential(new LaunchMP(6));
-//    	addParallel(new IntakeRollerPowerNoCurrent(.5));
-//    	addSequential(new LaunchMP(6));
-//    	addSequential(new ParallelShooterReset());
-//    	addParallel(new IntakeRollerPower(.45,5));
-//    	addSequential(new Delay(0.4));
-    	// side cube from the stack
-
     }
+
     public void forceSetMP(){
-    	new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine());
+    	new SetMPRoutine(new LeftCrossMPRoutine(), new RightCrossMPRoutine());
     }
 }

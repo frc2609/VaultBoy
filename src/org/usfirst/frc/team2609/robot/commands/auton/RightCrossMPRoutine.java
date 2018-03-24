@@ -10,30 +10,15 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
-public class LeftSwitchSwitchMPRoutine extends MPRoutine {
-	static final int length = 7; // 0,1,2
+public class RightCrossMPRoutine extends MPRoutine {
+	static final int length = 1; // 0,1,2
 	static final AutoSide side = AutoSide.LEFT;
 
-	Waypoint[] MiddleToSwitch = new Waypoint[]{
+	Waypoint[] MiddleToCross = new Waypoint[]{
 			new Waypoint(0,0,Pathfinder.d2r(0)),
-			new Waypoint(9, 5, Pathfinder.d2r(0))};
-	Waypoint[] SwitchToStackMiddle = new Waypoint[]{
-			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(5.75, -3.75, Pathfinder.d2r(0))};
-	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
-			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(2.75, 0, Pathfinder.d2r(0))};
-	Waypoint[] StackMiddleToSwitch = new Waypoint[]{
-			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(6.5, 4.25, Pathfinder.d2r(0))};
-	Waypoint[] SwitchTo2ndIntermediate = new Waypoint[]{
-			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(5, 1, Pathfinder.d2r(30))};
-	Waypoint[] IntermediateTo2ndCube = new Waypoint[]{
-			new Waypoint(0,	0, -Pathfinder.d2r(30)),
-			new Waypoint(4, 4, -Pathfinder.d2r(30))};
+			new Waypoint(12, 0, Pathfinder.d2r(0))};
 	
-	public LeftSwitchSwitchMPRoutine() {
+	public RightCrossMPRoutine() {
 		super(length, side);
 		
 		
@@ -41,24 +26,18 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 	
 	@Override
 	public void setPathsWithOffset(Alliance alliance){
-		super.setPath(0, MiddleToSwitch);
-		super.setPath(1, SwitchToStackMiddle);
-		super.setPath(2, StackMiddleToCubeMiddle);
-		super.setPath(3, StackMiddleToCubeMiddle);
-		super.setPath(4, StackMiddleToSwitch);
-		super.setPath(5, SwitchTo2ndIntermediate);
-		super.setPath(6, IntermediateTo2ndCube);
+		super.setPath(0, MiddleToCross);
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here
 
-			super.name = "Left Switch Switch Blue";
+			super.name = "Right Cross Blue";
 			System.out.println("BLUE OFFSETS");
 		}else if(alliance == Alliance.Red){
 			// set red offsets here
 			System.out.println("RED OFFSETS");
 
-			super.name = "Left Switch Switch Red";
+			super.name = "Right Cross Red";
 		}else{
 			DriverStation.reportError("INVALID OFFSETS", false);
 		}
@@ -66,11 +45,6 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 		
 
 		super.setReverse(0, false);
-		super.setReverse(1, true);
-		super.setReverse(2, false);
-		super.setReverse(3, true);
-		super.setReverse(4, false);
-		super.setReverse(5, true);
 		
 		super.isPathSet = true;
 	}

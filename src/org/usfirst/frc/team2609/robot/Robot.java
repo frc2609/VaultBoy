@@ -32,6 +32,7 @@ import org.usfirst.frc.team2609.MP.MPRoutine;
 import org.usfirst.frc.team2609.MP.PathGenerator;
 import org.usfirst.frc.team2609.robot.commands.SetMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
+import org.usfirst.frc.team2609.robot.commands.auton.CrossLineRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.FallbackCheck;
 import org.usfirst.frc.team2609.robot.commands.auton.LeftSwitchVaultMPRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.NoDriveRoutine;
@@ -111,9 +112,11 @@ public class Robot extends TimedRobot {
 		autoMap.put("SwitchVaultRoutine", new SwitchVaultRoutine()); 
 		autoMap.put("SwitchSwitchRoutine", new SwitchSwitchRoutine()); 
 		autoMap.put("NoDriveRoutine", new NoDriveRoutine()); 
+		autoMap.put("CrossLineRoutine", new CrossLineRoutine()); 
 		fallbackMap.put("SwitchVaultRoutine", new FallbackSwitchVaultRoutine());
 		fallbackMap.put("SwitchSwitchRoutine", new SwitchSwitchRoutine());
 		fallbackMap.put("NoDriveRoutine", new NoDriveRoutine());
+		fallbackMap.put("CrossLineRoutine", new CrossLineRoutine());
 		
 		
 		
@@ -122,6 +125,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Switch2Vault MP", "SwitchVaultRoutine"); // make sure this is in the map
 		m_chooser.addObject("Switch2Switch MP", "SwitchSwitchRoutine"); // make sure this is in the map
 		m_chooser.addObject("Nodrive", "NoDriveRoutine"); // make sure this is in the map
+		m_chooser.addObject("12feetforward", "CrossLineRoutine"); // make sure this is in the map
 		// loop through map and .addObject here
 		
 		
@@ -245,7 +249,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 
 		
-		System.out.println(RobotMap.activeSide.toString());
 		drivetrain.outputSd();
 		intake.outputSd();
 		slider.outputSd();

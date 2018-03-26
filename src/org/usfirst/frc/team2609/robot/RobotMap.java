@@ -86,7 +86,6 @@ public class RobotMap {
 	public static DigitalInput cubeSensor;
 	
 	public static DigitalInput cubeSensor2;	//second cube sensor
-	public static CANifier canifier;	//CANifier to display cube sensor state
 	
 	//pneumatics
     public static DoubleSolenoid shooterActivator;
@@ -168,7 +167,6 @@ public class RobotMap {
 		cubeSensor = new DigitalInput(9);
 		
 		cubeSensor2 = new DigitalInput(8); //Second cube sensor
-		canifier = new CANifier(13);		//CANifier to display cube sensor state
 		
 		intakeRollerLeft.setInverted(true);
 		intakeRollerRight.setInverted(true);

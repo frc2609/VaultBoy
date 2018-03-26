@@ -88,14 +88,6 @@ public class Intake extends Subsystem {
     }
     
     public void cubeDisplay(){
-    	if (cubeDetect()){
-    		RobotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelA);
-    		RobotMap.canifier.setLEDOutput(100, LEDChannel.LEDChannelB);
-    	}
-    	else{
-    		RobotMap.canifier.setLEDOutput(100, LEDChannel.LEDChannelA);
-    		RobotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelB);
-    	}
     }
 }
 

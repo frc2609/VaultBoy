@@ -9,6 +9,7 @@ package org.usfirst.frc.team2609.robot;
 
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
+import org.usfirst.frc.team2609.robot.commands.automation.LayEgg;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScore;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStopAuto;
@@ -157,7 +158,7 @@ public class OI {
 		operatorButton5 = new JoystickButton(operatorStick, 5);
 //		operatorButton5.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
 		operatorButton6 = new JoystickButton(operatorStick, 6);
-//		operatorButton6.whenPressed(new CubeCollect());
+		operatorButton6.whenPressed(new LayEgg());
 		operatorButton7 = new JoystickButton(operatorStick, 7);
 //		operatorButton7.whenPressed(new SliderPosition(500));
 		operatorButton8 = new JoystickButton(operatorStick, 8);

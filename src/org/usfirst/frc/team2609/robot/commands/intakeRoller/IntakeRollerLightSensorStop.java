@@ -69,6 +69,19 @@ public class IntakeRollerLightSensorStop extends Command {
 				Robot.intake.intakeRollerSetR(powerR);
 			}
 		}
+    	else{
+    		if(RobotMap.cubeSensorArm.get()){
+    			timeInit = Timer.getFPGATimestamp();
+//			Robot.intakeRoller.intakeRollerSetR(power);
+				Robot.intake.intakeRollerSetR(-powerR*0.75);
+				Robot.intake.intakeRollerSetL(0);
+    		}else{
+    			timeInit = 0;
+				Robot.intake.intakeRollerSetL(powerL);
+				Robot.intake.intakeRollerSetR(powerR);
+    		}
+    		
+    	}
     	}else{
 			Robot.intake.intakeRollerSetR(0.2);
 			Robot.intake.intakeRollerSetL(0.2);

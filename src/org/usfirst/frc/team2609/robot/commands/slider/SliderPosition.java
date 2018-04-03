@@ -51,6 +51,11 @@ public class SliderPosition extends Command {
         RobotMap.slider.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,0);
         RobotMap.slider.configMotionCruiseVelocity(2920, 0); //2711
         RobotMap.slider.configMotionAcceleration(7000, 0);
+        if(Robot.sliderSensor){
+        	sliderP = 0;
+        	sliderI = 0;
+        	sliderD = 0;
+        }
         RobotMap.slider.config_kP(0,sliderP,0);
         RobotMap.slider.config_kI(0,sliderI,0);
         RobotMap.slider.config_kD(0,sliderD,0);

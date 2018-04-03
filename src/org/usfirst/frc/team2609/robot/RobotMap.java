@@ -85,7 +85,7 @@ public class RobotMap {
 	public static Compressor compressor;
 	public static DigitalInput cubeSensor;
 	
-	public static DigitalInput cubeSensor2;	//second cube sensor
+	public static DigitalInput cubeSensorArm;	//cube sensor on intake arm
 	
 	//pneumatics
     public static DoubleSolenoid shooterActivator;
@@ -166,7 +166,7 @@ public class RobotMap {
 		intakeRollerRight = new BeaverTalonSRX(8);
 		cubeSensor = new DigitalInput(9);
 		
-		cubeSensor2 = new DigitalInput(8); //Second cube sensor
+		cubeSensorArm = new DigitalInput(8); //Second cube sensor
 		
 		intakeRollerLeft.setInverted(true);
 		intakeRollerRight.setInverted(true);
@@ -187,8 +187,8 @@ public class RobotMap {
 		vaultBoyRight.configVoltageCompSaturation(12, 0);
 		
 		//pneumatics
-		shooterActivator = new DoubleSolenoid(0,4,7);
-		intakeActivator = new DoubleSolenoid(0,5,6);
+		shooterActivator = new DoubleSolenoid(0,6,5);
+		intakeActivator = new DoubleSolenoid(0,4,7);
 		
 		//misc
 		pdp = new PowerDistributionPanel(12);

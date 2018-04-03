@@ -84,7 +84,7 @@ public class Intake extends Subsystem {
     
     public boolean cubeDetect(){
 		//read 2 sensors
-		return (RobotMap.cubeSensor.get() && RobotMap.cubeSensor2.get());
+		return (RobotMap.cubeSensor.get() && RobotMap.cubeSensorArm.get());
     }
     
     public void cubeDisplay(){

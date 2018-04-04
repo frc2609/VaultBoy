@@ -42,6 +42,7 @@ import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultMiddle;
 import org.usfirst.frc.team2609.robot.commands.auton.SwitchVaultRoutine;
 import org.usfirst.frc.team2609.robot.commands.auton.TestOnton;
 import org.usfirst.frc.team2609.robot.commands.auton.fallbacks.FallbackSwitchVaultRoutine;
+import org.usfirst.frc.team2609.robot.commands.drive.CheesyDrive;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveGyroReset;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveStraightTrapezoid;
 import org.usfirst.frc.team2609.robot.commands.drive.DriveTeleop;
@@ -71,6 +72,7 @@ public class Robot extends TimedRobot {
 	public static final Slider slider = new Slider();
 	public static final Intake intake = new Intake();
 	public static final Shooter shooter= new Shooter();
+	public static final CheesyDrive cheesydrive= new CheesyDrive();
 	public static FallbackCheck fallback;
 	
 	//mp subsystems
@@ -307,6 +309,9 @@ public class Robot extends TimedRobot {
 		if (OI.operatorButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.operatorStick.getRawAxis(3)*0.2);
 		}
+		
+		
+//		drivetrain.setDrive(DriveState.TELEOP, -OI.driverStick.getRawAxis(1), -OI.driverStick.getRawAxis(3));
 	}
 
 	/**

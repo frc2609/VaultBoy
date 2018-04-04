@@ -170,6 +170,9 @@ public class RobotMap {
 		
 		intakeRollerLeft.setInverted(true);
 		intakeRollerRight.setInverted(true);
+
+		intakeRollerLeft.configOpenloopRamp(0.5, 0);
+		intakeRollerRight.configOpenloopRamp(0.5, 0);
 		
 		slider.setInverted(false); // +ve is in and -ve is out
 		slider.setSensorPhase(false);

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import enums.IntakeState;
 
 /**
  *
@@ -19,6 +20,8 @@ public class IntakeRollerLightSensorStop extends Command {
 	double timeInit;
 	double cubeCounter;
 	double timeCurrent;
+	int jitterCounter = 0;
+	IntakeState intakeState = IntakeState.INTAKE;
 	boolean timesUp;
 	
     public IntakeRollerLightSensorStop(double power,double currentThreshold) {
@@ -45,43 +48,51 @@ public class IntakeRollerLightSensorStop extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(RobotMap.intakeActivator.get() == DoubleSolenoid.Value.kForward){
-    	
-    	if (Timer.getFPGATimestamp() > timeInit + SmartDashboard.getNumber("rollertime", 0.1)) {
-    		if ((Robot.intake.intakeRollerLeftCurrent() > currentThreshold) && (Robot.intake.intakeRollerRightCurrent() > currentThreshold)) {
+		if(intakeState == IntakeState.INTAKE){
+			Robot.intake.intakeRollerSetR(powerR);
+			Robot.intake.intakeRollerSetL(powerL);
+
+			if ((Robot.intake.intakeRollerLeftCurrent() > currentThreshold) || (Robot.intake.intakeRollerRightCurrent() > currentThreshold)) {
+				intakeState = IntakeState.JITTER_OUT;
 				timeInit = Timer.getFPGATimestamp();
-				Robot.intake.intakeRollerSetR(-powerR*0.75);
-				Robot.intake.intakeRollerSetL(-powerL*0.75);
-				System.out.println("BOTH");
 			}
-    		else if (Robot.intake.intakeRollerLeftCurrent() > currentThreshold) {
-				timeInit = Timer.getFPGATimestamp();
+		}else if(intakeState == IntakeState.JITTER_OUT){
+			if(Timer.getFPGATimestamp() < timeInit + SmartDashboard.getNumber("rollertime", 0.1)){
 				Robot.intake.intakeRollerSetR(-powerR*0.75);
 				Robot.intake.intakeRollerSetL(-powerL*0.75);
-//				Robot.intakeRoller.intakeRollerSetL(power);
+			}else{
+				intakeState = IntakeState.JITTER_IN;
+				timeInit = Timer.getFPGATimestamp();
 			}
-    		else if (Robot.intake.intakeRollerRightCurrent() > currentThreshold) {
-				timeInit = Timer.getFPGATimestamp();
-//				Robot.intakeRoller.intakeRollerSetR(power);
-				Robot.intake.intakeRollerSetR(-powerR*0.75);
-				Robot.intake.intakeRollerSetL(-powerL*0.75);
-			} else {
-				Robot.intake.intakeRollerSetL(powerL);
-				Robot.intake.intakeRollerSetR(powerR);
+			
+		}
+		else if(intakeState == IntakeState.JITTER_IN){
+			if(Timer.getFPGATimestamp() < timeInit + SmartDashboard.getNumber("rollertime", 0.1)){
+				Robot.intake.intakeRollerSetR(powerR*0.75);
+				Robot.intake.intakeRollerSetL(powerL*0.75);
+			}else{
+				//counter
+				if(jitterCounter < 2){
+					intakeState = IntakeState.JITTER_OUT;
+					jitterCounter++;
+				}else{
+					if(RobotMap.cubeSensorArm.get()){
+						intakeState = IntakeState.JITTER_SPECIAL;
+					}else{
+						intakeState = IntakeState.INTAKE;
+					}
+					jitterCounter = 0;
+				}
 			}
 		}
-    	else{
-    		if(RobotMap.cubeSensorArm.get()){
-    			timeInit = Timer.getFPGATimestamp();
-//			Robot.intakeRoller.intakeRollerSetR(power);
-				Robot.intake.intakeRollerSetR(-powerR*0.75);
-				Robot.intake.intakeRollerSetL(0);
-    		}else{
-    			timeInit = 0;
-				Robot.intake.intakeRollerSetL(powerL);
-				Robot.intake.intakeRollerSetR(powerR);
-    		}
-    		
-    	}
+
+		else if(intakeState == IntakeState.JITTER_SPECIAL){
+			Robot.intake.intakeRollerSetR(-powerR*0.5);
+			Robot.intake.intakeRollerSetL(0);
+			if(!RobotMap.cubeSensorArm.get()){
+				intakeState = IntakeState.INTAKE;
+			}
+		}
     	}else{
 			Robot.intake.intakeRollerSetR(0.2);
 			Robot.intake.intakeRollerSetL(0.2);

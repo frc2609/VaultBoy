@@ -29,7 +29,8 @@ public class DriveTeleop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		double X = OI.driverStick.getRawAxis(0)*0.8;
+//		double X = OI.driverStick.getRawAxis(0)*0.8;
+		double X = OI.driverStick.getRawAxis(0);
         double Y = -OI.driverStick.getRawAxis(1);
         if (Robot.m_oi.driverButton3.get()){
             Y = OI.driverStick.getRawAxis(1);
@@ -49,8 +50,8 @@ public class DriveTeleop extends Command {
         	leftPower	= Y+X;
         	rightPower	= Y-X;
         }
-
-    	Robot.drivetrain.setDrive(DriveState.TELEOP,leftPower,rightPower);
+        Robot.cheesydrive.drive(Y, X, OI.driverButton10.get(), true);
+//    	Robot.drivetrain.setDrive(DriveState.TELEOP,leftPower,rightPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()

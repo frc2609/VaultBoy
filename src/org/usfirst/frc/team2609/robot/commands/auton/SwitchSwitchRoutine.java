@@ -17,7 +17,7 @@ import org.usfirst.frc.team2609.robot.commands.automation.ParallelShoot;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelShoot2;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelShooterReset;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelSwitchScore;
-import org.usfirst.frc.team2609.robot.commands.automation.ParallelSwitchScorePushout;
+import org.usfirst.frc.team2609.robot.commands.automation.ParallelSwitchScoreLoadShooter;
 import org.usfirst.frc.team2609.robot.commands.automation.ParallelVaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScoreAuto;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
@@ -25,6 +25,7 @@ import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSen
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
+import org.usfirst.frc.team2609.robot.commands.shooter.ShooterPowerCurrentStop;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
@@ -43,9 +44,10 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 //    	addSequential(new SetMPRoutine(new LeftSwitchSwitchMPRoutine(), new RightSwitchSwitchMPRoutine()));
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
-    	addParallel(new ShooterRoller(0.65));
+//    	addParallel(new ShooterRoller(0.65));
+    	addParallel(new ParallelSwitchScore(1.5));
     	addSequential(new LaunchMP(0));
-    	addSequential(new SwitchScoreAuto());
+//    	addSequential(new SwitchScoreAuto());
     	// at the switch
 
 
@@ -67,10 +69,13 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 
     	addParallel(new ParallelPosition500());
 
-//    	addParallel(new ParallelSwitchScorePushout(1.9)); // formerly sequential switchscoreauto
+//    	addParallel(new ParallelSwitchScoreLoadShooter(1.9)); 
     	addSequential(new LaunchMP(4));
-    	addSequential(new SwitchScoreAuto());
-    	addSequential(new LaunchMP(5));
+    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+    	addSequential(new ShooterPowerCurrentStop(0.65,20));
+//    	addSequential(new SwitchScoreAuto());
+    	
+//    	addSequential(new LaunchMP(5));
 //    	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addSequential(new LaunchMP(6));
 //    	addSequential(new ParallelShooterReset());

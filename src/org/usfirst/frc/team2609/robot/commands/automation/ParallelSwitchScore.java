@@ -20,10 +20,10 @@ public class ParallelSwitchScore extends CommandGroup {
 
     public ParallelSwitchScore(double delay) {
     	addSequential(new TimerDelay(delay));
-//    	addSequential(new ShooterRoller(0.6));
-    	addSequential(new VaultBoyPower(-0.3));
-    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
-    	addSequential(new TimerDelay(0.1));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
+    	addSequential(new TimerDelay(0.2));
+//    	addParallel(new IntakeRollerPower(0.45,5));
+//    	addParallel(new IntakeRollerPowerNoCurrent(0.75));
+    	addParallel(new ShooterRoller(0.4));
     }
 }

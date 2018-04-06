@@ -54,6 +54,7 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addParallel(new ParallelShooterReset());
     	addParallel(new ParallelPosition());
     	addSequential(new LaunchMP(1));
+    	addSequential(new ShooterRoller(0));
     	// in front of the cube stack
     	
     	addParallel(new IntakeRollerPowerNoCurrent(.5));
@@ -71,13 +72,13 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 
 //    	addParallel(new ParallelSwitchScoreLoadShooter(1.9)); 
     	addSequential(new LaunchMP(4));
-    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
-    	addSequential(new ShooterPowerCurrentStop(0.65,20));
-//    	addSequential(new SwitchScoreAuto());
-    	
-//    	addSequential(new LaunchMP(5));
-//    	addParallel(new IntakeRollerPowerNoCurrent(.5));
-//    	addSequential(new LaunchMP(6));
+    	addSequential(new SwitchScoreAuto());
+
+    	addParallel(new ParallelPosition());
+    	addParallel(new IntakeRollerPowerNoCurrent(.5));
+    	addSequential(new LaunchMP(5));
+    	addSequential(new LaunchMP(6));
+    	addSequential(new IntakeRollerLightSensorStop(0.45,5));
 //    	addSequential(new ParallelShooterReset());
 //    	addParallel(new IntakeRollerPower(.45,5));
 //    	addSequential(new Delay(0.4));

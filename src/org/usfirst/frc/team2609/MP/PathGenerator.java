@@ -10,7 +10,7 @@ import jaci.pathfinder.modifiers.TankModifier;
 
 public class PathGenerator {
 	Trajectory.Config configFast = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
-			Trajectory.Config.SAMPLES_FAST, 0.01, 8, 6, 60);
+			Trajectory.Config.SAMPLES_FAST, 0.01, 10, 8.5, 60);
 	// TODO: Fix hardcoding of max_vel, max_acc,max_jerk, etc.
 	// setProperties(double max_vel, double max_acc, double max_jerk...)
 	// perhaps?

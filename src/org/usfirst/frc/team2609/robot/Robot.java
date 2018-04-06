@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
 	public static Map<String, AutoRoutine> fallbackMap = new HashMap<String, AutoRoutine>();
 	
 	public static boolean isDriveTrainMPActive;
-	
+	public static double cubeCollectStartTime;
 	public static boolean driveSensors, sliderSensor;
 	
 	String m_autonomousString;

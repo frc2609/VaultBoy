@@ -95,7 +95,7 @@ public class Logger {
 	        try{
 	            path = this.getPath();
 	            this.writer = new BufferedWriter(new FileWriter(path));
-	            this.writer.write("FPGATime, leftDriveVolt, rightDriveVolt, vaultVolt, leftIntakeVolt, rightIntakeVolt, sliderVolt, sliderPos, cubeSensor, cubeArmSensor");
+	            this.writer.write("FPGATime, leftDriveVolt, rightDriveVolt, vaultVolt, leftIntakeVolt, rightIntakeVolt, sliderVolt, sliderPos, cubeSensor, cubeArmSensor, cubeCollectStartTime");
 	            
 	            this.writer.newLine();
 	        } catch (IOException e) {

@@ -18,7 +18,5 @@ public class ParallelPosition500 extends CommandGroup {
 //    	addSequential(new TimerDelay(1));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
     	addSequential(new SliderPosition(500));
-    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
-    	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
     }
 }

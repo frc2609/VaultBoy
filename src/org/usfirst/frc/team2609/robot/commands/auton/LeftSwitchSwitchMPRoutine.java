@@ -28,7 +28,10 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 			new Waypoint(6.5, 4.25, Pathfinder.d2r(0))};
 	Waypoint[] SwitchTo2ndIntermediate = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(5, 3, Pathfinder.d2r(0))};
+			new Waypoint(5.5, 0, Pathfinder.d2r(0))};
+	Waypoint[] SecondIntermediateTo2ndCube = new Waypoint[]{
+			new Waypoint(0,	0,Pathfinder.d2r(0)),
+			new Waypoint(3.25, -2.25, -Pathfinder.d2r(30))};
 	
 	public LeftSwitchSwitchMPRoutine() {
 		super(length, side);
@@ -38,12 +41,21 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 	
 	@Override
 	public void setPathsWithOffset(Alliance alliance){
+//		super.setPath(0, MiddleToSwitch);
+//		super.setPath(1, SwitchToStackMiddle);
+//		super.setPath(2, StackMiddleToCubeMiddle);
+//		super.setPath(3, StackMiddleToCubeMiddle);
+//		super.setPath(4, StackMiddleToSwitch);
+//		super.setPath(5, SwitchTo2ndIntermediate);
+//		super.setPath(6, SecondIntermediateTo2ndCube);
+		
 		super.setPath(0, MiddleToSwitch);
 		super.setPath(1, SwitchToStackMiddle);
 		super.setPath(2, StackMiddleToCubeMiddle);
-		super.setPath(3, StackMiddleToCubeMiddle);
-		super.setPath(4, StackMiddleToSwitch);
-		super.setPath(5, SwitchTo2ndIntermediate);
+//		super.setPath(3, StackMiddleToCubeMiddle);
+		super.setPath(3, StackMiddleToSwitch);
+		super.setPath(4, SwitchTo2ndIntermediate);
+		super.setPath(5, SecondIntermediateTo2ndCube);
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here

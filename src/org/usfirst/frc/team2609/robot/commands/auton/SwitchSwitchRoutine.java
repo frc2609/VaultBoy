@@ -45,9 +45,9 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addSequential(new SDDelay());
     	addParallel(new SliderHome());
 //    	addParallel(new ShooterRoller(0.65));
-    	addParallel(new ParallelSwitchScore(1.5));
+//    	addParallel(new ParallelSwitchScore(1.5));
     	addSequential(new LaunchMP(0));
-//    	addSequential(new SwitchScoreAuto());
+    	addSequential(new SwitchScoreAuto());
     	// at the switch
 
 

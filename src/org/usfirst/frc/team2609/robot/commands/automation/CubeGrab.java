@@ -2,7 +2,6 @@ package org.usfirst.frc.team2609.robot.commands.automation;
 
 import org.usfirst.frc.team2609.robot.commands.RumbleOP;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
-import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerBrakeMode;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStop;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStopNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
@@ -20,10 +19,10 @@ import enums.ShooterActivatorState;
 /**
  *
  */
-public class CubeCollect extends CommandGroup {
+public class CubeGrab extends CommandGroup {
 
 
-    public CubeCollect() {
+    public CubeGrab() {
     	addSequential(new ShooterRoller(-0.3));
     	addParallel(new VaultBoyPower(0));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
@@ -34,22 +33,19 @@ public class CubeCollect extends CommandGroup {
     	//addParallel(new VaultBoyPower(.5));
 //    	addSequential(new IntakeRollerPowerNoCurrent(.65));
     	addSequential(new IntakeRollerLightSensorStop(0.45,5));
-    	addSequential(new IntakeRollerBrakeMode(false));
-//    	addSequential(new SliderPosition(5300));
     	addSequential(new ShooterRoller(0));
-    	//addParallel(new IntakeRollerPower(-.2,4.5));
+    	addParallel(new IntakeRollerPower(-.1,4.5));
 //    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
-//    	addSequential(new SliderPosition(7300));
-    	addParallel(new IntakeRollerPowerNoCurrent(-0.05));
-    	addParallel(new VaultBoyPower(.1));
+    	addSequential(new SliderPosition(5300));
+//    	addParallel(new IntakeRollerPowerNoCurrent(.25));
+//    	addParallel(new VaultBoyPower(.1));
     	
     	//addParallel(new VaultBoyPower(0.25,10));
     	//addParallel(new IntakeRollerPower(-.2,12));
-    	addSequential(new SliderPosition(500));
+//    	addSequential(new SliderPosition(500));
     	//addParallel(new IntakeRollerPower(0,12));
-    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
-    	addSequential(new IntakeRollerBrakeMode(true));
-    	addSequential(new VaultBoyPower(0));
+//    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
+//    	addSequential(new VaultBoyPower(0));
     	addSequential(new IntakeRollerPowerNoCurrent(0));
     	addSequential(new RumbleOP());
     }

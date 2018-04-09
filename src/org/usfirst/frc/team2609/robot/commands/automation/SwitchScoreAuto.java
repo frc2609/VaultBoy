@@ -29,7 +29,8 @@ public class SwitchScoreAuto extends CommandGroup {
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 //    	addSequential(new Delay(0.1));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
-    	addSequential(new ShooterPowerCurrentStop(0.65,20));
+    	addSequential(new ShooterPowerCurrentStop(0.75,20));
+    	addSequential(new Delay(0.2));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeRollerPowerNoCurrent(0));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));

@@ -88,7 +88,7 @@ public class Slider extends Subsystem {
     }
     public void initSd(){
     	//Slider PID
-    			SmartDashboard.putNumber("Slider P: ", 0.5);
+    			SmartDashboard.putNumber("Slider P: ", 0.8);
     	    	SmartDashboard.putNumber("Slider I: ", 0.0001);
     	    	SmartDashboard.putNumber("Slider D: ", 0.0);
     	    	SmartDashboard.putNumber("Slider F: ", 0.32);

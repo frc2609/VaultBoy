@@ -181,6 +181,9 @@ public class RobotMap {
 		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
 		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
 		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
+		slider.configPeakCurrentDuration(100, 0);
+		slider.configPeakCurrentLimit(20, 0);
+		slider.enableCurrentLimit(true);
 		slider.configOpenloopRamp(0.1, 10);
 		
 		vaultBoyRight.setInverted(true);

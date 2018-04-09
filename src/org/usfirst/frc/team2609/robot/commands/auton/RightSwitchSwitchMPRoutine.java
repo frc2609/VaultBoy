@@ -15,7 +15,7 @@ public class RightSwitchSwitchMPRoutine extends MPRoutine {
 	static final AutoSide side = AutoSide.RIGHT;
 	Waypoint[] MiddleToSwitch = new Waypoint[]{
 			new Waypoint(0,0,Pathfinder.d2r(0)),
-			new Waypoint(9, -3.25, Pathfinder.d2r(0))};
+			new Waypoint(9.25, -3.25, Pathfinder.d2r(0))};
 	Waypoint[] SwitchToStackMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(6.5, 4, Pathfinder.d2r(0))};
@@ -30,7 +30,7 @@ public class RightSwitchSwitchMPRoutine extends MPRoutine {
 			new Waypoint(7, -1, Pathfinder.d2r(0))};
 	Waypoint[] SwitchTo2ndIntermediate = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(5.5, 0, Pathfinder.d2r(0))};
+			new Waypoint(5.5, 0, Pathfinder.d2r(0))};//Changed from 5.5 to 5 to try and get the 2nd cube 
 	Waypoint[] SecondIntermediateTo2ndCube = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(3.25, 2.25, Pathfinder.d2r(30))};

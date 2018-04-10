@@ -309,6 +309,8 @@ public class Robot extends TimedRobot {
 		if (OI.operatorButton2.get()){
 			RobotMap.slider.set(ControlMode.PercentOutput, OI.operatorStick.getRawAxis(3)*0.2);
 		}
+
+		SmartDashboard.putBoolean("shooter Sensor", RobotMap.shooterSensor.get());
 		
 		
 //		drivetrain.setDrive(DriveState.TELEOP, -OI.driverStick.getRawAxis(1), -OI.driverStick.getRawAxis(3));

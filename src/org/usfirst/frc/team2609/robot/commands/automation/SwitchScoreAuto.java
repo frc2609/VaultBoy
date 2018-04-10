@@ -5,7 +5,7 @@ import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSe
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerBrakeMode;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
-import org.usfirst.frc.team2609.robot.commands.shooter.ShooterPowerCurrentStop;
+import org.usfirst.frc.team2609.robot.commands.shooter.ShooterPowerSensorStop;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
 import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPower;
 import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPowerCurrentStop;
@@ -29,7 +29,7 @@ public class SwitchScoreAuto extends CommandGroup {
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 //    	addSequential(new Delay(0.1));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
-    	addSequential(new ShooterPowerCurrentStop(0.75,20));
+    	addSequential(new ShooterPowerSensorStop(0.75,20));
     	addSequential(new Delay(0.2));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeRollerPowerNoCurrent(0));

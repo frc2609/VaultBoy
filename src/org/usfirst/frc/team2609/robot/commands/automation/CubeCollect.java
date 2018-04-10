@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2609.robot.commands.automation;
 
 import org.usfirst.frc.team2609.robot.commands.RumbleOP;
+import org.usfirst.frc.team2609.robot.commands.intakeActivator.CubePincherSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerBrakeMode;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStop;
@@ -28,6 +29,7 @@ public class CubeCollect extends CommandGroup {
     	addParallel(new VaultBoyPower(0));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
+    	addSequential(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
     	addParallel(new IntakeRollerPower(0.45,5));
     	addSequential(new SliderPosition(7300));
     	//addParallel(new VaultBoyPower(-0.2,10));
@@ -39,15 +41,13 @@ public class CubeCollect extends CommandGroup {
     	addSequential(new ShooterRoller(0));
     	//addParallel(new IntakeRollerPower(-.2,4.5));
 //    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
-//    	addSequential(new SliderPosition(7300));
     	addParallel(new IntakeRollerPowerNoCurrent(-0.05));
     	addParallel(new VaultBoyPower(.1));
-    	
-    	//addParallel(new VaultBoyPower(0.25,10));
-    	//addParallel(new IntakeRollerPower(-.2,12));
+//    	addSequential(new SliderPosition(7300));
     	addSequential(new SliderPosition(500));
     	//addParallel(new IntakeRollerPower(0,12));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
+    	addSequential(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
     	addSequential(new IntakeRollerBrakeMode(true));
     	addSequential(new VaultBoyPower(0));
     	addSequential(new IntakeRollerPowerNoCurrent(0));

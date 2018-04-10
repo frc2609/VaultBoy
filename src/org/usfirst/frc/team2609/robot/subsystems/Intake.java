@@ -31,6 +31,19 @@ public class Intake extends Subsystem {
 			RobotMap.shooterActivator.set(DoubleSolenoid.Value.kReverse);
 		}
 	}
+
+	public void setCubePincherState(IntakeActivatorState desiredState){
+		switch(desiredState){
+		case IN:
+			RobotMap.cubePincher.set(DoubleSolenoid.Value.kForward);
+			break;
+		case OUT:
+			RobotMap.cubePincher.set(DoubleSolenoid.Value.kReverse);
+			break;
+		default:
+			RobotMap.cubePincher.set(DoubleSolenoid.Value.kReverse);
+		}
+	}
 	
 	public void setIntakePower(double leftPower, double rightPower){
 		RobotMap.intakeRollerLeft.set(ControlMode.PercentOutput, leftPower);

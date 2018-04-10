@@ -1,46 +1,42 @@
-package org.usfirst.frc.team2609.robot.commands.shooter;
+package org.usfirst.frc.team2609.robot.commands.vaultBoy;
 
 import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ShooterPowerCurrentStop extends Command {
+public class VaultBoyPowerSensorStop extends Command {
 
 	double currentThreshold;
 	double power;
 	double currentLimit;
+	double latchTime;
 	boolean currentLatch;
 	
-    public ShooterPowerCurrentStop(double power,double currentLimit) {
+    public VaultBoyPowerSensorStop(double power) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.vaultBoy);
     	this.power = power;
-    	this.currentLimit = currentLimit;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	RobotMap.shooterLeft.set(power);
-    	RobotMap.shooterRight.set(-power);
-    	currentLatch = false;
+    	Robot.vaultBoy.vaultBoyPower(power,power);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.shooterLeft.set(power);
-    	RobotMap.shooterRight.set(-power);
-    	if((RobotMap.shooterLeft.getOutputCurrent()>currentLimit)&&(RobotMap.shooterRight.getOutputCurrent()>currentLimit)){
-    		currentLatch = true;
-    	}
+    	Robot.vaultBoy.vaultBoyPower(power,power);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (((RobotMap.shooterLeft.getOutputCurrent()<currentLimit)||(RobotMap.shooterRight.getOutputCurrent()<currentLimit))&&currentLatch);
+        return !RobotMap.cubeSensorArm.get();
     }
 
     // Called once after isFinished returns true

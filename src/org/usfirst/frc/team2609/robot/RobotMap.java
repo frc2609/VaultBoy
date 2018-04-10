@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2609.robot;
 
+import org.usfirst.frc.team2609.BeaverDigitalInput;
 import org.usfirst.frc.team2609.BeaverTalonSRX;
 import org.usfirst.frc.team2609.MP.AutoSide;
 import org.usfirst.frc.team2609.MP.MPConstants;
@@ -83,13 +84,15 @@ public class RobotMap {
 	public static AHRS ahrs;
 	public static PowerDistributionPanel pdp;
 	public static Compressor compressor;
-	public static DigitalInput cubeSensor;
+	public static BeaverDigitalInput cubeSensor;
 	
-	public static DigitalInput cubeSensorArm;	//cube sensor on intake arm
+	public static BeaverDigitalInput cubeSensorArm;	//cube sensor on intake arm
+	public static BeaverDigitalInput shooterSensor;
 	
 	//pneumatics
     public static DoubleSolenoid shooterActivator;
     public static DoubleSolenoid intakeActivator;
+    public static DoubleSolenoid cubePincher;
     
     
     //MP
@@ -164,9 +167,11 @@ public class RobotMap {
 		slider = new BeaverTalonSRX(6);
 		intakeRollerLeft = new BeaverTalonSRX(4);
 		intakeRollerRight = new BeaverTalonSRX(8);
-		cubeSensor = new DigitalInput(9);
+		cubeSensor = new BeaverDigitalInput(9);
 		
-		cubeSensorArm = new DigitalInput(8); //Second cube sensor
+		cubeSensorArm = new BeaverDigitalInput(8); //Second cube sensor
+		shooterSensor = new BeaverDigitalInput(7);
+		
 		
 		intakeRollerLeft.setInverted(true);
 		intakeRollerRight.setInverted(true);
@@ -181,9 +186,10 @@ public class RobotMap {
 		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 0);
 		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, 0);
 		slider.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
-		slider.configPeakCurrentDuration(100, 0);
-		slider.configPeakCurrentLimit(20, 0);
-		slider.enableCurrentLimit(true);
+		slider.configPeakCurrentDuration(0, 0);
+		slider.configPeakCurrentLimit(0, 0);
+		slider.configContinuousCurrentLimit(0, 0);
+		slider.enableCurrentLimit(false);
 		slider.configOpenloopRamp(0.1, 10);
 		
 		vaultBoyRight.setInverted(true);
@@ -195,6 +201,7 @@ public class RobotMap {
 		//pneumatics
 		shooterActivator = new DoubleSolenoid(0,6,5);
 		intakeActivator = new DoubleSolenoid(0,4,7);
+		cubePincher = new DoubleSolenoid(0,0,1);
 		
 		//misc
 		pdp = new PowerDistributionPanel(12);

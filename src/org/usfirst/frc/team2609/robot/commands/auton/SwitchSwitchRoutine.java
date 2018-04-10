@@ -25,7 +25,7 @@ import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSen
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPowerNoCurrent;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
-import org.usfirst.frc.team2609.robot.commands.shooter.ShooterPowerCurrentStop;
+import org.usfirst.frc.team2609.robot.commands.shooter.ShooterPowerSensorStop;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;

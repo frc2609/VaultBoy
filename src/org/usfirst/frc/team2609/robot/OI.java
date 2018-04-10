@@ -12,6 +12,7 @@ import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeGrab;
 import org.usfirst.frc.team2609.robot.commands.automation.LayEgg;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScore;
+import org.usfirst.frc.team2609.robot.commands.intakeActivator.CubePincherSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.IntakeActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerLightSensorStopAuto;
 import org.usfirst.frc.team2609.robot.commands.intakeRoller.IntakeRollerPower;
@@ -92,41 +93,29 @@ public class OI {
 		//driver inputs
 		driverButton1 = new JoystickButton(driverStick, 1);
 		driverButton1.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT)); //Open arm
+		driverButton1.whenPressed(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
 		
 
 		driverButton2 = new JoystickButton(driverStick, 2);
 		driverButton2.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN)); //Close arm
+		driverButton2.whenPressed(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
 		
-		driverButton3 = new JoystickButton(driverStick, 3); //Switch score normal/slow
-		driverButton3.whenPressed(new SwitchScore(0.6)); 
+		driverButton3 = new JoystickButton(driverStick, 3);	//close arm more/cube pinch
+		driverButton3.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN)); //Close arm
+		driverButton3.whenPressed(new CubePincherSetState(IntakeActivatorState.IN));	//pincher in
+		
 
-		driverButton4 = new JoystickButton(driverStick, 4); //Reset
-		driverButton4.whenPressed(new SliderPosition(500));
-		driverButton4.whenPressed(new VaultBoyPower(0));
-		driverButton4.whenPressed(new IntakeRollerPowerNoCurrent(0));
-		driverButton4.whenPressed(new ShooterRoller(0));
-		driverButton4.whenPressed(new ShooterActivatorSetState(ShooterActivatorState.UP));
+		driverButton4 = new JoystickButton(driverStick, 4);	//Switch score normal/slow
+		driverButton4.whenPressed(new SwitchScore(0.6)); 
 
-		driverButton5 = new JoystickButton(driverStick, 5); // Vault score
-		driverButton5.whileHeld(new VaultBoyPower(0.75));
-		driverButton5.whileHeld(new IntakeRollerPowerNoCurrent(0.45));
-		driverButton5.whileHeld(new ShooterRoller(-0.3));
-		driverButton5.whenReleased(new VaultBoyPower(0));
-		driverButton5.whenReleased(new IntakeRollerPowerNoCurrent(0));
-		driverButton5.whenReleased(new ShooterRoller(0));
+		driverButton5 = new JoystickButton(driverStick, 5);
+		driverButton5.whenPressed(new CubeGrab());
 		
 		driverButton6 = new JoystickButton(driverStick, 6); // Cube Collect
 //		driverButton6.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 		driverButton6.whenPressed(new CubeCollect());
 		
-		driverButton7 = new JoystickButton(driverStick, 7); // Cube roll out
-		driverButton7.whileHeld(new VaultBoyPower(-0.5));
-		driverButton7.whileHeld(new IntakeRollerPowerNoCurrent(-0.4));
-		driverButton7.whileHeld(new ShooterRoller(-0.3));
-		driverButton7.whenReleased(new VaultBoyPower(0));
-		driverButton7.whenReleased(new IntakeRollerPowerNoCurrent(0));
-		driverButton7.whenReleased(new ShooterRoller(0));
-//		driverButton4.whenPressed(new clawState(ClawState.CLOSE));
+		driverButton7 = new JoystickButton(driverStick, 7);
 		
 		driverButton8 = new JoystickButton(driverStick, 8);
 		//Button 8 activates cheezydrive quickturn in DriveTeleop
@@ -135,8 +124,14 @@ public class OI {
 		driverButton9 = new JoystickButton(driverStick, 9);
 		driverButton9.whenPressed(new IntakeRollerPower(0.45,5));
 		
-		driverButton10 = new JoystickButton(driverStick, 10);
-		driverButton10.whenPressed(new CubeGrab());
+		driverButton10 = new JoystickButton(driverStick, 10);	//Reset
+		driverButton10.whenPressed(new SliderPosition(500));
+		driverButton10.whenPressed(new VaultBoyPower(0));
+		driverButton10.whenPressed(new IntakeRollerPowerNoCurrent(0));
+		driverButton10.whenPressed(new ShooterRoller(0));
+		driverButton10.whenPressed(new ShooterActivatorSetState(ShooterActivatorState.UP));
+		driverButton10.whenPressed(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
+		
 		
 		
 		//operator inputs
@@ -153,12 +148,27 @@ public class OI {
 		operatorButton4 = new JoystickButton(operatorStick, 4);
 		operatorButton4.whenReleased(new ShooterRoller(0));
 		operatorButton4.whileHeld(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+		operatorButton4.whenPressed(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
 		operatorButton4.whileHeld(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
 //		operatorButton4.whileHeld(new VaultBoyPower(-0.75));
-		operatorButton5 = new JoystickButton(operatorStick, 5);
-//		operatorButton5.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));
-		operatorButton6 = new JoystickButton(operatorStick, 6);
-		operatorButton6.whenPressed(new CubeGrab());
+		
+		operatorButton5 = new JoystickButton(operatorStick, 5);	//vault score
+		operatorButton5.whileHeld(new VaultBoyPower(0.75));
+		operatorButton5.whileHeld(new IntakeRollerPowerNoCurrent(0.45));
+		operatorButton5.whileHeld(new ShooterRoller(-0.3));
+		operatorButton5.whenReleased(new VaultBoyPower(0));
+		operatorButton5.whenReleased(new IntakeRollerPowerNoCurrent(0));
+		operatorButton5.whenReleased(new ShooterRoller(0));
+		
+		operatorButton6 = new JoystickButton(operatorStick, 6);	//cube out front
+		operatorButton6.whileHeld(new VaultBoyPower(-0.5));
+		operatorButton6.whileHeld(new IntakeRollerPowerNoCurrent(-0.4));
+		operatorButton6.whileHeld(new ShooterRoller(-0.3));
+		operatorButton6.whenReleased(new VaultBoyPower(0));
+		operatorButton6.whenReleased(new IntakeRollerPowerNoCurrent(0));
+		operatorButton6.whenReleased(new ShooterRoller(0));
+		
+//		operatorButton6.whenPressed(new CubeGrab());
 		operatorButton7 = new JoystickButton(operatorStick, 7);
 //		operatorButton7.whenPressed(new SliderPosition(500));
 		operatorButton8 = new JoystickButton(operatorStick, 8);

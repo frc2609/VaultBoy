@@ -13,6 +13,7 @@ import org.usfirst.frc.team2609.robot.commands.shooter.ShooterActivatorSetState;
 import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
 import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPower;
+import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPowerSensorStop;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import enums.IntakeActivatorState;
@@ -42,7 +43,7 @@ public class CubeCollect extends CommandGroup {
     	//addParallel(new IntakeRollerPower(-.2,4.5));
 //    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
     	addParallel(new IntakeRollerPowerNoCurrent(-0.05));
-    	addParallel(new VaultBoyPower(.1));
+    	addParallel(new VaultBoyPowerSensorStop(.1, false));
 //    	addSequential(new SliderPosition(7300));
     	addSequential(new SliderPosition(500));
     	//addParallel(new IntakeRollerPower(0,12));

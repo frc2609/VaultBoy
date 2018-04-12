@@ -16,12 +16,14 @@ public class VaultBoyPowerSensorStop extends Command {
 	double currentLimit;
 	double latchTime;
 	boolean currentLatch;
+	boolean logic;
 	
-    public VaultBoyPowerSensorStop(double power) {
+    public VaultBoyPowerSensorStop(double power, boolean logic) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.vaultBoy);
     	this.power = power;
+    	this.logic = logic;
     }
 
     // Called just before this Command runs the first time
@@ -36,12 +38,13 @@ public class VaultBoyPowerSensorStop extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !RobotMap.cubeSensorArm.get();
+        return RobotMap.cubeSensorArm.get() == logic;
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	currentLatch = false;
+    	Robot.vaultBoy.vaultBoyPower(0,0);
     }
 
     // Called when another command which requires one or more of the same

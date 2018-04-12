@@ -19,7 +19,7 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 			new Waypoint(9, 5, Pathfinder.d2r(0))};
 	Waypoint[] SwitchToStackMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(5.75, -3.75, Pathfinder.d2r(0))};
+			new Waypoint(5.75, -4.1, Pathfinder.d2r(0))};
 	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(2.75, 0, Pathfinder.d2r(0))};

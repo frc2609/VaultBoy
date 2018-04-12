@@ -8,54 +8,44 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShooterPowerSensorStop extends Command {
+public class ShooterPowerCurrentStop extends Command {
 
+	double currentThreshold;
 	double power;
-	int sensorCounter;
-	int sensorLimit;
-	boolean isOut;
-	boolean sensorLatch;
+	double currentLimit;
+	boolean currentLatch;
 	
-    public ShooterPowerSensorStop(double power,int sensorLimit) {
+    public ShooterPowerCurrentStop(double power,double currentLimit) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.power = power;
-    	this.sensorLimit = sensorLimit;
+    	this.currentLimit = currentLimit;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	RobotMap.shooterLeft.set(power);
     	RobotMap.shooterRight.set(-power);
+    	currentLatch = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	RobotMap.shooterLeft.set(power);
     	RobotMap.shooterRight.set(-power);
-    	if(RobotMap.shooterSensor.get()){
-    		sensorCounter++;
-    	}else{
-    		if(sensorLatch){
-    			isOut = true;
-    		}else{
-    			sensorCounter = 0;
-    		}
+    	if((RobotMap.shooterLeft.getOutputCurrent()>currentLimit)&&(RobotMap.shooterRight.getOutputCurrent()>currentLimit)){
+    		currentLatch = true;
     	}
-    	sensorLatch = (sensorCounter>=sensorLimit)? true: false;
-    	
-    	
-    	System.out.println(sensorCounter);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return sensorLatch;
+        return (((RobotMap.shooterLeft.getOutputCurrent()<currentLimit)||(RobotMap.shooterRight.getOutputCurrent()<currentLimit))&&currentLatch);
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	sensorLatch = false;
+    	currentLatch = false;
     }
 
     // Called when another command which requires one or more of the same

@@ -85,6 +85,8 @@ public class OI {
 	public static JoystickButton operatorButton6;
 	public static JoystickButton operatorButton7;
 	public static JoystickButton operatorButton8;
+	public static JoystickButton operatorButton9;
+	public static JoystickButton operatorButton10;
 	
 	public OI(){
 		driverStick = new Joystick(0);
@@ -103,10 +105,14 @@ public class OI {
 		driverButton3 = new JoystickButton(driverStick, 3);	//close arm more/cube pinch
 		driverButton3.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN)); //Close arm
 		driverButton3.whenPressed(new CubePincherSetState(IntakeActivatorState.IN));	//pincher in
-		
+		driverButton3.whenPressed(new SliderPosition(500));
+		driverButton3.whenPressed(new VaultBoyPower(0));
+		driverButton3.whenPressed(new IntakeRollerPowerNoCurrent(0));
+		driverButton3.whenPressed(new ShooterRoller(0));
+		driverButton3.whenPressed(new ShooterActivatorSetState(ShooterActivatorState.UP));
 
-		driverButton4 = new JoystickButton(driverStick, 4);	//Switch score normal/slow
-		driverButton4.whenPressed(new SwitchScore(0.6)); 
+		driverButton4 = new JoystickButton(driverStick, 4);
+		//Button 4 activates cheezydrive quickturn in DriveTeleop
 
 		driverButton5 = new JoystickButton(driverStick, 5);
 		driverButton5.whenPressed(new CubeGrab());
@@ -115,11 +121,11 @@ public class OI {
 //		driverButton6.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.OUT));
 		driverButton6.whenPressed(new CubeCollect());
 		
-		driverButton7 = new JoystickButton(driverStick, 7);
-		
-		driverButton8 = new JoystickButton(driverStick, 8);
-		//Button 8 activates cheezydrive quickturn in DriveTeleop
-//		driverButton8.whenPressed(new SwitchScore(0.7));//Switch score alt/fast
+		driverButton7 = new JoystickButton(driverStick, 7);//switch score fast
+		driverButton7.whenPressed(new SwitchScore(0.8)); 
+
+		driverButton8 = new JoystickButton(driverStick, 8);	//Switch score normal/slow
+		driverButton8.whenPressed(new SwitchScore(0.6)); 
 		
 		driverButton9 = new JoystickButton(driverStick, 9);
 		driverButton9.whenPressed(new IntakeRollerPower(0.45,5));
@@ -135,10 +141,7 @@ public class OI {
 		
 		
 		//operator inputs
-		operatorButton1 = new JoystickButton(operatorStick, 1);
-		operatorButton1.whenPressed(new SliderHome());
-//		operatorButton1.whenPressed(new SliderPosition(500));
-//		operatorButton1.whileHeld(new IntakeRollerPower(0.75,12));
+		
 		operatorButton2 = new JoystickButton(operatorStick, 2);
 		operatorButton2.whenPressed(new IntakeRollerPowerNoCurrent(.25));
 //		operatorButton2.whileHeld(new VaultBoyPower(0.75));
@@ -173,5 +176,8 @@ public class OI {
 //		operatorButton7.whenPressed(new SliderPosition(500));
 		operatorButton8 = new JoystickButton(operatorStick, 8);
 //		operatorButton8.whenPressed(new SwitchScore());
+
+		operatorButton10 = new JoystickButton(operatorStick, 10);
+		operatorButton10.whenPressed(new SliderHome());
 	}
 }

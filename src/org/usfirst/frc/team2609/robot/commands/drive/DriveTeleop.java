@@ -50,7 +50,7 @@ public class DriveTeleop extends Command {
         	leftPower	= Y+X;
         	rightPower	= Y-X;
         }
-        Robot.cheesydrive.drive(Y, X, OI.driverButton4.get(), true);
+        Robot.cheesydrive.drive(Y, X, !OI.driverButton4.get(), true);
 //    	Robot.drivetrain.setDrive(DriveState.TELEOP,leftPower,rightPower);
     }
 

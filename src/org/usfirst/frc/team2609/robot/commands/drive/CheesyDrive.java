@@ -106,7 +106,7 @@ public class CheesyDrive {
                          + alpha * limit(wheel, 1.0) * kQuickStopScalar;
              }
              overPower = 1.0;
-             angularPower = wheel*0.8;
+             angularPower = wheel*0.5;
          } else {
              overPower = 0.0;
              angularPower = Math.abs(throttle) * wheel * sensitivity - mQuickStopAccumlator;

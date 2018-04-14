@@ -92,6 +92,7 @@ public class Robot extends TimedRobot {
 	public static boolean isDriveTrainMPActive;
 	public static double cubeCollectStartTime;
 	public static boolean driveSensors, sliderSensor;
+	public static boolean driveSensorDisplay, sliderSensorDisplay;
 	
 	String m_autonomousString;
 	Command m_autonomousCommand;
@@ -157,6 +158,11 @@ public class Robot extends TimedRobot {
     			RobotMap.activeSide = AutoSide.RIGHT;
     		}
     	}
+
+		SmartDashboard.putBoolean("drivetrain sensor health",
+				Robot.driveSensors);
+		SmartDashboard.putBoolean("slider sensor health",
+				Robot.sliderSensor);
 	}
 
 	/**
@@ -196,6 +202,18 @@ public class Robot extends TimedRobot {
 			DriverStation.reportWarning("NEW ALLIANCE DATA!", false);
 		}
 		if(count++ >= 20) { //update every 20th loop
+	    	driveSensors = drivetrain.initialSensorCheck();
+	    	sliderSensor = slider.initialSensorCheck();
+	    	SmartDashboard.putBoolean("drivetrain sensor health",
+	    			driveSensorDisplay);
+	    	driveSensorDisplay = ((!Robot.driveSensors)? driveSensorDisplay: !driveSensorDisplay);
+	    	
+	    	
+	    	SmartDashboard.putBoolean("slider sensor health",
+	    			sliderSensorDisplay);
+	    	
+	    	sliderSensorDisplay = ((!Robot.sliderSensor)? sliderSensorDisplay: !sliderSensorDisplay);
+	    	
 			intake.cubeDisplay();
 			count = 0; // reset count
 		}

@@ -11,7 +11,7 @@ import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class LeftSwitchSwitchMPRoutine extends MPRoutine {
-	static final int length = 7; // 0,1,2
+	static final int length = 6; // 0,1,2
 	static final AutoSide side = AutoSide.LEFT;
 
 	Waypoint[] MiddleToSwitch = new Waypoint[]{
@@ -19,7 +19,7 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 			new Waypoint(9.25, 5, Pathfinder.d2r(0))};//Changed from 9 to 9.25 to get centre cube
 	Waypoint[] SwitchToStackMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(5.75, -3.75, Pathfinder.d2r(0))};
+			new Waypoint(5.75, -4, Pathfinder.d2r(0))};
 	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(2.75, 0, Pathfinder.d2r(0))};
@@ -32,6 +32,9 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 	Waypoint[] SecondIntermediateTo2ndCube = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(3.25, -2.25, -Pathfinder.d2r(30))};
+	Waypoint[] SwitchToRunSetup = new Waypoint[]{
+			new Waypoint(0,	0,Pathfinder.d2r(0)),
+			new Waypoint(4, 4, Pathfinder.d2r(0))};
 	
 	public LeftSwitchSwitchMPRoutine() {
 		super(length, side);
@@ -46,8 +49,7 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 		super.setPath(2, StackMiddleToCubeMiddle);
 		super.setPath(3, StackMiddleToCubeMiddle);
 		super.setPath(4, StackMiddleToSwitch);
-		super.setPath(5, SwitchTo2ndIntermediate);
-		super.setPath(6, SecondIntermediateTo2ndCube);
+		super.setPath(5, SwitchToRunSetup);
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here
@@ -57,6 +59,9 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 		}else if(alliance == Alliance.Red){
 			// set red offsets here
 			System.out.println("RED OFFSETS");
+			super.setPath(1, new Waypoint[]{
+					new Waypoint(0,	0,Pathfinder.d2r(0)),
+					new Waypoint(5.75, -4.25, Pathfinder.d2r(0))});
 
 			super.name = "Left Switch Switch Red";
 		}else{
@@ -71,7 +76,6 @@ public class LeftSwitchSwitchMPRoutine extends MPRoutine {
 		super.setReverse(3, true);
 		super.setReverse(4, false);
 		super.setReverse(5, true);
-		super.setReverse(6, false);
 		
 		super.isPathSet = true;
 	}

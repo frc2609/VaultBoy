@@ -30,6 +30,7 @@ import org.usfirst.frc.team2609.robot.commands.shooter.ShooterRoller;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderHome;
 import org.usfirst.frc.team2609.robot.commands.slider.SliderPosition;
 import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPower;
+import org.usfirst.frc.team2609.robot.commands.vaultBoy.VaultBoyPowerSensorStop;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import enums.IntakeActivatorState;
@@ -60,6 +61,10 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addParallel(new CubeCollectAuto());
     	addSequential(new LaunchMP(2));
+    	addSequential(new IntakeRollerLightSensorStop(0.45,5)); // jitter
+    	addParallel(new IntakeRollerPowerNoCurrent(0.2));
+    	addParallel(new VaultBoyPowerSensorStop(.1, false));
+    	addSequential(new SliderPosition(3500));
 //    	addParallel(new ParallelPosition500());
     	// picked up cube
     	
@@ -74,11 +79,7 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addSequential(new LaunchMP(4));
     	addSequential(new SwitchScoreAuto());
 
-    	addParallel(new ParallelPosition());
-    	addParallel(new IntakeRollerPowerNoCurrent(.5));
     	addSequential(new LaunchMP(5));
-    	addSequential(new LaunchMP(6));
-    	addSequential(new IntakeRollerLightSensorStop(0.45,5));
 //    	addSequential(new ParallelShooterReset());
 //    	addParallel(new IntakeRollerPower(.45,5));
 //    	addSequential(new Delay(0.4));

@@ -26,28 +26,28 @@ public class CubeCollect extends CommandGroup {
 
 
     public CubeCollect() {
+    	addSequential(new IntakeRollerBrakeMode(true));
     	addSequential(new ShooterRoller(-0.3));
     	addParallel(new VaultBoyPower(0));
     	addSequential(new ShooterActivatorSetState(ShooterActivatorState.UP));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
     	addSequential(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
     	addParallel(new IntakeRollerPower(0.45,5));
+    	addParallel(new VaultBoyPowerSensorStop(.1, false));
     	addSequential(new SliderPosition(7300));
     	//addParallel(new VaultBoyPower(-0.2,10));
     	//addParallel(new VaultBoyPower(.5));
 //    	addSequential(new IntakeRollerPowerNoCurrent(.65));
     	addSequential(new IntakeRollerLightSensorStop(0.45,5));
-    	addSequential(new IntakeRollerBrakeMode(false));
-//    	addSequential(new SliderPosition(5300));
+    	addParallel(new IntakeRollerPowerNoCurrent(0.2));
+    	addParallel(new VaultBoyPowerSensorStop(.1, false));
+    	addSequential(new SliderPosition(3500));
     	addSequential(new ShooterRoller(0));
-    	//addParallel(new IntakeRollerPower(-.2,4.5));
 //    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));
     	addParallel(new IntakeRollerPowerNoCurrent(-0.05));
-    	addParallel(new VaultBoyPowerSensorStop(.1, false));
-//    	addSequential(new SliderPosition(7300));
     	addSequential(new SliderPosition(500));
     	//addParallel(new IntakeRollerPower(0,12));
-    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
+//    	addSequential(new IntakeActivatorSetState(IntakeActivatorState.IN));
     	addSequential(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
     	addSequential(new IntakeRollerBrakeMode(true));
     	addSequential(new VaultBoyPower(0));

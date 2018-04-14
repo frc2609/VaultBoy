@@ -143,16 +143,16 @@ public class OI {
 		//operator inputs
 		
 		operatorButton2 = new JoystickButton(operatorStick, 2);
-		operatorButton2.whenPressed(new IntakeRollerPowerNoCurrent(.25));
+//		operatorButton2.whenPressed(new IntakeRollerPowerNoCurrent(.25));
 //		operatorButton2.whileHeld(new VaultBoyPower(0.75));
 		operatorButton3 = new JoystickButton(operatorStick, 3);
-		operatorButton3.whileHeld(new ShooterRoller(1));
-		operatorButton3.whenReleased(new ShooterRoller(0));
+//		operatorButton3.whileHeld(new ShooterRoller(1));
+//		operatorButton3.whenReleased(new ShooterRoller(0));
 		operatorButton4 = new JoystickButton(operatorStick, 4);
-		operatorButton4.whenReleased(new ShooterRoller(0));
-		operatorButton4.whileHeld(new IntakeActivatorSetState(IntakeActivatorState.OUT));
-		operatorButton4.whenPressed(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
-		operatorButton4.whileHeld(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
+//		operatorButton4.whenReleased(new ShooterRoller(0));
+//		operatorButton4.whileHeld(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+//		operatorButton4.whenPressed(new CubePincherSetState(IntakeActivatorState.OUT));	//pincher out
+//		operatorButton4.whileHeld(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
 //		operatorButton4.whileHeld(new VaultBoyPower(-0.75));
 		
 		operatorButton5 = new JoystickButton(operatorStick, 5);	//vault score

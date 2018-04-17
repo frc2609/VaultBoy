@@ -30,7 +30,7 @@ public class CubeCollectAuto extends CommandGroup {
     	addSequential(new SliderPosition(7300));
     	//addParallel(new VaultBoyPower(-0.2,10));
     	//addParallel(new VaultBoyPower(.5));
-    	addSequential(new IntakeRollerLightSensorStop(0.45,5));
+    	addSequential(new IntakeRollerLightSensorStop(0.5,5));
     	addSequential(new ShooterRoller(0));
     	//addParallel(new IntakeRollerPower(-.2,4.5));
     	//addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));

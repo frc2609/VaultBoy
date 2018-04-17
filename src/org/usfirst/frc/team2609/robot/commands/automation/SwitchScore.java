@@ -28,7 +28,7 @@ public class SwitchScore extends CommandGroup {
     	addSequential(new SliderPosition(500));
     	addSequential(new IntakeRollerBrakeMode(false));
     	addParallel(new IntakeRollerPowerNoCurrent(-0.1));
-    	addSequential(new VaultBoyPowerSensorStop(-0.3, false));
+    	addSequential(new VaultBoyPowerSensorStop(-0.4, false));
     	addSequential(new IntakeRollerBrakeMode(true));
     	addSequential(new VaultBoyPower(0));
     	addSequential(new IntakeActivatorSetState(IntakeActivatorState.OUT));

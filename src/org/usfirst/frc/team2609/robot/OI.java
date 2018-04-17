@@ -10,6 +10,7 @@ package org.usfirst.frc.team2609.robot;
 import org.usfirst.frc.team2609.robot.commands.LaunchMP;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeCollect;
 import org.usfirst.frc.team2609.robot.commands.automation.CubeGrab;
+import org.usfirst.frc.team2609.robot.commands.automation.ForceShoot;
 import org.usfirst.frc.team2609.robot.commands.automation.LayEgg;
 import org.usfirst.frc.team2609.robot.commands.automation.SwitchScore;
 import org.usfirst.frc.team2609.robot.commands.intakeActivator.CubePincherSetState;
@@ -143,7 +144,7 @@ public class OI {
 		//operator inputs
 		
 		operatorButton2 = new JoystickButton(operatorStick, 2);
-//		operatorButton2.whenPressed(new IntakeRollerPowerNoCurrent(.25));
+		operatorButton2.whenPressed(new ForceShoot());
 //		operatorButton2.whileHeld(new VaultBoyPower(0.75));
 		operatorButton3 = new JoystickButton(operatorStick, 3);
 //		operatorButton3.whileHeld(new ShooterRoller(1));

@@ -38,7 +38,7 @@ public class CubeCollect extends CommandGroup {
     	//addParallel(new VaultBoyPower(-0.2,10));
     	//addParallel(new VaultBoyPower(.5));
 //    	addSequential(new IntakeRollerPowerNoCurrent(.65));
-    	addSequential(new IntakeRollerLightSensorStop(0.45,5));
+    	addSequential(new IntakeRollerLightSensorStop(0.5,5));
     	addParallel(new IntakeRollerPowerNoCurrent(0.2));
     	addParallel(new VaultBoyPowerSensorStop(.1, false));
     	addSequential(new SliderPosition(3500));

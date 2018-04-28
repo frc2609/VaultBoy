@@ -16,8 +16,8 @@ public class ParallelShoot extends CommandGroup {
     public ParallelShoot() {
     	addSequential(new TimerDelay(1.5));
     	addParallel(new VaultBoyPower(1));
-    	addParallel(new IntakeRollerPower(0.45,5));
-//    	addParallel(new IntakeRollerPowerNoCurrent(0.75));
+//    	addParallel(new IntakeRollerPower(0.45,5));
+    	addParallel(new IntakeRollerPowerNoCurrent(0.75));
     	addSequential(new TimerDelay(1.5));
     }
 }

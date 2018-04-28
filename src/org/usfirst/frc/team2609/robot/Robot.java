@@ -94,6 +94,7 @@ public class Robot extends TimedRobot {
 	public static boolean driveSensors, sliderSensor;
 	public static boolean driveSensorDisplay, sliderSensorDisplay;
 	
+	
 	String m_autonomousString;
 	Command m_autonomousCommand;
 	SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -163,6 +164,9 @@ public class Robot extends TimedRobot {
 				Robot.driveSensors);
 		SmartDashboard.putBoolean("slider sensor health",
 				Robot.sliderSensor);
+		SmartDashboard.putNumber("turning scaler", 0.5);
+		SmartDashboard.putBoolean("Default cheesydrive",
+				false);
 	}
 
 	/**
@@ -299,6 +303,7 @@ public class Robot extends TimedRobot {
 		if(!RobotMap.isHomed){
 			new SliderHome().start();
 		}
+		vaultBoy.vaultBoyPower(0, 0);
 		enabledLooper.start();
 	}
 

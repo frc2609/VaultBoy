@@ -21,10 +21,10 @@ public class CheesyDrive {
     private static final double kLowNegInertiaCloseScalar = 4.0;
     private static final double kLowNegInertiaFarScalar = 5.0;
 
-    private static final double kHighSensitivity = 0.9;
-    private static final double kLowSensitiity = 1.3;
+    private static final double kHighSensitivity = 0.6;
+    private static final double kLowSensitiity = 0.6;
 
-    private static final double kQuickStopDeadband = 0.2;
+    private static final double kQuickStopDeadband = 0.05;
     private static final double kQuickStopWeight = 0.1;
     private static final double kQuickStopScalar = 5.0;
 
@@ -106,7 +106,7 @@ public class CheesyDrive {
                          + alpha * limit(wheel, 1.0) * kQuickStopScalar;
              }
              overPower = 1.0;
-             angularPower = wheel*0.5;
+             angularPower = wheel * SmartDashboard.getNumber("turning scaler", 0.5);
          } else {
              overPower = 0.0;
              angularPower = Math.abs(throttle) * wheel * sensitivity - mQuickStopAccumlator;

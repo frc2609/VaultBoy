@@ -5,6 +5,7 @@ import org.usfirst.frc.team2609.robot.Robot;
 import org.usfirst.frc.team2609.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import enums.DriveActivatorState;
 import enums.DriveState;
 
@@ -50,7 +51,9 @@ public class DriveTeleop extends Command {
         	leftPower	= Y+X;
         	rightPower	= Y-X;
         }
-        Robot.cheesydrive.drive(Y, X, !OI.driverButton4.get(), true);
+        boolean isCheesy = (SmartDashboard.getBoolean("Default cheesydrive", false)) ? OI.driverButton4.get() : !OI.driverButton4.get();
+        
+        Robot.cheesydrive.drive(Y, X, isCheesy, true);
 //    	Robot.drivetrain.setDrive(DriveState.TELEOP,leftPower,rightPower);
     }
 

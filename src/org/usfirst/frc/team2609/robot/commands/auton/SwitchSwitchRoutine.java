@@ -48,7 +48,7 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 //    	addParallel(new ShooterRoller(0.65));
 //    	addParallel(new ParallelSwitchScore(1.5));
     	addSequential(new LaunchMP(0));
-    	addSequential(new SwitchScoreAuto());
+    	addSequential(new SwitchScoreAuto()); // prac
     	// at the switch
 
 
@@ -61,10 +61,10 @@ public class SwitchSwitchRoutine extends AutoRoutine {
     	addParallel(new IntakeRollerPowerNoCurrent(.5));
 //    	addParallel(new CubeCollectAuto());
     	addSequential(new LaunchMP(2));
-    	addSequential(new IntakeRollerLightSensorStop(0.45,5)); // jitter
+    	addSequential(new IntakeRollerLightSensorStop(0.45,5)); // jitter // prac
     	addParallel(new IntakeRollerPowerNoCurrent(0.2));
     	addParallel(new VaultBoyPowerSensorStop(.1, false));
-    	addSequential(new SliderPosition(3500));
+    	addSequential(new SliderPosition(3500)); // prac
 //    	addParallel(new ParallelPosition500());
     	// picked up cube
     	
@@ -77,7 +77,7 @@ public class SwitchSwitchRoutine extends AutoRoutine {
 
 //    	addParallel(new ParallelSwitchScoreLoadShooter(1.9)); 
     	addSequential(new LaunchMP(4));
-    	addSequential(new SwitchScoreAuto());
+    	addSequential(new SwitchScoreAuto()); // prac
 
     	addSequential(new LaunchMP(5));
 //    	addSequential(new ParallelShooterReset());

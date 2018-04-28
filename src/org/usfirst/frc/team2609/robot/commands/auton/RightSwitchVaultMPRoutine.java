@@ -18,10 +18,10 @@ public class RightSwitchVaultMPRoutine extends MPRoutine {
 			new Waypoint(9, -3.25, Pathfinder.d2r(0))};
 	Waypoint[] SwitchToStackMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(6.5, 4.25, Pathfinder.d2r(0))};
+			new Waypoint(6.5, 3.75, Pathfinder.d2r(0))};
 	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(3.75, 0, Pathfinder.d2r(0))};
+			new Waypoint(4.25, 0, Pathfinder.d2r(0))};
 	Waypoint[] CubeMiddleToVault = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
 			new Waypoint(7, 1.75, Pathfinder.d2r(0))};
@@ -55,6 +55,25 @@ public class RightSwitchVaultMPRoutine extends MPRoutine {
 		}else if(alliance == Alliance.Red){
 			// set red offsets here
 			System.out.println("RED OFFSETS");
+
+			SwitchToStackMiddle = new Waypoint[]{
+					new Waypoint(0,	0,Pathfinder.d2r(0)),
+					new Waypoint(6.5, 3.5, Pathfinder.d2r(0))};
+
+
+			StackMiddleToCubeMiddle = new Waypoint[]{
+					new Waypoint(0,	0,Pathfinder.d2r(0)),
+					new Waypoint(3.5, 0, Pathfinder.d2r(0))};
+			
+
+//			VaultToSideCube = new Waypoint[]{
+//					new Waypoint(0,	0,Pathfinder.d2r(0)),
+//					new Waypoint(7.25, -1.25, -Pathfinder.d2r(30))};
+			
+			super.setPath(1, SwitchToStackMiddle);
+			super.setPath(2, StackMiddleToCubeMiddle);
+			
+			// offsets after OP match
 
 			super.name = "Right Switch Vault Red";
 		}else{

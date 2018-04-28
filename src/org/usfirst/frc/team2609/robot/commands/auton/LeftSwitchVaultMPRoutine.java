@@ -22,13 +22,13 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 			new Waypoint(5.75, -4.1, Pathfinder.d2r(0))};
 	Waypoint[] StackMiddleToCubeMiddle = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(2.75, 0, Pathfinder.d2r(0))};
+			new Waypoint(4.25, 0, Pathfinder.d2r(0))};
 	Waypoint[] CubeMiddleToVault = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(6.5, 1.75, Pathfinder.d2r(0))};
+			new Waypoint(6.5, 1.5, Pathfinder.d2r(0))};
 	Waypoint[] VaultToSideCube = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(0)),
-			new Waypoint(7, -1.2, -Pathfinder.d2r(30))};
+			new Waypoint(7, -1.6, -Pathfinder.d2r(30))};
 	Waypoint[] SideCubeToVault = new Waypoint[]{
 			new Waypoint(0,	0,Pathfinder.d2r(30)),
 			new Waypoint(6.9, 1.25, Pathfinder.d2r(0))}; // 1.25 in quals
@@ -45,8 +45,8 @@ public class LeftSwitchVaultMPRoutine extends MPRoutine {
 		super.setPath(1, SwitchToStackMiddle);
 		super.setPath(2, StackMiddleToCubeMiddle);
 		super.setPath(3, CubeMiddleToVault);
-		super.setPath(4, SideCubeToVault);
-		super.setPath(5, VaultToSideCube);
+		super.setPath(4, VaultToSideCube);
+		super.setPath(5, SideCubeToVault);
 		
 		if(alliance == Alliance.Blue){
 			// set blue offsets here

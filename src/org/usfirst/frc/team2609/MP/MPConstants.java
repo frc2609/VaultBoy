@@ -20,7 +20,7 @@ public class MPConstants {
 		kP = SmartDashboard.getNumber("MP kP: ", 0.15); 
 		kI = SmartDashboard.getNumber("MP kI: ", 0.001);
 		kD = SmartDashboard.getNumber("MP kD: ", 0.001);
-		kV = SmartDashboard.getNumber("MP kV: ", 10);   
-		kA = SmartDashboard.getNumber("MP kA: ", 0.025);
+		kV = SmartDashboard.getNumber("MP kV: ", 12.5);   
+		kA = SmartDashboard.getNumber("MP kA: ", 0.035);
 	}
 }

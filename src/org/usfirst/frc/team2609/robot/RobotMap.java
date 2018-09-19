@@ -167,7 +167,7 @@ public class RobotMap {
 		cubeSensor = new DigitalInput(9);
 		
 		cubeSensor2 = new DigitalInput(8); //Second cube sensor
-		canifier = new CANifier(0);		//CANifier to display cube sensor state
+		canifier = new CANifier(13);		//CANifier to display cube sensor state
 		
 		intakeRollerLeft.setInverted(true);
 		intakeRollerRight.setInverted(true);
@@ -188,8 +188,8 @@ public class RobotMap {
 		vaultBoyRight.configVoltageCompSaturation(12, 0);
 		
 		//pneumatics
-		shooterActivator = new DoubleSolenoid(0,0,3);
-		intakeActivator = new DoubleSolenoid(0,1,2);
+		shooterActivator = new DoubleSolenoid(0,4,7);
+		intakeActivator = new DoubleSolenoid(0,5,6);
 		
 		//misc
 		pdp = new PowerDistributionPanel(12);

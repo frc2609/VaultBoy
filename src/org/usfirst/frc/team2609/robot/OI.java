@@ -144,12 +144,14 @@ public class OI {
 //		operatorButton2.whileHeld(new VaultBoyPower(0.75));
 		operatorButton3 = new JoystickButton(operatorStick, 3);
 		operatorButton3.whileHeld(new ShooterActivatorSetState(ShooterActivatorState.DOWN));
-		operatorButton3.whileHeld(new ShooterRoller(-0.5));
+		operatorButton3.whileHeld(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+		operatorButton3.whileHeld(new ShooterRoller(-0.25));
 		operatorButton3.whenReleased(new ShooterRoller(0));
 		operatorButton4 = new JoystickButton(operatorStick, 4);
-		operatorButton3.whileHeld(new ShooterRoller(1));
-		operatorButton3.whenReleased(new ShooterRoller(0));
-		operatorButton3.whenReleased(new ShooterActivatorSetState(ShooterActivatorState.UP));
+		operatorButton4.whileHeld(new ShooterRoller(0.75));
+		operatorButton4.whileHeld(new IntakeActivatorSetState(IntakeActivatorState.OUT));
+		operatorButton4.whenReleased(new ShooterRoller(0));
+//		operatorButton4.whenReleased(new ShooterActivatorSetState(ShooterActivatorState.UP));
 //		operatorButton4.whileHeld(new VaultBoyPower(-0.75));
 		operatorButton5 = new JoystickButton(operatorStick, 5);
 //		operatorButton5.whenPressed(new IntakeActivatorSetState(IntakeActivatorState.IN));

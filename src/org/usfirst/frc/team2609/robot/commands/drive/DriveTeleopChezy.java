@@ -21,10 +21,10 @@ public class DriveTeleopChezy extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	RobotMap.driveLeft1.configOpenloopRamp(0.6, 10);
-    	RobotMap.driveLeft2.configOpenloopRamp(0.6, 10);
-    	RobotMap.driveRight1.configOpenloopRamp(0.6, 10);
-    	RobotMap.driveRight2.configOpenloopRamp(0.6, 10);
+    	RobotMap.driveLeft1.configOpenloopRamp(0, 10);
+    	RobotMap.driveLeft2.configOpenloopRamp(0, 10);
+    	RobotMap.driveRight1.configOpenloopRamp(0, 10);
+    	RobotMap.driveRight2.configOpenloopRamp(0, 10);
     }
 
     // Called repeatedly when this Command is scheduled to run

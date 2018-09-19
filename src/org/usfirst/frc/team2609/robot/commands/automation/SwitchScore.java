@@ -23,7 +23,7 @@ import enums.ShooterActivatorState;
 public class SwitchScore extends CommandGroup {
 
     public SwitchScore() {
-    	addSequential(new ShooterRoller(0.8));
+    	addSequential(new ShooterRoller(0.5));
     	addSequential(new SliderPosition(500));
     	addSequential(new IntakeRollerBrakeMode(false));
     	addParallel(new IntakeRollerPowerNoCurrent(-0.1));
